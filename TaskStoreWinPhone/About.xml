@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<About>
+  <VersionNumber>1.0</VersionNumber>
+  <DeveloperInfo>Omri Gazitt</DeveloperInfo>
+  <FeedbackEmail>ogazitt@gmail.com</FeedbackEmail>
+  <Website>www.gazitt.com</Website>
+  <Versions>
+    <Version>
+      <Number>1.1</Number>
+      <Details>Added About tab</Details>
+    </Version>
+    <Version>
+      <Number>1.0</Number>
+      <Details>Initial implementation</Details>
+    </Version>
+  </Versions>
+</About>

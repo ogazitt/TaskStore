@@ -1,0 +1,5 @@
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TastStoreServerEntities\bin\Debug\TastStoreServerEntities.dll
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TastStoreServerEntities\bin\Debug\TastStoreServerEntities.pdb
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TastStoreServerEntities\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TastStoreServerEntities\obj\Debug\TastStoreServerEntities.dll
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TastStoreServerEntities\obj\Debug\TastStoreServerEntities.pdb

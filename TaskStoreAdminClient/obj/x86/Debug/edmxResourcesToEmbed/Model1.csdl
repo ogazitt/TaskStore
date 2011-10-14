@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskStoreModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="TaskStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actions" EntityType="TaskStoreModel.Action" />
+    <EntitySet Name="Colors" EntityType="TaskStoreModel.Color" />
+    <EntitySet Name="Fields" EntityType="TaskStoreModel.Field" />
+    <EntitySet Name="FieldTypes" EntityType="TaskStoreModel.FieldType" />
+    <EntitySet Name="ListTypes" EntityType="TaskStoreModel.ListType" />
+    <EntitySet Name="Priorities" EntityType="TaskStoreModel.Priority" />
+    <EntitySet Name="Tags" EntityType="TaskStoreModel.Tag" />
+    <EntitySet Name="TaskLists" EntityType="TaskStoreModel.TaskList" />
+    <EntitySet Name="Tasks" EntityType="TaskStoreModel.Task" />
+    <EntitySet Name="TaskTags" EntityType="TaskStoreModel.TaskTag" />
+    <EntitySet Name="Users" EntityType="TaskStoreModel.User" />
+    <AssociationSet Name="FK_Fields_FieldTypes" Association="TaskStoreModel.FK_Fields_FieldTypes">
+      <End Role="FieldTypes" EntitySet="FieldTypes" />
+      <End Role="Fields" EntitySet="Fields" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fields_ListTypes" Association="TaskStoreModel.FK_Fields_ListTypes">
+      <End Role="ListTypes" EntitySet="ListTypes" />
+      <End Role="Fields" EntitySet="Fields" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListTypes_Users" Association="TaskStoreModel.FK_ListTypes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ListTypes" EntitySet="ListTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskLists_ListTypes" Association="TaskStoreModel.FK_TaskLists_ListTypes">
+      <End Role="ListTypes" EntitySet="ListTypes" />
+      <End Role="TaskLists" EntitySet="TaskLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_Priorities" Association="TaskStoreModel.FK_Tasks_Priorities">
+      <End Role="Priorities" EntitySet="Priorities" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_Users" Association="TaskStoreModel.FK_Tags_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskTags_Tags" Association="TaskStoreModel.FK_TaskTags_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TaskTags" EntitySet="TaskTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskLists_Users" Association="TaskStoreModel.FK_TaskLists_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="TaskLists" EntitySet="TaskLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_TaskLists" Association="TaskStoreModel.FK_Tasks_TaskLists">
+      <End Role="TaskLists" EntitySet="TaskLists" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tasks_TaskLists2" Association="TaskStoreModel.FK_Tasks_TaskLists2">
+      <End Role="TaskLists" EntitySet="TaskLists" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskTags_Tasks" Association="TaskStoreModel.FK_TaskTags_Tasks">
+      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="TaskTags" EntitySet="TaskTags" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Action">
+    <Key>
+      <PropertyRef Name="ActionID" />
+    </Key>
+    <Property Name="ActionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ActionType" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortOrder" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="ColorID" />
+    </Key>
+    <Property Name="ColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Field">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="FieldTypeID" Type="Int32" Nullable="false" />
+    <Property Name="ListTypeID" Type="Guid" Nullable="false" />
+    <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+    <Property Name="SortOrder" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FieldType" Relationship="TaskStoreModel.FK_Fields_FieldTypes" FromRole="Fields" ToRole="FieldTypes" />
+    <NavigationProperty Name="ListType" Relationship="TaskStoreModel.FK_Fields_ListTypes" FromRole="Fields" ToRole="ListTypes" />
+  </EntityType>
+  <EntityType Name="FieldType">
+    <Key>
+      <PropertyRef Name="FieldTypeID" />
+    </Key>
+    <Property Name="FieldTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DisplayType" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Fields" Relationship="TaskStoreModel.FK_Fields_FieldTypes" FromRole="FieldTypes" ToRole="Fields" />
+  </EntityType>
+  <EntityType Name="ListType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="UserID" Type="Guid" />
+    <NavigationProperty Name="Fields" Relationship="TaskStoreModel.FK_Fields_ListTypes" FromRole="ListTypes" ToRole="Fields" />
+    <NavigationProperty Name="User" Relationship="TaskStoreModel.FK_ListTypes_Users" FromRole="ListTypes" ToRole="Users" />
+    <NavigationProperty Name="TaskLists" Relationship="TaskStoreModel.FK_TaskLists_ListTypes" FromRole="ListTypes" ToRole="TaskLists" />
+  </EntityType>
+  <EntityType Name="Priority">
+    <Key>
+      <PropertyRef Name="PriorityID" />
+    </Key>
+    <Property Name="PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Color" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Tasks" Relationship="TaskStoreModel.FK_Tasks_Priorities" FromRole="Priorities" ToRole="Tasks" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="UserID" Type="Guid" Nullable="false" />
+    <Property Name="Color" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="User" Relationship="TaskStoreModel.FK_Tags_Users" FromRole="Tags" ToRole="Users" />
+    <NavigationProperty Name="TaskTags" Relationship="TaskStoreModel.FK_TaskTags_Tags" FromRole="Tags" ToRole="TaskTags" />
+  </EntityType>
+  <EntityType Name="TaskList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ListTypeID" Type="Guid" Nullable="false" />
+    <Property Name="UserID" Type="Guid" Nullable="false" />
+    <Property Name="Template" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ListType" Relationship="TaskStoreModel.FK_TaskLists_ListTypes" FromRole="TaskLists" ToRole="ListTypes" />
+    <NavigationProperty Name="User" Relationship="TaskStoreModel.FK_TaskLists_Users" FromRole="TaskLists" ToRole="Users" />
+    <NavigationProperty Name="Tasks" Relationship="TaskStoreModel.FK_Tasks_TaskLists" FromRole="TaskLists" ToRole="Tasks" />
+    <NavigationProperty Name="Tasks1" Relationship="TaskStoreModel.FK_Tasks_TaskLists2" FromRole="TaskLists" ToRole="Tasks" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="TaskListID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="PriorityID" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Due" Type="DateTime" />
+    <Property Name="Complete" Type="Boolean" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Website" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <Property Name="LastModified" Type="DateTime" Nullable="false" />
+    <Property Name="LinkedTaskListID" Type="Guid" />
+    <NavigationProperty Name="Priority" Relationship="TaskStoreModel.FK_Tasks_Priorities" FromRole="Tasks" ToRole="Priorities" />
+    <NavigationProperty Name="TaskList" Relationship="TaskStoreModel.FK_Tasks_TaskLists" FromRole="Tasks" ToRole="TaskLists" />
+    <NavigationProperty Name="TaskList1" Relationship="TaskStoreModel.FK_Tasks_TaskLists2" FromRole="Tasks" ToRole="TaskLists" />
+    <NavigationProperty Name="TaskTags" Relationship="TaskStoreModel.FK_TaskTags_Tasks" FromRole="Tasks" ToRole="TaskTags" />
+  </EntityType>
+  <EntityType Name="TaskTag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="TaskID" Type="Guid" Nullable="false" />
+    <Property Name="TagID" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Tag" Relationship="TaskStoreModel.FK_TaskTags_Tags" FromRole="TaskTags" ToRole="Tags" />
+    <NavigationProperty Name="Task" Relationship="TaskStoreModel.FK_TaskTags_Tasks" FromRole="TaskTags" ToRole="Tasks" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ListTypes" Relationship="TaskStoreModel.FK_ListTypes_Users" FromRole="Users" ToRole="ListTypes" />
+    <NavigationProperty Name="Tags" Relationship="TaskStoreModel.FK_Tags_Users" FromRole="Users" ToRole="Tags" />
+    <NavigationProperty Name="TaskLists" Relationship="TaskStoreModel.FK_TaskLists_Users" FromRole="Users" ToRole="TaskLists" />
+  </EntityType>
+  <Association Name="FK_Fields_FieldTypes">
+    <End Role="FieldTypes" Type="TaskStoreModel.FieldType" Multiplicity="1" />
+    <End Role="Fields" Type="TaskStoreModel.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldTypes">
+        <PropertyRef Name="FieldTypeID" />
+      </Principal>
+      <Dependent Role="Fields">
+        <PropertyRef Name="FieldTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fields_ListTypes">
+    <End Role="ListTypes" Type="TaskStoreModel.ListType" Multiplicity="1" />
+    <End Role="Fields" Type="TaskStoreModel.Field" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Fields">
+        <PropertyRef Name="ListTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListTypes_Users">
+    <End Role="Users" Type="TaskStoreModel.User" Multiplicity="0..1" />
+    <End Role="ListTypes" Type="TaskStoreModel.ListType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ListTypes">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskLists_ListTypes">
+    <End Role="ListTypes" Type="TaskStoreModel.ListType" Multiplicity="1" />
+    <End Role="TaskLists" Type="TaskStoreModel.TaskList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskLists">
+        <PropertyRef Name="ListTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_Priorities">
+    <End Role="Priorities" Type="TaskStoreModel.Priority" Multiplicity="0..1" />
+    <End Role="Tasks" Type="TaskStoreModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priorities">
+        <PropertyRef Name="PriorityID" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="PriorityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_Users">
+    <End Role="Users" Type="TaskStoreModel.User" Multiplicity="1" />
+    <End Role="Tags" Type="TaskStoreModel.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskTags_Tags">
+    <End Role="Tags" Type="TaskStoreModel.Tag" Multiplicity="1" />
+    <End Role="TaskTags" Type="TaskStoreModel.TaskTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskTags">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskLists_Users">
+    <End Role="Users" Type="TaskStoreModel.User" Multiplicity="1" />
+    <End Role="TaskLists" Type="TaskStoreModel.TaskList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskLists">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_TaskLists">
+    <End Role="TaskLists" Type="TaskStoreModel.TaskList" Multiplicity="1" />
+    <End Role="Tasks" Type="TaskStoreModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaskLists">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="TaskListID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tasks_TaskLists2">
+    <End Role="TaskLists" Type="TaskStoreModel.TaskList" Multiplicity="0..1" />
+    <End Role="Tasks" Type="TaskStoreModel.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaskLists">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="LinkedTaskListID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskTags_Tasks">
+    <End Role="Tasks" Type="TaskStoreModel.Task" Multiplicity="1" />
+    <End Role="TaskTags" Type="TaskStoreModel.TaskTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tasks">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskTags">
+        <PropertyRef Name="TaskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

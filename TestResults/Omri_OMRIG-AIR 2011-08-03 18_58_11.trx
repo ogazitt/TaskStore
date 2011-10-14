@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="87286cea-c714-4acc-a94e-d9b99050c3af" name="Omri@OMRIG-AIR 2011-08-03 18:58:11" runUser="omrig-air\Omri" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="75d34c07-0147-4d86-888c-f7a120a18583">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Omri_OMRIG-AIR 2011-08-03 18_58_11">
+      <DeploymentItem filename="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWeb\bin\TaskStoreWeb.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-08-03T18:58:11.9029719-07:00" queuing="2011-08-03T18:58:16.7701805-07:00" start="2011-08-03T18:58:17.6437820-07:00" finish="2011-08-03T19:00:03.0986052-07:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="18" executed="3" passed="2" error="0" failed="0" timeout="0" aborted="1" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="15" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="OMRIG-AIR" outcome="Error" timestamp="2011-08-03T19:00:03.0986052-07:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Register_Post_ReturnsRedirectOnSuccess" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="e24ed041-1526-b3a5-37f1-7294167be5d6">
+      <Execution id="39dfc7f3-bcb2-4188-8575-4f435d2c9418" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="e04399e8-d83b-86bf-2d99-dacab0fad781">
+      <Execution id="c57daa88-1917-4ef5-8733-be314c9c25fa" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsViewIfChangePasswordFails" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="073114fc-8816-32d2-1a5b-2a8fd251423d">
+      <Execution id="658e5908-5db1-463f-95fd-abac0db25d94" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="LogOff_LogsOutAndRedirects" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="99e08f6f-2ab4-629c-aec9-77e5030244dc">
+      <Execution id="1b688bfe-128c-4079-b0cb-01ba932d663b" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOff_LogsOutAndRedirects" />
+    </UnitTest>
+    <UnitTest name="EnqueueDequeue" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstorewinphoneutilitiestests\bin\debug\taskstorewinphoneutilitiestests.dll" id="2f3285a6-7bbd-6e32-f0b2-28f3104094f4">
+      <Execution id="9201e846-5942-4e73-8400-07c4b5c63788" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWinPhoneUtilitiesTests/bin/Debug/TaskStoreWinPhoneUtilitiesTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWinPhoneUtilitiesTests.RequestQueueTest, TaskStoreWinPhoneUtilitiesTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="EnqueueDequeue" />
+    </UnitTest>
+    <UnitTest name="LogOn_Get_ReturnsView" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="9b9bfea7-941e-19a8-52c3-57cf853b77ad">
+      <Execution id="9aeafd91-0f20-431a-8057-805a2d33c9d2" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Post_ReturnsRedirectOnSuccess" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="629f01c8-8b9a-25bb-6c27-d1d55bd7e47f">
+      <Execution id="a6b7f20e-5c17-483c-97fa-3d6aee48e725" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Post_ReturnsRedirectOnSuccess" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfValidateUserFails" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="2b89953e-3fc2-c5cc-2bad-0d56aaee8304">
+      <Execution id="7ff83a78-f05f-4afb-87c6-010076d112f4" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsViewIfValidateUserFails" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsViewIfModelStateIsInvalid" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="afc2a82e-e949-32e3-fa4f-5d6da87a7d75">
+      <Execution id="d8c6a70c-441e-42aa-94cf-1cc608ee959f" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="924d1415-a88d-7b6b-6bdd-ecaf8fe10e42">
+      <Execution id="7555ae83-053c-443f-9243-0a92a7c16f96" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordSuccess_ReturnsView" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="fb21106a-17e4-7335-1348-e9688e1b1b9b">
+      <Execution id="8ce8a156-345a-4ab7-a864-f020b7e54ed6" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePasswordSuccess_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="b527372a-d683-42e7-bbe7-65e46bca3ffb">
+      <Execution id="f3f1f63f-a751-4b6e-8c3c-3ccab261c0db" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsViewIfModelStateIsInvalid" />
+    </UnitTest>
+    <UnitTest name="Register_Get_ReturnsView" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="6465f057-7688-2e35-bdc5-38c153c6cb72">
+      <Execution id="c0a6d809-93b0-4758-9cad-694594176a11" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="ChangePassword_Get_ReturnsView" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="ef4f6239-e377-a2b7-100b-2ac8eec8fcc8">
+      <Execution id="763035f9-ee25-4239-ad24-6a0bbfac071d" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="ChangePassword_Get_ReturnsView" />
+    </UnitTest>
+    <UnitTest name="About" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="53dd3b85-31c6-c9ed-8b2a-1ffcbe7ef9a1">
+      <Execution id="9f7312f8-e9bb-4886-aea9-f4ab5c7617e1" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.HomeControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="About" />
+    </UnitTest>
+    <UnitTest name="Register_Post_ReturnsViewIfRegistrationFails" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="5aab27ec-cf92-aa56-13e7-620555d642c3">
+      <Execution id="4b214295-c54a-4a6e-acfb-6411697bd359" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Register_Post_ReturnsViewIfRegistrationFails" />
+    </UnitTest>
+    <UnitTest name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="78cc4ed0-dd0d-9e92-9196-5377325924db">
+      <Execution id="0ee5caad-4dad-4012-980f-12fc677eee23" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.AccountControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" />
+    </UnitTest>
+    <UnitTest name="Index" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="e2a8b903-55e5-2fe7-17f6-5d6124840318">
+      <Execution id="419db7bc-f275-4fed-8e5a-03308551018a" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.HomeControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="073114fc-8816-32d2-1a5b-2a8fd251423d" executionId="658e5908-5db1-463f-95fd-abac0db25d94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b89953e-3fc2-c5cc-2bad-0d56aaee8304" executionId="7ff83a78-f05f-4afb-87c6-010076d112f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f3285a6-7bbd-6e32-f0b2-28f3104094f4" executionId="9201e846-5942-4e73-8400-07c4b5c63788" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="53dd3b85-31c6-c9ed-8b2a-1ffcbe7ef9a1" executionId="9f7312f8-e9bb-4886-aea9-f4ab5c7617e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5aab27ec-cf92-aa56-13e7-620555d642c3" executionId="4b214295-c54a-4a6e-acfb-6411697bd359" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="629f01c8-8b9a-25bb-6c27-d1d55bd7e47f" executionId="a6b7f20e-5c17-483c-97fa-3d6aee48e725" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6465f057-7688-2e35-bdc5-38c153c6cb72" executionId="c0a6d809-93b0-4758-9cad-694594176a11" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="78cc4ed0-dd0d-9e92-9196-5377325924db" executionId="0ee5caad-4dad-4012-980f-12fc677eee23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="924d1415-a88d-7b6b-6bdd-ecaf8fe10e42" executionId="7555ae83-053c-443f-9243-0a92a7c16f96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99e08f6f-2ab4-629c-aec9-77e5030244dc" executionId="1b688bfe-128c-4079-b0cb-01ba932d663b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b9bfea7-941e-19a8-52c3-57cf853b77ad" executionId="9aeafd91-0f20-431a-8057-805a2d33c9d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afc2a82e-e949-32e3-fa4f-5d6da87a7d75" executionId="d8c6a70c-441e-42aa-94cf-1cc608ee959f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b527372a-d683-42e7-bbe7-65e46bca3ffb" executionId="f3f1f63f-a751-4b6e-8c3c-3ccab261c0db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e04399e8-d83b-86bf-2d99-dacab0fad781" executionId="c57daa88-1917-4ef5-8733-be314c9c25fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e24ed041-1526-b3a5-37f1-7294167be5d6" executionId="39dfc7f3-bcb2-4188-8575-4f435d2c9418" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2a8b903-55e5-2fe7-17f6-5d6124840318" executionId="419db7bc-f275-4fed-8e5a-03308551018a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef4f6239-e377-a2b7-100b-2ac8eec8fcc8" executionId="763035f9-ee25-4239-ad24-6a0bbfac071d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb21106a-17e4-7335-1348-e9688e1b1b9b" executionId="8ce8a156-345a-4ab7-a864-f020b7e54ed6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="658e5908-5db1-463f-95fd-abac0db25d94" testId="073114fc-8816-32d2-1a5b-2a8fd251423d" testName="ChangePassword_Post_ReturnsViewIfModelStateIsInvalid" computerName="OMRIG-AIR" duration="00:00:00.1721467" startTime="2011-08-03T18:58:18.0805828-07:00" endTime="2011-08-03T18:58:21.6529891-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="658e5908-5db1-463f-95fd-abac0db25d94">
+    </UnitTestResult>
+    <UnitTestResult executionId="7ff83a78-f05f-4afb-87c6-010076d112f4" testId="2b89953e-3fc2-c5cc-2bad-0d56aaee8304" testName="LogOn_Post_ReturnsViewIfValidateUserFails" computerName="OMRIG-AIR" duration="00:00:00.0084636" startTime="2011-08-03T18:58:21.6997892-07:00" endTime="2011-08-03T18:58:21.7153892-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ff83a78-f05f-4afb-87c6-010076d112f4">
+    </UnitTestResult>
+    <UnitTestResult executionId="9201e846-5942-4e73-8400-07c4b5c63788" testId="2f3285a6-7bbd-6e32-f0b2-28f3104094f4" testName="EnqueueDequeue" computerName="OMRIG-AIR" duration="00:01:41.3208159" startTime="2011-08-03T18:58:21.7777893-07:00" endTime="2011-08-03T19:00:03.0986052-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Aborted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9201e846-5942-4e73-8400-07c4b5c63788">
+    </UnitTestResult>
+    <UnitTestResult executionId="9f7312f8-e9bb-4886-aea9-f4ab5c7617e1" testId="53dd3b85-31c6-c9ed-8b2a-1ffcbe7ef9a1" testName="About" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f7312f8-e9bb-4886-aea9-f4ab5c7617e1">
+    </UnitTestResult>
+    <UnitTestResult executionId="4b214295-c54a-4a6e-acfb-6411697bd359" testId="5aab27ec-cf92-aa56-13e7-620555d642c3" testName="Register_Post_ReturnsViewIfRegistrationFails" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b214295-c54a-4a6e-acfb-6411697bd359">
+    </UnitTestResult>
+    <UnitTestResult executionId="a6b7f20e-5c17-483c-97fa-3d6aee48e725" testId="629f01c8-8b9a-25bb-6c27-d1d55bd7e47f" testName="ChangePassword_Post_ReturnsRedirectOnSuccess" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6b7f20e-5c17-483c-97fa-3d6aee48e725">
+    </UnitTestResult>
+    <UnitTestResult executionId="c0a6d809-93b0-4758-9cad-694594176a11" testId="6465f057-7688-2e35-bdc5-38c153c6cb72" testName="Register_Get_ReturnsView" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0a6d809-93b0-4758-9cad-694594176a11">
+    </UnitTestResult>
+    <UnitTestResult executionId="0ee5caad-4dad-4012-980f-12fc677eee23" testId="78cc4ed0-dd0d-9e92-9196-5377325924db" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ee5caad-4dad-4012-980f-12fc677eee23">
+    </UnitTestResult>
+    <UnitTestResult executionId="7555ae83-053c-443f-9243-0a92a7c16f96" testId="924d1415-a88d-7b6b-6bdd-ecaf8fe10e42" testName="LogOn_Post_ReturnsRedirectOnSuccess_WithReturnUrl" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7555ae83-053c-443f-9243-0a92a7c16f96">
+    </UnitTestResult>
+    <UnitTestResult executionId="1b688bfe-128c-4079-b0cb-01ba932d663b" testId="99e08f6f-2ab4-629c-aec9-77e5030244dc" testName="LogOff_LogsOutAndRedirects" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b688bfe-128c-4079-b0cb-01ba932d663b">
+    </UnitTestResult>
+    <UnitTestResult executionId="9aeafd91-0f20-431a-8057-805a2d33c9d2" testId="9b9bfea7-941e-19a8-52c3-57cf853b77ad" testName="LogOn_Get_ReturnsView" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9aeafd91-0f20-431a-8057-805a2d33c9d2">
+    </UnitTestResult>
+    <UnitTestResult executionId="d8c6a70c-441e-42aa-94cf-1cc608ee959f" testId="afc2a82e-e949-32e3-fa4f-5d6da87a7d75" testName="Register_Post_ReturnsViewIfModelStateIsInvalid" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8c6a70c-441e-42aa-94cf-1cc608ee959f">
+    </UnitTestResult>
+    <UnitTestResult executionId="f3f1f63f-a751-4b6e-8c3c-3ccab261c0db" testId="b527372a-d683-42e7-bbe7-65e46bca3ffb" testName="LogOn_Post_ReturnsViewIfModelStateIsInvalid" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3f1f63f-a751-4b6e-8c3c-3ccab261c0db">
+    </UnitTestResult>
+    <UnitTestResult executionId="c57daa88-1917-4ef5-8733-be314c9c25fa" testId="e04399e8-d83b-86bf-2d99-dacab0fad781" testName="ChangePassword_Post_ReturnsViewIfChangePasswordFails" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c57daa88-1917-4ef5-8733-be314c9c25fa">
+    </UnitTestResult>
+    <UnitTestResult executionId="39dfc7f3-bcb2-4188-8575-4f435d2c9418" testId="e24ed041-1526-b3a5-37f1-7294167be5d6" testName="Register_Post_ReturnsRedirectOnSuccess" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39dfc7f3-bcb2-4188-8575-4f435d2c9418">
+    </UnitTestResult>
+    <UnitTestResult executionId="419db7bc-f275-4fed-8e5a-03308551018a" testId="e2a8b903-55e5-2fe7-17f6-5d6124840318" testName="Index" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="419db7bc-f275-4fed-8e5a-03308551018a">
+    </UnitTestResult>
+    <UnitTestResult executionId="763035f9-ee25-4239-ad24-6a0bbfac071d" testId="ef4f6239-e377-a2b7-100b-2ac8eec8fcc8" testName="ChangePassword_Get_ReturnsView" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="763035f9-ee25-4239-ad24-6a0bbfac071d">
+    </UnitTestResult>
+    <UnitTestResult executionId="8ce8a156-345a-4ab7-a864-f020b7e54ed6" testId="fb21106a-17e4-7335-1348-e9688e1b1b9b" testName="ChangePasswordSuccess_ReturnsView" computerName="OMRIG-AIR" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ce8a156-345a-4ab7-a864-f020b7e54ed6">
+    </UnitTestResult>
+  </Results>
+</TestRun>

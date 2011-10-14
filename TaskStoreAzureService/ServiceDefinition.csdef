@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="TaskStoreAzureService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="TaskStoreWebMvc3" vmsize="ExtraSmall">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="WebAPI-Debug" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="WebAPI-Debug" protocol="http" port="8080" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
+    <Startup>
+      <Task executionContext="elevated" commandLine="startup\Install.cmd >Install.log">
+        <Environment>
+          <Variable name="EMULATED">
+            <RoleInstanceValue xpath="/RoleEnvironment/Deployment/@emulated" />
+          </Variable>
+        </Environment>
+      </Task>
+    </Startup>
+  </WebRole>
+  <WorkerRole name="TaskStoreMailWorker" vmsize="ExtraSmall">
+    <Imports>
+      <Import moduleName="Diagnostics" />
+      <Import moduleName="RemoteAccess" />
+    </Imports>
+  </WorkerRole>
+</ServiceDefinition>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="89948249-8e7a-4335-a823-56564e774024" name="Omri@OMRIG-AIR 2011-08-03 18:55:53" runUser="omrig-air\Omri" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="75d34c07-0147-4d86-888c-f7a120a18583">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Omri_OMRIG-AIR 2011-08-03 18_55_53">
+      <DeploymentItem filename="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWeb\bin\TaskStoreWeb.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-08-03T18:55:53.6686453-07:00" queuing="2011-08-03T18:55:53.7622455-07:00" start="2011-08-03T18:55:53.7934456-07:00" finish="2011-08-03T18:55:54.3238465-07:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Index" storage="c:\users\omri\documents\visual studio 2010\projects\taskstore\taskstoreweb.tests\bin\debug\mvcwebrole.tests.dll" id="e2a8b903-55e5-2fe7-17f6-5d6124840318">
+      <Execution id="f57475bb-a4e9-4504-839e-c6b0b6b4b533" />
+      <TestMethod codeBase="C:/Users/Omri/Documents/Visual Studio 2010/Projects/TaskStore/TaskStoreWeb.Tests/bin/Debug/MvcWebRole.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TaskStoreWeb.Tests.Controllers.HomeControllerTest, MvcWebRole.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e2a8b903-55e5-2fe7-17f6-5d6124840318" executionId="f57475bb-a4e9-4504-839e-c6b0b6b4b533" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="f57475bb-a4e9-4504-839e-c6b0b6b4b533" testId="e2a8b903-55e5-2fe7-17f6-5d6124840318" testName="Index" computerName="OMRIG-AIR" duration="00:00:00.0432758" startTime="2011-08-03T18:55:53.8090456-07:00" endTime="2011-08-03T18:55:54.2926464-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f57475bb-a4e9-4504-839e-c6b0b6b4b533">
+    </UnitTestResult>
+  </Results>
+</TestRun>

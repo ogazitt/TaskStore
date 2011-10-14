@@ -1,0 +1,11 @@
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\bin\Debug\TaskStoreAdminClient.exe.config
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\bin\Debug\TaskStoreAdminClient.exe
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\bin\Debug\TaskStoreAdminClient.pdb
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\TaskStoreAdminClient.TaskListForm.resources
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\TaskStoreAdminClient.UserForm.resources
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\TaskStoreAdminClient.Properties.Resources.resources
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\TaskStoreAdminClient.exe
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAdminClient\obj\x86\Debug\TaskStoreAdminClient.pdb
