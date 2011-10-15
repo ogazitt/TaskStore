@@ -19,11 +19,13 @@
     </Sites>
     <Endpoints>
       <InputEndpoint name="WebAPI-Debug" protocol="http" port="8080" />
+      <InputEndpoint name="Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp" port="8172" localPort="8172" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />
       <Import moduleName="RemoteForwarder" />
+      <Import moduleName="WebDeploy" />
     </Imports>
     <Startup>
       <Task executionContext="elevated" commandLine="startup\Install.cmd &gt;Install.log">
