@@ -323,16 +323,13 @@ namespace TaskStoreWinPhone
                 App.ViewModel.LoadData();
             }
 
-            // if the user credentials were stored in app storage, initialize the values of the appropriate controls
-            if (App.ViewModel.User != null)
+            // if haven't synced with web service yet, try now
+            if (initialSync == false)
             {
-                if (initialSync == false)
-                {
-                    // sync with the Service, which will trigger authentication and getting app data from the service
-                    App.ViewModel.SyncWithService();
+                // attempt to sync with the Service
+                App.ViewModel.SyncWithService();
 
-                    initialSync = true;
-                }
+                initialSync = true;
             }
 
             TasksViewSource = new CollectionViewSource();

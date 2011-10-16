@@ -503,6 +503,10 @@ namespace TaskStoreWinPhone
         /// </summary>
         public void PlayQueue()
         {
+            // if user hasn't been set, we cannot sync with the service
+            if (User == null)
+                return;
+
             // peek at the first record 
             RequestQueue.RequestRecord record = RequestQueue.GetRequestRecord();
             // if the record is null, this means we've processed all the pending changes
