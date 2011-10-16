@@ -8,3 +8,8 @@
     display:block;
     height:90px;
 }
+
+#main
+{
+    min-width: 320px;
+}

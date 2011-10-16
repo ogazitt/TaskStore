@@ -3,3 +3,8 @@ C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreEntities\
 C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreEntities\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreEntities\obj\Debug\TaskStoreEntities.dll
 C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreEntities\obj\Debug\TaskStoreEntities.pdb
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreClientEntities\bin\Debug\TaskStoreEntities.dll
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreClientEntities\bin\Debug\TaskStoreEntities.pdb
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreClientEntities\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreClientEntities\obj\Debug\TaskStoreEntities.dll
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreClientEntities\obj\Debug\TaskStoreEntities.pdb

@@ -98,5 +98,10 @@ namespace TaskStoreWebMvc3.Controllers
         {
             return View();
         }
+
+        public ActionResult WelcomeWP7()
+        {
+            return View();
+        }
     }
 }

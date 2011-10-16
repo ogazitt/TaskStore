@@ -3,7 +3,7 @@
   <Role name="TaskStoreWebMvc3">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=taskstore;AccountKey=bx8EmDQNCJ289zpnQr3jmL6CKr0IQHm826QNDHdsVUbQGkG6s3ehx7tDRP4zVpkCiS5HYIOJF/E9ilY/9xXwkg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=taskstorage;AccountKey=S7YxPLj8qIUZq0h/pik7NQnmT2+wD4O0G4hzZEn2UOkQ06iUg8e1bX8m8S5d2iPJuhkJfeWAYGUdRsi/N9UhIA==" />
       <!--<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />-->
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Omri" />
@@ -18,7 +18,7 @@
   <Role name="TaskStoreMailWorker">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=taskstore;AccountKey=bx8EmDQNCJ289zpnQr3jmL6CKr0IQHm826QNDHdsVUbQGkG6s3ehx7tDRP4zVpkCiS5HYIOJF/E9ilY/9xXwkg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=taskstorage;AccountKey=S7YxPLj8qIUZq0h/pik7NQnmT2+wD4O0G4hzZEn2UOkQ06iUg8e1bX8m8S5d2iPJuhkJfeWAYGUdRsi/N9UhIA==" />
       <!--<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />-->
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Omri" />

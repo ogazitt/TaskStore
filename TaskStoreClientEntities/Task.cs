@@ -44,10 +44,16 @@ namespace TaskStoreClientEntities
             {
                 foreach (var taskTag in taskTags)
                 {
-                    var foundTag = tagList.Single<Tag>(t => t.ID == taskTag.TagID);
-                    if (foundTag != null)
+                    try
                     {
-                        newTags.Add(foundTag);
+                        var foundTag = tagList.Single<Tag>(t => t.ID == taskTag.TagID);
+                        if (foundTag != null)
+                        {
+                            newTags.Add(foundTag);
+                        }
+                    }
+                    catch (Exception)
+                    {
                     }
                 }
             }
