@@ -160,7 +160,8 @@ namespace TaskStoreWeb.Resources
 
         void InitializeGrammar(string grammarPath, string appDataPath, string fileName)
         {
-            string appRootDir = @"\approot\Content\grammars";
+            // construct App Root directory using drive letter from appDataPath and the approot path
+            string appRootDir = appDataPath.Substring(0, 1) + @":\approot\Content\grammars";
             try
             {
                 // if the file exists, do nothing
@@ -169,24 +170,56 @@ namespace TaskStoreWeb.Resources
             }
             catch (DirectoryNotFoundException)
             {
+                LoggingHelper.TraceLine("Directory " + grammarPath + " not found", "Error");
                 // if the directory doesn't exist, move it over from the approot
                 if (Directory.Exists(appRootDir))
-                    Directory.Move(appRootDir, appDataPath);
+                {
+                    LoggingHelper.TraceLine("Creating " + appDataPath, "Information");
+                    try
+                    {
+                        Directory.CreateDirectory(appDataPath);
+                        InitializeGrammarCopyFiles(appDataPath, fileName, appRootDir);
+                    }
+                    catch (Exception ex)
+                    {
+                        LoggingHelper.TraceLine("Create Directory " + appDataPath + " failed: " + ex.Message, "Error");
+                    }
+                }
+                else
+                    LoggingHelper.TraceLine("Directory " + appRootDir + " does not exist - cannot initialize grammar", "Error");
             }
             catch (FileNotFoundException)
             {
-                if (File.Exists(Path.Combine(appRootDir, fileName)))
-                {
-                    foreach (var file in Directory.EnumerateFiles(appRootDir))
-                    {
-                        File.Move(Path.Combine(appRootDir, file), Path.Combine(appDataPath, file));
-                    }
-                }
+                LoggingHelper.TraceLine("File " + grammarPath + " not found", "Error");
+                InitializeGrammarCopyFiles(appDataPath, fileName, appRootDir);
             }
             catch (Exception ex)
             {
                 LoggingHelper.TraceLine("Cannot find grammars: " + ex.Message, "Error");
             }
+        }
+
+        private static void InitializeGrammarCopyFiles(string appDataPath, string fileName, string appRootDir)
+        {
+            if (File.Exists(Path.Combine(appRootDir, fileName)))
+            {                
+                LoggingHelper.TraceLine("Copying " + appRootDir + " to " + appDataPath, "Information");
+                try
+                {
+                    foreach (var file in Directory.EnumerateFiles(appRootDir))
+                    {
+                        string fname = Path.GetFileName(file);
+                        LoggingHelper.TraceLine("Copying " + Path.Combine(appRootDir, fname) + " to " + Path.Combine(appDataPath, fname), "Information");
+                        File.Copy(Path.Combine(appRootDir, fname), Path.Combine(appDataPath, fname));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggingHelper.TraceLine("Copy file failed: " + ex.Message, "Error");
+                }
+            }
+            else
+                LoggingHelper.TraceLine("File " + Path.Combine(appRootDir, fileName) + " does not exist - cannot initialize grammar", "Error");
         }
 
         void InitializeSpeechEngine(SpeechRecognitionEngine sre)
@@ -201,7 +234,7 @@ namespace TaskStoreWeb.Resources
                 sre.UpdateRecognizerSetting("AssumeCFGFromTrustedSource", 1);
 
                 string fileName = @"TELLME-SMS-LM.cfgp";
-                string appDataPath = HttpContext.Current.Server.MapPath("~/Content/grammars/");
+                string appDataPath = HttpContext.Current.Server.MapPath("~/Content/grammars");
                 string grammarPath = Path.Combine(appDataPath, fileName);
                 LoggingHelper.TraceLine("Grammar path: " + grammarPath, "Information");
 

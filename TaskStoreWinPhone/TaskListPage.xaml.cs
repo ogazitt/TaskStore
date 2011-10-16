@@ -582,22 +582,22 @@ namespace TaskStoreWinPhone
                 SpeechLabel.Text = "listening...";
                 SpeechPopup_SpeakButton.Content = "done";
                 listening = true;
-                //SpeechHelper.Start();
-                SpeechHelper.StartStreamed(
-                    App.ViewModel.User,
-                    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                SpeechHelper.Start();
+                //SpeechHelper.StartStreamed(
+                //    App.ViewModel.User,
+                //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
+                //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
             }
             else
             {
                 SpeechLabel.Text = "analyzing...";
                 SpeechPopup_SpeakButton.Content = "speak";
                 listening = false;
-                //SpeechHelper.Stop(
-                //    App.ViewModel.User,
-                //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
-                SpeechHelper.StopStreamed();
+                SpeechHelper.Stop(
+                    App.ViewModel.User,
+                    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
+                    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                //SpeechHelper.StopStreamed();
             }
         }
 
