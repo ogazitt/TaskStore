@@ -206,6 +206,17 @@ html.getUniversalDateString = function (date) {
     return year + '/' + month + '/' + day;
 }
 
+html.getDateStringInServiceFormat = function (date) {
+    if (date == undefined || date == null || date == "")
+        return "";
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (day < 10) { day = '0' + day; }
+    if (month < 10) { month = '0' + month; }
+    return year + '-' + month + '-' + day;
+}
+
 html.getWorldWideDate = function (date) {
     if (date == undefined)
         currentLocationDate = new Date(); 

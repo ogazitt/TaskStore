@@ -55,8 +55,11 @@ taskstore.refresh = function () {
                     //REMOVE
                     //if (t.Due != undefined && t.Due != null)
                     //    t.Due = new Date(parseInt(t.Due.replace(/(^.*\()|([+-].*$)/g, '')));
+                    // add a property called Due which is the Date value for the DueDate string property
                     if (t.DueDate != undefined && t.DueDate != null)
                         t.Due = new Date(t.DueDate);
+                    else
+                        t.Due = null;
                 }
             }
 
@@ -88,13 +91,14 @@ taskstore.updateTask = function (oldTask, newTask) {
     // create copies of the old and new tasks
     var oldTaskCopy = $.extend(true, {}, oldTask);
     var newTaskCopy = $.extend(true, {}, newTask);
-    // need to put the dates in JSON serialized format - /Date(value-TZ)/
     //REMOVE
     //if (oldTaskCopy.Due != null)
     //    oldTaskCopy.Due = html.serializeDate(oldTaskCopy.Due);
     if (newTaskCopy.Due != null)
-        newTaskCopy.DueDate = html.getUniversalDateString(newTaskCopy.Due);
-    // update and serialize the LastModified date 
+        newTaskCopy.DueDate = html.getDateStringInServiceFormat(newTaskCopy.Due);
+    else
+        newTaskCopy.DueDate = null;
+    // update the LastModified date and serialize in JSON format - /Date(value-TZ)/
     newTaskCopy.LastModified = html.serializeDate(new Date());
     // remove the Due property from the objects to serialize
     oldTaskCopy.Due = undefined;
@@ -218,7 +222,7 @@ taskstore.removeTask = function (obj) {
     //if (obj.Due != null)
     //    obj.Due = html.serializeDate(obj.Due);
     if (obj.Due != null) {
-        obj.DueDate = html.getUniversalDateString(obj.Due);
+        obj.DueDate = html.getDateStringInServiceFormat(obj.Due);
         obj.Due = undefined;
     }
     taskstore.remove("task", obj, function (response) {

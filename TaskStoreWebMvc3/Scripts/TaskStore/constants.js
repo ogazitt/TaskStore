@@ -31,6 +31,14 @@ constants.refresh = function () {
                 var priority = constants.Priorities[ix];
                 constants.PrioritiesByName[priority.Name] = priority;
             }
+            // hack: replace FieldType Due with DueDate 
+            //   (Due, where typeof(Due) == Date only exists for the phone, whereas 
+            //   DueDate, where typeof(DueDate) == string is the field we use on the server)
+            //for (var ix in constants.FieldTypes) {
+            //    var fieldType = constants.FieldTypes[ix];
+            //    if (fieldType.Name == "Due")
+            //        fieldType.Name = "DueDate";
+            //}
         }
     });
 };
