@@ -95,7 +95,7 @@ taskstore.updateTask = function (oldTask, newTask) {
     //if (oldTaskCopy.Due != null)
     //    oldTaskCopy.Due = html.serializeDate(oldTaskCopy.Due);
     if (newTaskCopy.Due != null)
-        newTaskCopy.DueDate = html.getDateStringInServiceFormat(newTaskCopy.Due);
+        newTaskCopy.DueDate = html.getUniversalDateString(newTaskCopy.Due);
     else
         newTaskCopy.DueDate = null;
     // update the LastModified date and serialize in JSON format - /Date(value-TZ)/
@@ -222,7 +222,7 @@ taskstore.removeTask = function (obj) {
     //if (obj.Due != null)
     //    obj.Due = html.serializeDate(obj.Due);
     if (obj.Due != null) {
-        obj.DueDate = html.getDateStringInServiceFormat(obj.Due);
+        obj.DueDate = html.getUniversalDateString(obj.Due);
         obj.Due = undefined;
     }
     taskstore.remove("task", obj, function (response) {

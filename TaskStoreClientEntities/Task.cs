@@ -411,7 +411,7 @@ namespace TaskStoreClientEntities
             }
             set
             {
-                dueDate = (value == null) ? null : ((DateTime)value).ToString("d");
+                dueDate = (value == null) ? null : ((DateTime)value).ToString("yyyy/MM/dd");
                 NotifyPropertyChanged("DueDate");
                 NotifyPropertyChanged("Due");
                 NotifyPropertyChanged("DueDisplay");
