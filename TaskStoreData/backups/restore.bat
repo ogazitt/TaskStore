@@ -1,0 +1,15 @@
+bcp TaskStore.dbo.Actions IN Actions.dat -f Actions.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Applications IN aspnet_Applications.dat -f aspnet_Applications.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Users IN aspnet_Users.dat -f aspnet_Users.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Membership IN aspnet_Membership.dat -f aspnet_Membership.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_SchemaVersions IN aspnet_SchemaVersions.dat -f aspnet_SchemaVersions.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Colors IN Colors.dat -f Colors.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Users IN Users.dat -f Users.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.FieldTypes IN FieldTypes.dat -f FieldTypes.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Priorities IN Priorities.dat -f Priorities.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.ListTypes IN ListTypes.dat -f ListTypes.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Tags IN Tags.dat -f Tags.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Fields IN Fields.dat -f Fields.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.TaskLists IN TaskLists.dat -f TaskLists.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Tasks IN Tasks.dat -f Tasks.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.TaskTags IN TaskTags.dat -f TaskTags.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net

@@ -1,0 +1,138 @@
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Actions IN Actions.dat -f Actions.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+8 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 499    Average : (16.03 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.aspnet_Applications IN aspnet_Applications.dat -f aspnet_Applications.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2627
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Violation of PRIMARY KEY constraint 'PK__aspnet_A__C93A4C98283809A7'. Cannot insert duplicate key in object 'dbo.aspnet_Applications'. The duplicate key value is (030c8676-fe1e-4fcc-85fe-e8996197be33).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.aspnet_Users IN aspnet_Users.dat -f aspnet_Users.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2601
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Cannot insert duplicate key row in object 'dbo.aspnet_Users' with unique index 'aspnet_Users_Index'. The duplicate key value is (030c8676-fe1e-4fcc-85fe-e8996197be33, ogazitt).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.aspnet_Membership IN aspnet_Membership.dat -f aspnet_Membership.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2627
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Violation of PRIMARY KEY constraint 'PK__aspnet_M__1788CC4D46BC90C7'. Cannot insert duplicate key in object 'dbo.aspnet_Membership'. The duplicate key value is (4f4c0e55-c257-41cf-8d44-19e4475a96cb).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.aspnet_SchemaVersions IN aspnet_SchemaVersions.dat -f aspnet_SchemaVersions.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2627
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Violation of PRIMARY KEY constraint 'PK__aspnet_S__5A1E6BC13A56B9E2'. Cannot insert duplicate key in object 'dbo.aspnet_SchemaVersions'. The duplicate key value is (common, 1).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Colors IN Colors.dat -f Colors.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+8 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 234    Average : (34.19 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Users IN Users.dat -f Users.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+2 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 203    Average : (9.85 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.FieldTypes IN FieldTypes.dat -f FieldTypes.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+12 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 219    Average : (54.79 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Priorities IN Priorities.dat -f Priorities.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+3 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 250    Average : (12.00 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.ListTypes IN ListTypes.dat -f ListTypes.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2627
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Violation of PRIMARY KEY constraint 'PK_ListTypes'. Cannot insert duplicate key in object 'dbo.ListTypes'. The duplicate key value is (14cda248-4116-4e51-ac13-00096b43418c).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Tags IN Tags.dat -f Tags.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+4 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 219    Average : (18.26 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Fields IN Fields.dat -f Fields.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 23000, NativeError = 2627
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Violation of PRIMARY KEY constraint 'PK_Fields'. Cannot insert duplicate key in object 'dbo.Fields'. The duplicate key value is (f5391480-1675-4d5c-9f4b-0887227afda5).
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.TaskLists IN TaskLists.dat -f TaskLists.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+10 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 219    Average : (45.66 rows per sec.)
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.Tasks IN Tasks.dat -f Tasks.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+SQLState = 22008, NativeError = 0
+Error = [Microsoft][SQL Server Native Client 10.0]Invalid date format
+SQLState = 22003, NativeError = 0
+Error = [Microsoft][SQL Server Native Client 10.0]Numeric value out of range
+SQLState = 23000, NativeError = 515
+Error = [Microsoft][SQL Server Native Client 10.0][SQL Server]Cannot insert the value NULL into column 'Complete', table 'TaskStore.dbo.Tasks'; column does not allow nulls. INSERT fails.
+SQLState = 01000, NativeError = 3621
+Warning = [Microsoft][SQL Server Native Client 10.0][SQL Server]The statement has been terminated.
+
+BCP copy in failed
+
+C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreData\backups>bcp TaskStore.dbo.TaskTags IN TaskTags.dat -f TaskTags.xml -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net 
+
+Starting copy...
+
+1 rows copied.
+Network packet size (bytes): 4096
+Clock Time (ms.) Total     : 140    Average : (7.14 rows per sec.)

@@ -1,0 +1,16 @@
+bcp TaskStore.dbo.Actions format nul -c -x -f Actions.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Users format nul -c -x -f Users.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Applications format nul -c -x -f aspnet_Applications.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Membership format nul -c -x -f aspnet_Membership.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_SchemaVersions format nul -c -x -f aspnet_SchemaVersions.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.aspnet_Users format nul -c -x -f aspnet_Users.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Colors format nul -c -x -f Colors.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Fields format nul -c -x -f Fields.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.FieldTypes format nul -c -x -f FieldTypes.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.ListTypes format nul -c -x -f ListTypes.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Priorities format nul -c -x -f Priorities.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Tags format nul -c -x -f Tags.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.TaskLists format nul -c -x -f TaskLists.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Tasks format nul -c -x -f Tasks.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.TaskTags format nul -c -x -f TaskTags.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net
+bcp TaskStore.dbo.Users format nul -c -x -f Users.xml -t, -U ogazitt@t1z9p4huyg -P zrc022.. -S t1z9p4huyg.database.windows.net

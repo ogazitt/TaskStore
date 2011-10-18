@@ -1,0 +1,12 @@
+1,Name,Name,String
+2,Description,Description,String
+3,PriorityID,Priority,Priority
+4,Due,Due,Date
+5,TaskTags,Tags (separated by commas),TagList
+6,Location,Location,Address
+7,Phone,Phone,PhoneNumber
+8,Website,Website,Website
+9,Email,Email,Email
+10,Complete,Complete,Boolean
+11,Description,Details,TextBox
+12,LinkedTaskListID,Link to another list,ListPointer
