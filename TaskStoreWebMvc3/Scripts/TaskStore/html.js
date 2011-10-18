@@ -434,10 +434,19 @@ html.render_lists = function () {
         }
 
         var sortFunc = function (a, b) {
+            var left = a[taskstore.sortby];
+            var right = b[taskstore.sortby];
+
+            // take care of null cases.  all nulls sort below non-nulls
+            if (left == null && right == null)
+                return 0;
+            if (left == null) return 1;
+            if (right == null) return -1;
+
             // sort by the selected sort field
-            if (a[taskstore.sortby] < b[taskstore.sortby])
+            if (left < right)
                 return -1;
-            if (a[taskstore.sortby] > b[taskstore.sortby])
+            if (left > right)
                 return 1;
             return 0;
         };
