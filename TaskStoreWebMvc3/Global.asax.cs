@@ -50,9 +50,9 @@ namespace TaskStoreWebMvc3
             // map the WCF WebApi service routes
             RouteTable.Routes.MapServiceRoute<ConstantsResource>("constants", null);
             RouteTable.Routes.MapServiceRoute<ListTypeResource>("listtypes", null);
-            //RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", null);
+            RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", null);
             //RouteTable.Routes.Add(new ServiceRoute("speech", httpServiceHostFactory, typeof(SpeechResource)));
-            RouteTable.Routes.Add(new ServiceRoute("speech", null, typeof(SpeechResource)));
+            //RouteTable.Routes.Add(new ServiceRoute("speech", null, typeof(SpeechResource)));
             
             RouteTable.Routes.MapServiceRoute<TagResource>("tags", null);
             RouteTable.Routes.MapServiceRoute<TaskResource>("tasks", null);
