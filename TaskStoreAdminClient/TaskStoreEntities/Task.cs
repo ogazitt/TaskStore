@@ -145,23 +145,24 @@ namespace TaskStoreClientEntities
             }
         }
 
-        private DateTime? due;
+        private string dueDate;
         /// <summary>
-        /// Due property
+        /// DueDate property
         /// </summary>
         /// <returns></returns>
         [DataMember]
-        public DateTime? Due
+        public string DueDate
         {
             get
             {
-                return due;
+                return dueDate;
             }
             set
             {
-                if (value != due)
+                if (value != dueDate)
                 {
-                    due = value;
+                    dueDate = value;
+                    NotifyPropertyChanged("DueDate");
                     NotifyPropertyChanged("Due");
                     NotifyPropertyChanged("DueDisplay");
                     NotifyPropertyChanged("DueDisplayColor");
@@ -395,6 +396,23 @@ namespace TaskStoreClientEntities
         #region DataBinding Properties
 
         // local-only properties used for databinding
+
+        public DateTime? Due
+        {
+            get
+            {
+                return dueDate == null ? null : (DateTime?)Convert.ToDateTime(dueDate);
+            }
+            set
+            {
+                dueDate = (value == null) ? null : ((DateTime)value).ToString("yyyy/MM/dd");
+                NotifyPropertyChanged("DueDate");
+                NotifyPropertyChanged("Due");
+                NotifyPropertyChanged("DueDisplay");
+                NotifyPropertyChanged("DueDisplayColor");
+                NotifyPropertyChanged("DueSort");
+            }
+        }
 
         // display property for Due
         public string DueDisplay { get { return due == null ? null : String.Format("{0}", ((DateTime)due).ToString("d")); } }

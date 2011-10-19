@@ -90,4 +90,3 @@ C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreAzureSer
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreAzureService\bin\Debug\TaskStoreAzureService.csx\roles\TaskStoreWeb\approot\bin\TaskStoreWeb.pdb
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreAzureService\obj\Debug\TaskStoreWeb\bin\TaskStoreWeb.dll
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreAzureService\obj\Debug\TaskStoreWeb\bin\TaskStoreWeb.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreAzureService\bin\Debug\ServiceConfiguration.cscfg

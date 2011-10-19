@@ -14,19 +14,3 @@ C:\Users\Omri\Downloads\Wp7KeyboardSource\WPKeyboardHelper\Bin\Debug\zh-Hant\Sys
 C:\Users\Omri\Downloads\Wp7KeyboardSource\WPKeyboardHelper\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Omri\Downloads\Wp7KeyboardSource\WPKeyboardHelper\obj\Debug\WPKeyboardHelper.dll
 C:\Users\Omri\Downloads\Wp7KeyboardSource\WPKeyboardHelper\obj\Debug\WPKeyboardHelper.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\WPKeyboardHelper.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\WPKeyboardHelper.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\System.Windows.Interactivity.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\System.Windows.Interactivity.xml
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\de\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\en\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\es\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\fr\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\it\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\ja\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\ko\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\Bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\obj\Debug\WPKeyboardHelper.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\WPKeyboardHelper\obj\Debug\WPKeyboardHelper.pdb

@@ -9,6 +9,9 @@ using Microsoft.ApplicationServer.Http.Activation;
 using System.Data.Entity;
 using TaskStoreWeb.Models;
 using TaskStoreWeb.Resources;
+using Microsoft.ApplicationServer.Http;
+using System.ServiceModel;
+using System.ServiceModel.Activation;
 
 namespace TaskStoreWebMvc3
 {
@@ -36,16 +39,21 @@ namespace TaskStoreWebMvc3
                 new { controller = new NotInValuesConstraint(new[] { "constants", "listtypes", "speech", "tags", "tasks", "tasklists", "users" }) }
             );
 
-            //HttpServiceHostFactory httpServiceHostFactory = new HttpServiceHostFactory();
-            //httpServiceHostFactory.Configuration = new HttpConfiguration
-            //{
-            //    TransferMode = TransferMode.Streamed
-            //};           
+            HttpServiceHostFactory httpServiceHostFactory = new HttpServiceHostFactory();
+            httpServiceHostFactory.Configuration = new HttpConfiguration
+            {
+                // MaxBufferSize = 1048576,
+                MaxReceivedMessageSize = 1048576, 
+                // TransferMode = TransferMode.Streamed
+            };           
  
             // map the WCF WebApi service routes
             RouteTable.Routes.MapServiceRoute<ConstantsResource>("constants", null);
             RouteTable.Routes.MapServiceRoute<ListTypeResource>("listtypes", null);
-            RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", null);
+            //RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", null);
+            //RouteTable.Routes.Add(new ServiceRoute("speech", httpServiceHostFactory, typeof(SpeechResource)));
+            RouteTable.Routes.Add(new ServiceRoute("speech", null, typeof(SpeechResource)));
+            
             RouteTable.Routes.MapServiceRoute<TagResource>("tags", null);
             RouteTable.Routes.MapServiceRoute<TaskResource>("tasks", null);
             RouteTable.Routes.MapServiceRoute<TaskListResource>("tasklists", null);

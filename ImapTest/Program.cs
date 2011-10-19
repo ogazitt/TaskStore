@@ -176,8 +176,8 @@ namespace ImapTest
             m = Regex.Match(text, @"(0?[1-9]|1[012])([- /.])(0?[1-9]|[12][0-9]|3[01])\2(20|19)?\d\d", RegexOptions.IgnoreCase);
             if (m != null && m.Value != null && m.Value != "")
             {
-                // convert to datetime, then back to string.  this is to canonicalize all dates into mm/dd/yyyy.
-                task.DueDate = ((DateTime) Convert.ToDateTime(m.Value)).ToString("d");
+                // convert to datetime, then back to string.  this is to canonicalize all dates into yyyy/MM/dd.
+                task.DueDate = ((DateTime) Convert.ToDateTime(m.Value)).ToString("yyyy/MM/dd");
             }
         }
 

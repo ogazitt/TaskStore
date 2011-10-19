@@ -5,10 +5,3 @@ C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreWinPhone
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\Bin\Debug\TaskStoreEntities.pdb
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\obj\Debug\TaskStoreWinPhoneUtilities.dll
 C:\Users\omrig\documents\visual studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\obj\Debug\TaskStoreWinPhoneUtilities.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\Bin\Debug\TaskStoreWinPhoneUtilities.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\Bin\Debug\TaskStoreWinPhoneUtilities.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\Bin\Debug\TaskStoreEntities.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\Bin\Debug\TaskStoreEntities.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\obj\Debug\TaskStoreWinPhoneUtilities.dll
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\TaskStoreWinPhoneUtilities\obj\Debug\TaskStoreWinPhoneUtilities.pdb

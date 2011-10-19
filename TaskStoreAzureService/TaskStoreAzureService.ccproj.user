@@ -3,15 +3,15 @@
   <PropertyGroup>
     <DeploymentBuildOnly>False</DeploymentBuildOnly>
     <DeploymentIsExpanded>False</DeploymentIsExpanded>
-    <DeploymentAccountName>Sub2-MBA</DeploymentAccountName>
-    <DeploymentHostedService>taskstore</DeploymentHostedService>
+    <DeploymentAccountName>Omri MBA TaskStore2</DeploymentAccountName>
+    <DeploymentHostedService>taskstore2</DeploymentHostedService>
     <DeploymentHostedServiceLabel>TaskStore</DeploymentHostedServiceLabel>
     <DeploymentSlot>Production</DeploymentSlot>
     <DeploymentIncludeIntellitrace>False</DeploymentIncludeIntellitrace>
     <DeploymentEnableWebDeploy>True</DeploymentEnableWebDeploy>
-    <DeploymentStorageService>taskstore</DeploymentStorageService>
-    <DeploymentStorageServiceLabel>taskstore</DeploymentStorageServiceLabel>
-    <DeploymentLabel>TaskStoreAzureService - 8/2/2011 9:58:50 PM</DeploymentLabel>
+    <DeploymentStorageService>taskstorage</DeploymentStorageService>
+    <DeploymentStorageServiceLabel>taskstorage</DeploymentStorageServiceLabel>
+    <DeploymentLabel>TaskStoreAzureService</DeploymentLabel>
     <DeploymentPromptBeforeDeleting>True</DeploymentPromptBeforeDeleting>
     <DeploymentIncludeProfiling>False</DeploymentIncludeProfiling>
     <PublishSolutionConfiguration>Debug</PublishSolutionConfiguration>
