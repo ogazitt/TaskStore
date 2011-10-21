@@ -18,7 +18,7 @@ namespace TaskStoreClientEntities
             get
             {
                 return "http://localhost:49489";
-                //return "http://taskstore.cloudapp.net:8080";
+                //return "http://api.taskstore.net:8080";
             }
         }
         public static string BaseUrl { get { return baseUrl; } }

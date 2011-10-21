@@ -13,7 +13,7 @@ namespace TaskStoreClientEntities
 {
     public class WebServiceHelper
     {
-        private static string baseurl = "http://taskstore.cloudapp.net:8080";
+        private static string baseurl = "http://api.taskstore.net:8080";
 
         private static string baseUrl
         {
