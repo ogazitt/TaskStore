@@ -109,7 +109,6 @@
             <h2>Go forth and be productive!</h2>
             <p>With that, have fun!</p>
             <p>Please send us any feedback at <a href="mailto:ogazitt@gmail.com">ogazitt@gmail.com</a>.  Thanks!</p>
-            <div id="footer"></div>
         </div>
     </div>
 </body>

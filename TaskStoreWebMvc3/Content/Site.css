@@ -93,8 +93,6 @@ page width. Or, you can specify an exact pixel width. */
 .page
 {
     width: auto;
-    /*margin-left: 10px;
-    margin-right: 10px;*/
 }
 /*
 @media only screen and (max-device-width: 480px) {
@@ -161,7 +159,8 @@ page width. Or, you can specify an exact pixel width. */
     background-color: #fff;
     margin-bottom: 10px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
-    min-width: 1000px;
+    min-width: 800px;
+    min-height: 450px;
 }
 
 #footer
@@ -173,10 +172,10 @@ page width. Or, you can specify an exact pixel width. */
     margin: 0;
     font-size: 14px;
     background-color: #fff;
-    float: none;
-    position: absolute;
+    float: left;
+    position: relative; 
     bottom: 0px;
-    width: 95%;
+    display: block;
 }
 
 #footer div, #footer a
@@ -373,19 +372,40 @@ a#logo
 
 #taskstore-main
 {
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table#taskstore-main-table
+{
+    max-width: 800px;
+    min-width: 800px;
+    border-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+table#taskstore-main-table td
+{
+    border-bottom: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
 }
 
 #taskstore-info
 {
-    float: left;
+    float: right;
     font-size: 48px;
+    padding-right: 25px;
+    margin-top: 20px;
 }
 
 #logincontrol
 {
-    float: right;
+    float: left;
+    padding-left: 25px;
+    margin-top: -57px;
 }
 
 /* Styles for validation helpers

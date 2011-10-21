@@ -14,6 +14,8 @@ li
 }
 
 /* classes */
+
+/* various classes for each task line item */
 .checkboxicon
 {
     width: 15px;
@@ -48,6 +50,29 @@ li
     height: 27px;
     display: block;
     color: #333;
+}
+.red
+{
+    color: #c30;
+}
+
+/* classes for dialogs */
+
+.dialog-delete-task, .dialog-delete-list
+{
+    width: 400px !important;
+}
+.dialog-edit-task, .dialog-edit-list
+{
+    width: 500px !important;
+}
+.dialoginputfield
+{
+    width: 350px;
+}
+.editdialogcontent
+{
+    display: inline;
 }
 
 /* add bar */
@@ -97,19 +122,10 @@ div.add .showdate
 
 /* tasklists */
 
-/*
 #tasklists
 {
-    padding: 20px 20px 20px 20px;
-    color: #4e4e4e;
-    overflow: auto;
-    position: fixed;
-    left: 0px;
-    right: 259px;
-    bottom: 36px;
-    top: 0px;
+    min-height: 360px;
 }
-*/
 
 #tasklists ul
 {
@@ -283,31 +299,6 @@ div.add .showdate
     font-size: 1.3em;
 }
 
-.red
-{
-    color: #c30;
-}
-
-.dialog-delete-task, .dialog-delete-list
-{
-    width: 400px !important;
-}
-
-.dialog-edit-task, .dialog-edit-list
-{
-    width: 500px !important;
-}
-
-.dialoginputfield
-{
-    width: 350px;
-}
-
-.editdialogcontent
-{
-    display: inline;
-}
-
 #tasklists li .ui-icon-close 
 { 
     float: left; 
@@ -316,7 +307,7 @@ div.add .showdate
     background-image: url("/images/icons/ui-icons_222222_256x240.png");
 }
 
-.separator
+#tasklists .separator
 {
     margin-top: 20px;
     margin-bottom: 20px;

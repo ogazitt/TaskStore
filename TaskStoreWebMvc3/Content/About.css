@@ -1,12 +1,14 @@
 ﻿.aboutbody
 {
-    min-width: 1000px;
-    margin-left: 10%;
-    margin-right: 10%;
+    min-width: 800px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .mobilebody
 {
-    min-width: 1000px;
+    min-width: 800px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -27,7 +29,7 @@ td.firsttd
     border-right: 0;
 }
 
-.subnav { float: left; display: inline; width: 210px; font-size: 12px; margin: 0 0 0 13px; margin-left: auto; margin-right: auto; }
+.subnav { float: left; display: inline; width: 210px; font-size: 12px; margin: 0 0 0 13px; margin-left: 0; margin-right: 0; padding-left: 50px; }
 .subnav div { line-height: 1.5; }
 .subnav div a img { margin: 10px 0 0 0; }
 .subnav ul { margin: 0 0 50px 0; padding: 0; list-style-type: none; }
@@ -35,12 +37,12 @@ td.firsttd
 .subnav ul li a { display: block; padding: 6px 0 6px 0; font-size: 1.5em; text-decoration: none; color: #1d2a5b; border-bottom: 1px solid #e8eaeb; }
 .subnav ul li a:hover { text-decoration: none; background: #f9fbf0; }
 .subnav ul li a.active { font-weight: bold; }
-.contentArea { width: 725px; float: right; display: inline; font-size: 12px; line-height: 1.5; margin: 0 13px 0 0; margin-left: auto; margin-right: auto; }
+.contentArea { width: 425px; float: left; display: inline; font-size: 12px; line-height: 1.5; margin: 0 13px 0 0; padding-left: 50px; margin-left: auto; margin-right: auto; padding-right: 50px; }
 
-#contentAreaBox { border: 1px solid #dff2fa; position: relative; width: 705px; float: left; padding: 10px; margin-top: 10px; }
+#contentAreaBox { border: 1px solid #dff2fa; position: relative; width: 405px; float: left; padding: 10px; margin-top: 10px; }
 #contentAreaBox a { font-weight: bold; }
-.overlay { width: 725px; position: absolute; top: 0; bottom: 0; left: 0; background: #fff; filter: alpha(opacity=50); -moz-opacity: 0.5; opacity: 0.5; }
-.tdcol3 { width: 700px; float: left; display: inline; position: relative; }
+.overlay { width: 425px; position: absolute; top: 0; bottom: 0; left: 0; background: #fff; filter: alpha(opacity=50); -moz-opacity: 0.5; opacity: 0.5; }
+.tdcol3 { width: 400px; float: left; display: inline; position: relative; }
 		
 .buffer { padding-top: 27px; }
 
@@ -62,7 +64,9 @@ a img, img a { border: 0; }
 .img-right {float: right; margin: 0 0 10px 10px;}
 .img-left {float: left; margin: 0 10px 10px 0;}
 
-.leadershipDiv { display:block; width:100%; margin: 0 0 10px 0; border-bottom: 1px solid #dff2fa; }
+.leadershipDivTop { display:block; width:100%; margin: 0px; border-bottom: 1px solid #dff2fa; min-height: 160px; }
+.leadershipDivMiddle { display:block; width:100%; margin-top: 10px; border-bottom: 1px solid #dff2fa; min-height: 160px; }
+.leadershipDivBottom { display:block; width:100%; margin-top: 10px; margin-bottom: -10px; min-height: 160px; }
 .leadershipDivLeft { float: left; display: inline; width: 334px; padding:0 15px 0 0; border-right: 1px solid #dff2fa; }
 .leadershipDivRight { float: right; display: inline; width: 335px; padding:0 0 0 15px; }
 
@@ -84,7 +88,7 @@ h5 { font-size: 13px; font-weight: lighter; font-style:italic; margin: 0 0 5px 0
 .nomargin {margin: 0 0 0 0;}
 
 /* tables */
-table { border: 0;}
+table { border: 0; max-width: 800px; }
 td.header { background: #eff8fd; padding: 8px 5px; font-weight: bold; font-size: 12px; }
 td { border-bottom: 1px solid #e2f3fa; border-top: 1px solid #fff; padding: 5px; margin: 1px 0 0 0; background: #fff; }
 td.fill { background: #f2fafd; }
@@ -94,8 +98,8 @@ td.fill { background: #f2fafd; }
 .full-width { width: 100%; }
 .half-width { width: 50%; }
 
-.half-width-centered { margin-left:20%; margin-right:20%; margin-top: 30px;}
-.half-width-centered p { text-align: left; margin-top: 10px;}
+.half-width-centered { margin-left: 8%; margin-right: 8%; margin-top: 30px; max-width: 800px; }
+.half-width-centered p { text-align: justify; margin-top: 10px;}
 
 /* lists */
 ul { margin: 6px 0 15px 0; padding: 0; }
@@ -103,3 +107,4 @@ ul li { margin: 2px 0 6px 20px; padding: 0 }
 ul.nomargin { margin-top: 0; margin-bottom: 0; }
 ul.nomargin li { margin-top: 0; margin-bottom: 0; }
 
+/*#main { min-width: 900px; }*/

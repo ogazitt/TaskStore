@@ -6,12 +6,18 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="taskstore-main">
-        <div id="taskstore-info">
-            <img src="/Images/taskstore-graphic.png" alt="TaskStore - get it done." />
-            <center>Get it done.</center>
-        </div>
-        <div id="logincontrol">
-            <% Html.RenderPartial("LoginControl"); %>
-        </div> 
+    <center>
+        <table id="taskstore-main-table" width="100%">
+            <tr>
+                <td><div id="taskstore-info">
+                    <img src="/Images/taskstore-graphic.png" width="350" alt="TaskStore - get it done." />
+                    <center>Get it done.</center>
+                </div></td>
+                <td><div id="logincontrol">
+                    <% Html.RenderPartial("LoginControl"); %>
+                </div></td>
+            </tr>
+        </table>
+        </center>
     </div>
 </asp:Content>

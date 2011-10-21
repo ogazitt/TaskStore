@@ -11,5 +11,6 @@
 
 #main
 {
-    min-width: 320px;
+    min-width: 220px;
+    max-width: 220px;
 }

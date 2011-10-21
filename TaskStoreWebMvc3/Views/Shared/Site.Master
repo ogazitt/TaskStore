@@ -11,7 +11,7 @@
     <meta name="application-name" content="TaskStore"/>
     <meta name="msapplication-tooltip" content="Start the TaskStore App"/>
     <meta name="msapplication-starturl" content="/"/>
-    <meta name="msapplication-window" content="width=1200;height=800"/>
+    <meta name="msapplication-window" content="width=865;height=750"/>
     <meta name="msapplication-task" content="name=Lists;action-uri=/TL;icon-uri=/Images/lists.ico"/>
     <script src="/Scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-ui-1.8.16.min.js" type="text/javascript"></script>
@@ -28,7 +28,6 @@
 </head>
 
 <body>
-    <%--<form id="form1" runat="server">--%>
     <div class="page">
 
         <div id="header">
@@ -79,6 +78,5 @@
             <%: Html.ActionLink("Mobile Apps", "Mobile", "Home")%>
         </div>
     </div>
-<%--    </form>--%>
 </body>
 </html>
