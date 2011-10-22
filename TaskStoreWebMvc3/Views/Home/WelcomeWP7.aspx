@@ -70,7 +70,8 @@
                 You can add new tasks from this page, either by tapping the <i>add</i>
                 button, which will let you enter all of the fields of the task, or by tapping the <i>quick add</i> button, which 
                 will allow you to rapidly create new tasks by entering just their name in the dialog and then tapping <i>add</i>.
-                Once you're done, tap <i>done</i> to dismiss the dialog.
+                Once you're done, tap <i>done</i> to dismiss the dialog.  Notice the microphone icon - tapping this allows you to 
+                use our voice recognition service to translate a task name you speak into the microphone into text.  Try it!
             </p>
             <h2>List Types</h2>
             <p>
@@ -85,7 +86,7 @@
                 When you tap a task, you are placed on the Actions tab, which displays any quick actions associated with that task. 
                 For example, if your task has a due date, the available actions are <i>Add to calendar</i> and <i>postpone to tomorrow</i>.
                 If your task has a phone number, a website, or an email address, you will have the appropriate actions to <i>phone</i>, 
-                <i>text</i>, <i>navigate</i>, or <i>email</i>.
+                <i>text</i>, <i>browse</i>, or <i>email</i>.
             </p>
             <h2>Tags</h2>
             <p>
@@ -105,10 +106,18 @@
                 at any time.</li>
                 <li><b>Sync now:</b> TaskStore will automatically sync your items, but you can trigger an immediate sync anytime by tapping the <i>sync now</i>
                 button in the main page.</li>
+                <li><b>New Task from email:</b> If you send an email to <a href="mailto:new@taskstore.net">new@taskstore.net</a> from the mail account you 
+                registered with, TaskStore will automatically create a new task for you, using the Subject line as the name of the task.  TaskStore will also 
+                recognize the hashtag <i>#list:</i> and interpret everything after the colon as the name of the list you'd like to add the task to.  Finally, 
+                TaskStore will look in the message body for anything that looks like a date, and email address, a website, or a phone number, and add those fields 
+                to your task.</li>
+                <li><b>Link to another list:</b> If you would like to set up a task (for example, today's shopping) that points to a list (for example, 
+                your standard shopping list template), you can create that task and choose <i>link to another list</i> in the task fields to point to that list.  When 
+                you tap the task, the <i>navigate</i> action will now be available, which will navigate to the list you linked to</li>
             </ul>
-            <h2>Go forth and be productive!</h2>
+            <h2>Go forth and be productive</h2>
             <p>With that, have fun!</p>
-            <p>Please send us any feedback at <a href="mailto:ogazitt@gmail.com">ogazitt@gmail.com</a>.  Thanks!</p>
+            <p>Please send us any questions or feedback to <a href="mailto:support@taskstore.net">support@taskstore.net</a>.  Thanks!</p>
         </div>
     </div>
 </body>
