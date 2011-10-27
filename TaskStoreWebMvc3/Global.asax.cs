@@ -44,7 +44,7 @@ namespace TaskStoreWebMvc3
             {
                 // MaxBufferSize = 1048576,
                 MaxReceivedMessageSize = 1048576, 
-                // TransferMode = TransferMode.Streamed
+                TransferMode = TransferMode.Streamed
             };           
  
             // map the WCF WebApi service routes
