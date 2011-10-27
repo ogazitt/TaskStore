@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -24,8 +25,19 @@ namespace TaskStoreWinPhoneUtilities
         private static byte[] speechBuffer;
         private static int offset = 0;
         private static int length = 0;
-        private static Stream speechStream;
         private static Delegate networkDelegate;
+        private static int numBytes = 0;
+
+        public static void CancelStreamed(Delegate networkDel)
+        {
+            // stop listening
+            mic.Stop();
+
+            NetworkHelper.CancelSpeech();
+            networkDel.DynamicInvoke(false, null);
+
+            speechOperationInProgress = false;
+        }
 
         public static void Start()
         {
@@ -70,41 +82,45 @@ namespace TaskStoreWinPhoneUtilities
             mic.BufferDuration = TimeSpan.FromSeconds(1);
             length = mic.GetSampleSizeInBytes(mic.BufferDuration);
             speechBuffer = new byte[length];
-            speechStream = null;
+            numBytes = 0;
 
             // callback when the mic gathered 1 sec worth of data
             if (initializedBufferReadyEvent == false)
             {
                 mic.BufferReady += delegate
                 {
-                    mic.GetData(speechBuffer);
-                    if (speechStream != null)
-                    {
-                        try
-                        {
-                            speechStream.Write(speechBuffer, 0, length);
-                        }
-                        catch (Exception)
-                        {
-                            // stop listening
-                            mic.Stop();
+                    int len = mic.GetData(speechBuffer);
+                    numBytes += len;
 
-                            speechOperationInProgress = false;
-                        }
+                    try
+                    {
+                        NetworkHelper.SendSpeech(speechBuffer, len, null, new NetworkDelegate(NetworkCallback));
+                    }
+                    catch (Exception)
+                    {
+                        // stop listening
+                        mic.Stop();
+
+                        speechOperationInProgress = false;
                     }
                 };
                 initializedBufferReadyEvent = true;
             }
 
             networkDelegate = networkDel;
-
-            // start listening
             speechOperationInProgress = true;
 
-            WebServiceHelper.SpeechToTextStream(
+            //WebServiceHelper.SpeechToTextStream(
+            //    user, 
+            //    new StreamCallbackDelegate(StreamCallback),
+            //    del, 
+            //    new NetworkDelegate(NetworkCallback));
+
+            // connect to the web service, and once that completes successfully,
+            // it will invoke the StartMic delegate to start the microphone
+            NetworkHelper.BeginSpeech(
                 user, 
-                new StreamCallbackDelegate(StreamCallback),
-                del, 
+                new StartMicDelegate(StartMic),
                 new NetworkDelegate(NetworkCallback));
         }
 
@@ -120,22 +136,18 @@ namespace TaskStoreWinPhoneUtilities
             speechOperationInProgress = false;
         }
 
-        public static void StopStreamed()
+        public static void StopStreamed(SpeechToTextCallbackDelegate del)
         {
             // stop listening
             mic.Stop();
-            
-            // close the stream
-            speechStream.Close();
-            speechOperationInProgress = false;
+
+            // send the terminator and receive the response
+            NetworkHelper.EndSpeech(del, new NetworkDelegate(NetworkCallback));
         }
-
-        public delegate void StreamCallbackDelegate(Stream stream);
-        private static void StreamCallback(Stream stream)
+        
+        public delegate void StartMicDelegate();
+        private static void StartMic()
         {
-            // save the stream to write the speech data to
-            speechStream = stream;
-
             // start getting data from the mic
             mic.Start();
         }
@@ -150,9 +162,6 @@ namespace TaskStoreWinPhoneUtilities
                 {
                     // stop listening
                     mic.Stop();
-
-                    // close the stream
-                    speechStream.Close();
                 }
 
                 // indicate speech operation no longer in progress

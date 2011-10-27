@@ -536,15 +536,19 @@ namespace TaskStoreWinPhone
 
         private void SpeechPopup_CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            SpeechLabel.Text = "tap speak to start";
-            // close the popup 
-            SpeechPopup.IsOpen = false;
+            // cancel the current operation
+            SpeechHelper.CancelStreamed(
+                new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+
+            SpeechPopup_Close();
         }
 
         private void SpeechPopup_Close()
         {
             // reset controls
             SpeechPopup_SpeakButton.Content = "speak";
+            SpeechPopup_SpeakButton.IsEnabled = true;
+
             listening = false;
             SpeechLabel.Text = "tap speak to start";
 
@@ -582,22 +586,23 @@ namespace TaskStoreWinPhone
                 SpeechLabel.Text = "listening...";
                 SpeechPopup_SpeakButton.Content = "done";
                 listening = true;
-                SpeechHelper.Start();
-                //SpeechHelper.StartStreamed(
-                //    App.ViewModel.User,
-                //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                //SpeechHelper.Start();
+                SpeechHelper.StartStreamed(
+                    App.ViewModel.User,
+                    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
+                    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
             }
             else
             {
                 SpeechLabel.Text = "analyzing...";
                 SpeechPopup_SpeakButton.Content = "speak";
+                SpeechPopup_SpeakButton.IsEnabled = false;
                 listening = false;
-                SpeechHelper.Stop(
-                    App.ViewModel.User,
-                    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
-                //SpeechHelper.StopStreamed();
+                //SpeechHelper.Stop(
+                //    App.ViewModel.User,
+                //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
+                //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                SpeechHelper.StopStreamed(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
             }
         }
 

@@ -891,7 +891,7 @@ namespace TaskStoreWinPhone
                                     mapUrl += part;
                                     space = true;
                                 }
-                                WebBrowserTask mapTask = new WebBrowserTask() { URL = mapUrl };
+                                WebBrowserTask mapTask = new WebBrowserTask() { Uri = new Uri(mapUrl) };
                                 mapTask.Show();
                             });
                             break;
@@ -916,7 +916,7 @@ namespace TaskStoreWinPhone
                             valueTextBlock.SetBinding(TextBlock.TextProperty, new Binding(pi.Name));
                             button.Click += new RoutedEventHandler(delegate
                             {
-                                WebBrowserTask browserTask = new WebBrowserTask() { URL = (string)val };
+                                WebBrowserTask browserTask = new WebBrowserTask() { Uri = new Uri((string)val) };
                                 browserTask.Show();
                             });
                             break;
