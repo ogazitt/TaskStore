@@ -1,9 +1,0 @@
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\SpeechTest.Properties.Resources.resources
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\bin\Debug\SpeechTest.exe
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\bin\Debug\SpeechTest.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\SpeechTest.exe
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\SpeechTest.pdb
-C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\SpeechTest\obj\x86\Debug\SpeechTest.SpeechTest.resources
