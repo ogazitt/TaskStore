@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
-using TaskStoreClientEntities;
+using TaskStoreServerEntities;
 
-namespace TaskStoreClientEntities
+namespace TaskStoreServerEntities
 {
     public class WebServiceHelper
     {
@@ -17,8 +17,8 @@ namespace TaskStoreClientEntities
         {
             get
             {
-                return "http://localhost:49489";
-                //return "http://api.taskstore.net:8080";
+                //return "http://localhost:49489";
+                return "http://api.taskstore.net:8080";
             }
         }
         public static string BaseUrl { get { return baseUrl; } }

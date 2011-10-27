@@ -33,6 +33,8 @@ namespace TaskStoreAdminClient
         private void TaskListGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             tasklistindex = e.RowIndex;
+            if (tasklistindex < 0)
+                return;
             tasklist = tasklists[tasklistindex];
             tasks = tasklist.Tasks.ToList();
             TaskGrid.DataSource = tasks;

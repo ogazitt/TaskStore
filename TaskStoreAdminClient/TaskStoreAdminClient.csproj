@@ -60,20 +60,6 @@
     <Compile Include="TaskListForm.Designer.cs">
       <DependentUpon>TaskListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TaskStoreEntities\About.cs" />
-    <Compile Include="TaskStoreEntities\Action.cs" />
-    <Compile Include="TaskStoreEntities\Color.cs" />
-    <Compile Include="TaskStoreEntities\Constants.cs" />
-    <Compile Include="TaskStoreEntities\Field.cs" />
-    <Compile Include="TaskStoreEntities\FieldType.cs" />
-    <Compile Include="TaskStoreEntities\ListType.cs" />
-    <Compile Include="TaskStoreEntities\Priority.cs" />
-    <Compile Include="TaskStoreEntities\Tag.cs" />
-    <Compile Include="TaskStoreEntities\Task.cs" />
-    <Compile Include="TaskStoreEntities\TaskList.cs" />
-    <Compile Include="TaskStoreEntities\TaskStoreEntity.cs" />
-    <Compile Include="TaskStoreEntities\TaskTag.cs" />
-    <Compile Include="TaskStoreEntities\User.cs" />
     <Compile Include="UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +99,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaskStoreServerEntities\TaskStoreServerEntities.csproj">
+      <Project>{FC6908F4-5BA4-4AE0-BB87-E110EB76EDF7}</Project>
+      <Name>TaskStoreServerEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

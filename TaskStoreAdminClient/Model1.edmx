@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaskStoreModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TaskStoreModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TaskStoreModelStoreContainer">
           <EntitySet Name="Actions" EntityType="TaskStoreModel.Store.Actions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Colors" EntityType="TaskStoreModel.Store.Colors" store:Type="Tables" Schema="dbo" />
@@ -142,7 +142,7 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PriorityID" Type="int" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="Due" Type="date" />
+          <Property Name="DueDate" Type="nchar" MaxLength="10" />
           <Property Name="Complete" Type="bit" Nullable="false" />
           <Property Name="Location" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
@@ -301,8 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TaskStoreModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -456,7 +455,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="PriorityID" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Due" Type="DateTime" />
           <Property Name="Complete" Type="Boolean" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
@@ -469,6 +467,7 @@
           <NavigationProperty Name="TaskList" Relationship="TaskStoreModel.FK_Tasks_TaskLists" FromRole="Tasks" ToRole="TaskLists" />
           <NavigationProperty Name="TaskList1" Relationship="TaskStoreModel.FK_Tasks_TaskLists2" FromRole="Tasks" ToRole="TaskLists" />
           <NavigationProperty Name="TaskTags" Relationship="TaskStoreModel.FK_TaskTags_Tasks" FromRole="Tasks" ToRole="TaskTags" />
+          <Property Type="String" Name="DueDate" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="TaskTag">
           <Key>
@@ -678,12 +677,12 @@
             <ScalarProperty Name="Template" ColumnName="Template" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Tasks"><EntityTypeMapping TypeName="TaskStoreModel.Task"><MappingFragment StoreEntitySet="Tasks">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="TaskListID" ColumnName="TaskListID" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
             <ScalarProperty Name="Description" ColumnName="Description" />
-            <ScalarProperty Name="Due" ColumnName="Due" />
             <ScalarProperty Name="Complete" ColumnName="Complete" />
             <ScalarProperty Name="Location" ColumnName="Location" />
             <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -733,7 +732,7 @@
         <EntityTypeShape EntityType="TaskStoreModel.Priority" Width="1.5" PointX="5.25" PointY="12" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskStoreModel.Tag" Width="1.5" PointX="3" PointY="7" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskStoreModel.TaskList" Width="1.5" PointX="5.25" PointY="7.5" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaskStoreModel.Task" Width="1.5" PointX="7.5" PointY="6.625" Height="4.4802050781250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskStoreModel.Task" Width="1.5" PointX="7.5" PointY="6.625" Height="3.7109993489583335" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskStoreModel.TaskTag" Width="1.5" PointX="9.75" PointY="7.875" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskStoreModel.User" Width="1.5" PointX="0.75" PointY="5.375" Height="2.3648893229166674" IsExpanded="true" />
         <AssociationConnector Association="TaskStoreModel.FK_Fields_FieldTypes" ManuallyRouted="false">
@@ -758,39 +757,41 @@
         <AssociationConnector Association="TaskStoreModel.FK_Tasks_Priorities" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="12.893992513020834" />
           <ConnectorPoint PointX="8.25" PointY="12.893992513020834" />
-          <ConnectorPoint PointX="8.25" PointY="11.105205078125003" />
+          <ConnectorPoint PointX="8.25" PointY="10.335999348958334" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_Tags_Users" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.3699446614583337" />
           <ConnectorPoint PointX="3" PointY="7.3699446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_TaskTags_Tags" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="7.9373735468749995" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="7.9373735468749986" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="7.9373735468749995" />
-          <ConnectorPoint PointX="5" PointY="7.9373735468749995" />
-          <ConnectorPoint PointX="5" PointY="7.25" />
-          <ConnectorPoint PointX="7.25" PointY="7.25" />
-          <ConnectorPoint PointX="7.25" PointY="6.375" />
-          <ConnectorPoint PointX="10.5" PointY="6.375" />
-          <ConnectorPoint PointX="10.5" PointY="7.875" />
+          <ConnectorPoint PointX="3.75" PointY="9.172587890625" />
+          <ConnectorPoint PointX="3.75" PointY="10.585999348958334" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="10.585999348958334" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="10.585999348958334" />
+          <ConnectorPoint PointX="9.375" PointY="10.585999348958334" />
+          <ConnectorPoint PointX="9.375" PointY="8.3388196145833327" />
+          <ConnectorPoint PointX="9.75" PointY="8.3388196145833327" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_TaskLists_Users" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="7.7398893229166674" />
           <ConnectorPoint PointX="1.5" PointY="9.7422900390625" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="9.7422900390625" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="9.7422900390625" />
           <ConnectorPoint PointX="5.25" PointY="9.7422900390625" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_Tasks_TaskLists" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="8.87474609375" />
-          <ConnectorPoint PointX="7.5" PointY="8.87474609375" />
+          <ConnectorPoint PointX="6.75" PointY="9.352815882988148" />
+          <ConnectorPoint PointX="7.5" PointY="9.352815882988148" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_Tasks_TaskLists2" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="8.124873046874999" />
-          <ConnectorPoint PointX="7.5" PointY="8.124873046874999" />
+          <ConnectorPoint PointX="6.75" PointY="8.3639079414940731" />
+          <ConnectorPoint PointX="7.5" PointY="8.3639079414940731" />
         </AssociationConnector>
         <AssociationConnector Association="TaskStoreModel.FK_TaskTags_Tasks" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="8.8651432291666659" />
-          <ConnectorPoint PointX="9.75" PointY="8.8651432291666659" />
+          <ConnectorPoint PointX="9" PointY="9.1595530364583322" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="9.1595530364583322" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="9.1595530364583322" />
+          <ConnectorPoint PointX="9.75" PointY="9.1595530364583322" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

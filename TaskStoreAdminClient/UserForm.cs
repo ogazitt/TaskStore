@@ -66,14 +66,14 @@ namespace TaskStoreAdminClient
             if (user == null)
                 return;
 
-            TaskStoreClientEntities.User u = new TaskStoreClientEntities.User()
+            TaskStoreServerEntities.User u = new TaskStoreServerEntities.User()
             {
                 Name = user.Name,
                 Password = user.Password,
                 ID = user.ID,
             };
 
-            TaskStoreClientEntities.WebServiceHelper.DeleteUser(u, new WebServiceCallbackDelegate(WebServiceCallback), null);
+            TaskStoreServerEntities.WebServiceHelper.DeleteUser(u, new WebServiceCallbackDelegate(WebServiceCallback), null);
 
             return;
 

@@ -1667,30 +1667,6 @@ namespace TaskStoreAdminClient
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Due
-        {
-            get
-            {
-                return _Due;
-            }
-            set
-            {
-                OnDueChanging(value);
-                ReportPropertyChanging("Due");
-                _Due = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Due");
-                OnDueChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _Due;
-        partial void OnDueChanging(Nullable<global::System.DateTime> value);
-        partial void OnDueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Boolean Complete
@@ -1879,6 +1855,30 @@ namespace TaskStoreAdminClient
         private Nullable<global::System.Guid> _LinkedTaskListID;
         partial void OnLinkedTaskListIDChanging(Nullable<global::System.Guid> value);
         partial void OnLinkedTaskListIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DueDate
+        {
+            get
+            {
+                return _DueDate;
+            }
+            set
+            {
+                OnDueDateChanging(value);
+                ReportPropertyChanging("DueDate");
+                _DueDate = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DueDate");
+                OnDueDateChanged();
+            }
+        }
+        private global::System.String _DueDate;
+        partial void OnDueDateChanging(global::System.String value);
+        partial void OnDueDateChanged();
 
         #endregion
     
