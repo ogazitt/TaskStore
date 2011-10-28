@@ -22,12 +22,15 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace TaskStoreWinPhone
 {
-    public partial class TaskListPage : PhoneApplicationPage
+    public partial class TaskListPage : PhoneApplicationPage, INotifyPropertyChanged
     {
         private TaskList taskList;
         private Tag tag;
         private bool disableListBoxSelectionChanged = true;
-        private bool listening = false;
+        private SpeechHelper.SpeechState speechState;
+        
+        private string speechDebugString = null;
+        private DateTime speechStart;
 
         // ViewSource for the TaskList collection for Import Template (used for filtering out non-template lists)
         public CollectionViewSource ImportTemplateViewSource { get; set; }
@@ -56,6 +59,90 @@ namespace TaskStoreWinPhone
             }
         }
 
+        private bool speechButtonEnabled = false;
+        /// <summary>
+        /// Speech button enabled
+        /// </summary>
+        /// <returns></returns>
+        public bool SpeechButtonEnabled
+        {
+            get
+            {
+                return speechButtonEnabled;
+            }
+            set
+            {
+                if (value != speechButtonEnabled)
+                {
+                    speechButtonEnabled = value;
+                    NotifyPropertyChanged("SpeechButtonEnabled");
+                }
+            }
+        }
+
+        private string speechButtonText = "done";
+        /// <summary>
+        /// Speech button text
+        /// </summary>
+        /// <returns></returns>
+        public string SpeechButtonText
+        {
+            get
+            {
+                return speechButtonText;
+            }
+            set
+            {
+                if (value != speechButtonText)
+                {
+                    speechButtonText = value;
+                    NotifyPropertyChanged("SpeechButtonText");
+                }
+            }
+        }
+
+        private string speechCancelButtonText = "cancel";
+        /// <summary>
+        /// Speech cancel button text
+        /// </summary>
+        /// <returns></returns>
+        public string SpeechCancelButtonText
+        {
+            get
+            {
+                return speechCancelButtonText;
+            }
+            set
+            {
+                if (value != speechCancelButtonText)
+                {
+                    speechCancelButtonText = value;
+                    NotifyPropertyChanged("SpeechCancelButtonText");
+                }
+            }
+        }
+
+        private string speechLabelText = "initializing...";
+        /// <summary>
+        /// Speech button text
+        /// </summary>
+        /// <returns></returns>
+        public string SpeechLabelText
+        {
+            get
+            {
+                return speechLabelText;
+            }
+            set
+            {
+                if (value != speechLabelText)
+                {
+                    speechLabelText = value;
+                    NotifyPropertyChanged("SpeechLabelText");
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(String propertyName)
         {
@@ -73,8 +160,14 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // set some data context information
             ConnectedIconImage.DataContext = App.ViewModel;
             SpeechProgressBar.DataContext = App.ViewModel;
+
+            // set some data context information for the speech UI
+            SpeechPopup_SpeakButton.DataContext = this;
+            SpeechPopup_CancelButton.DataContext = this;
+            SpeechLabel.DataContext = this;
 
             OrderedSource = new List<CollectionViewSource>();
 
@@ -317,13 +410,13 @@ namespace TaskStoreWinPhone
 
         private void ImportTemplateMenuItem_Click(object sender, EventArgs e)
         {
+            // set the collection source for the import template list picker
+            ImportTemplateViewSource.Source = App.ViewModel.TaskLists;
+            ImportTemplatePopupTaskListPicker.DataContext = this;
+
             // open the popup, disable list selection bug
             ImportTemplatePopup.IsOpen = true;
             SetSelectionMode(SelectionMode.Multiple);
-
-            // set the collection source for the list picker
-            ImportTemplateViewSource.Source = App.ViewModel.TaskLists;
-            ImportTemplatePopupTaskListPicker.DataContext = this;
         }
 
         private void ImportTemplatePopup_ImportButton_Click(object sender, RoutedEventArgs e)
@@ -530,28 +623,58 @@ namespace TaskStoreWinPhone
                 return;
             }
 
+            // set the UI state to initializing state
+            speechState = SpeechHelper.SpeechState.Initializing;
+            SpeechSetUIState(speechState);
+
+            // store debug / timing info
+            speechStart = DateTime.Now;
+            speechDebugString = "";
+
+            // store debug / timing info
+            TimeSpan ts = DateTime.Now - speechStart;
+            string stateString = SpeechHelper.SpeechStateString(speechState);
+            speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Connecting Socket");
+
+            // initialize the connection to the speech service
+            SpeechHelper.StartStreamed(
+                App.ViewModel.User,
+                new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
+                new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+
             // open the popup
             SpeechPopup.IsOpen = true;
         }
 
         private void SpeechPopup_CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // cancel the current operation
-            SpeechHelper.CancelStreamed(
-                new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+            switch (speechState)
+            {
+                case SpeechHelper.SpeechState.Initializing:
+                case SpeechHelper.SpeechState.Listening:
+                case SpeechHelper.SpeechState.Recognizing:
+                    // user tapped the cancel button
 
+                    // cancel the current operation / close the socket to the service
+                    SpeechHelper.CancelStreamed(
+                        new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+
+                    // reset the text in the textbox
+                    PopupTextBox.Text = "";
+                    break;
+                case SpeechHelper.SpeechState.Finished:
+                    // user tapped the OK button
+
+                    // set the text in the popup textbox
+                    PopupTextBox.Text = SpeechLabelText.Trim('\'');
+                    break;
+            }
+ 
             SpeechPopup_Close();
         }
 
         private void SpeechPopup_Close()
         {
-            // reset controls
-            SpeechPopup_SpeakButton.Content = "speak";
-            SpeechPopup_SpeakButton.IsEnabled = true;
-
-            listening = false;
-            SpeechLabel.Text = "tap speak to start";
-
             // close the popup 
             SpeechPopup.IsOpen = false;
         }
@@ -572,7 +695,7 @@ namespace TaskStoreWinPhone
                     // the server wasn't reachable
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
-                        MessageBox.Show("apologies - cannot reach the taskstore service at this time.");
+                        MessageBox.Show("apologies - cannot reach the speech service at this time.");
                         SpeechPopup_Close();
                     });
                 }
@@ -581,37 +704,113 @@ namespace TaskStoreWinPhone
 
         private void SpeechPopup_SpeakButton_Click(object sender, RoutedEventArgs e)
         {
-            if (listening == false)
+            TimeSpan ts;
+            string stateString;
+
+            switch (speechState)
             {
-                SpeechLabel.Text = "listening...";
-                SpeechPopup_SpeakButton.Content = "done";
-                listening = true;
-                //SpeechHelper.Start();
-                SpeechHelper.StartStreamed(
-                    App.ViewModel.User,
-                    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                case SpeechHelper.SpeechState.Initializing:
+                    // can't happen since the button isn't enabled
+#if DEBUG
+                    MessageBox.Show("Invalid state SpeechState.Initializing reached");
+#endif
+                    break;
+                case SpeechHelper.SpeechState.Listening:
+                    // done button tapped
+
+                    // set the UI state to recognizing state
+                    speechState = SpeechHelper.SpeechState.Recognizing;
+                    SpeechSetUIState(speechState);
+
+                    // store debug / timing info
+                    ts = DateTime.Now - speechStart;
+                    stateString = SpeechHelper.SpeechStateString(speechState);
+                    speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Stopping mic");
+
+                    // stop listening and get the recognized text from the speech service
+                    //SpeechHelper.Stop(
+                    //    App.ViewModel.User,
+                    //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
+                    //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                    SpeechHelper.StopStreamed(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
+                    break;
+                case SpeechHelper.SpeechState.Recognizing:
+                    // can't happen since the button isn't enabled
+#if DEBUG
+                    MessageBox.Show("Invalid state SpeechState.Initializing reached");
+#endif
+                    break;
+                case SpeechHelper.SpeechState.Finished:
+                    // "try again" button tapped
+
+                    // set the UI state to initializing state
+                    speechState = SpeechHelper.SpeechState.Initializing;
+                    SpeechSetUIState(speechState);
+
+                    // store debug / timing info
+                    speechStart = DateTime.Now;
+                    speechDebugString = "";
+
+                    // store debug / timing info
+                    ts = DateTime.Now - speechStart;
+                    stateString = SpeechHelper.SpeechStateString(speechState);
+                    speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Initializing Request");
+
+                    // initialize the connection to the speech service
+                    SpeechHelper.StartStreamed(
+                        App.ViewModel.User,
+                        new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
+                        new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
+                    break;
             }
-            else
-            {
-                SpeechLabel.Text = "analyzing...";
-                SpeechPopup_SpeakButton.Content = "speak";
-                SpeechPopup_SpeakButton.IsEnabled = false;
-                listening = false;
-                //SpeechHelper.Stop(
-                //    App.ViewModel.User,
-                //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
-                SpeechHelper.StopStreamed(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
-            }
+        }
+
+        private void SpeechPopup_SpeechStateCallback(SpeechHelper.SpeechState state, string message)
+        {
+            speechState = state;
+            SpeechSetUIState(speechState);
+
+            // store debug / timing info
+            TimeSpan ts = DateTime.Now - speechStart;
+            string stateString = SpeechHelper.SpeechStateString(state);
+            speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, message);
         }
 
         private void SpeechPopup_SpeechToTextCallback(string textString)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                PopupTextBox.Text = textString == null ? "<failed>" : textString;
-                SpeechPopup_Close();
+                // set the UI state to finished state
+                speechState = SpeechHelper.SpeechState.Finished;
+                SpeechSetUIState(speechState);
+
+                // store debug / timing info
+                TimeSpan ts = DateTime.Now - speechStart;
+                string stateString = SpeechHelper.SpeechStateString(speechState);
+                speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, textString);
+
+                // strip any timing / debug info 
+                textString = textString == null ? "" : textString;
+                string[] words = textString.Split(' ');
+                if (words[words.Length - 1] == "seconds")
+                {
+                    textString = "";
+                    // strip off last two words - "a.b seconds"
+                    for (int i = 0; i < words.Length - 2; i++)
+                    {
+                        textString += words[i];
+                        textString += " ";
+                    }
+                    textString = textString.Trim();
+                }
+
+                // set the speech label text as well as the popup text
+                SpeechLabelText = textString == null ? "recognition failed" : String.Format("'{0}'", textString);
+                PopupTextBox.Text = textString;
+
+#if DEBUG && KILL
+                MessageBox.Show(speechDebugString);
+#endif
             });
         }
 
@@ -719,6 +918,41 @@ namespace TaskStoreWinPhone
 
             // reset the disable state
             disableListBoxSelectionChanged = disableState;
+        }
+
+        /// <summary>
+        /// Set the UI based on the current state of the speech state machine
+        /// </summary>
+        /// <param name="state"></param>
+        private void SpeechSetUIState(SpeechHelper.SpeechState state)
+        {
+            switch (state)
+            {
+                case SpeechHelper.SpeechState.Initializing:
+                    SpeechLabelText = "initializing...";
+                    SpeechButtonText = "done";
+                    SpeechButtonEnabled = false;
+                    SpeechCancelButtonText = "cancel";
+                    break;
+                case SpeechHelper.SpeechState.Listening:
+                    SpeechLabelText = "listening...";
+                    SpeechButtonText = "done";
+                    SpeechButtonEnabled = true;
+                    SpeechCancelButtonText = "cancel";
+                    break;
+                case SpeechHelper.SpeechState.Recognizing:
+                    SpeechLabelText = "recognizing...";
+                    SpeechButtonText = "try again";
+                    SpeechButtonEnabled = false;
+                    SpeechCancelButtonText = "cancel";
+                    break;
+                case SpeechHelper.SpeechState.Finished:
+                    SpeechLabelText = "";
+                    SpeechButtonText = "try again";
+                    SpeechButtonEnabled = true;
+                    SpeechCancelButtonText = "ok";
+                    break;
+            }
         }
 
         #endregion

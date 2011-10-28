@@ -86,13 +86,16 @@ namespace TaskStoreWinPhoneUtilities
         /// <summary>
         /// Finish sending the last chunk of the speech file and get the response
         /// </summary>
+        /// <param name="buffer">Last speech chunk to send to service</param>
+        /// <param name="len">Length of speech buffer</param>
         /// <param name="del">Delegate to call with the actual response from the speech service</param>
         /// <param name="netOpInProgressDel">Delegate to signal the network status</param>
-        public static void EndSpeech(Delegate del, Delegate netOpInProgressDel)
+        public static void EndSpeech(byte[] buffer, int len, Delegate del, Delegate netOpInProgressDel)
         {
+            // send the last chunk of the speech file
             SendData(
-                null,
-                0,
+                buffer,
+                len,
                 new EventHandler<SocketAsyncEventArgs>(delegate(object o, SocketAsyncEventArgs e)
                 {
                     if (e.SocketError != SocketError.Success)
@@ -106,8 +109,27 @@ namespace TaskStoreWinPhoneUtilities
                         return;
                     }
 
-                    // when the last send has completed, receive and process the response
-                    ProcessNetworkResponse(del, netOpInProgressDel);
+                    // send the terminator chunk to the service
+                    SendData(
+                        null,
+                        0,
+                        new EventHandler<SocketAsyncEventArgs>(delegate(object obj, SocketAsyncEventArgs ea)
+                        {
+                            if (ea.SocketError != SocketError.Success)
+                            {
+                                // signal that a network operation is done and unsuccessful
+                                netOpInProgressDel.DynamicInvoke(false, false);
+
+                                // clean up the socket
+                                CleanupSocket();
+
+                                return;
+                            }
+
+                            // when the last send has completed, receive and process the response
+                            ProcessNetworkResponse(del, netOpInProgressDel);
+                        }),
+                        netOpInProgressDel);
                 }),
                 netOpInProgressDel);
         }
@@ -119,14 +141,16 @@ namespace TaskStoreWinPhoneUtilities
         /// <summary>
         /// Clean up the socket after we are done
         /// </summary>
-        /// <param name="netOpInProgressDel"></param>
         private static void CleanupSocket()
         {
             isRequestInProgress = false;
 
             if (socket != null)
             {
-                socket.Shutdown(SocketShutdown.Both);
+                if (socket.Connected == true)
+                {
+                    socket.Shutdown(SocketShutdown.Both);
+                }
                 socket.Close();
 
                 socket = null;
@@ -160,8 +184,8 @@ namespace TaskStoreWinPhoneUtilities
         /// Encode a string in text/plain (ASCII) format 
         /// (unused at this time)
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">String to encode</param>
+        /// <returns>byte array with ASCII encoding</returns>
         private static byte[] EncodeString(string str)
         {
             char[] unicode = str.ToCharArray();
@@ -219,60 +243,27 @@ namespace TaskStoreWinPhoneUtilities
                     return;
                 }
 
-                string host = uri.Host;
-                if (uri.Port != 80)
-                    host = String.Format("{0}:{1}", uri.Host, uri.Port);
-
-                // socket is connected - construct the initial buffer
-                string request = String.Format(
-                    "{0} {1} HTTP/1.1\r\n" +
-                    "User-Agent: TaskStore-WinPhone\r\n" +
-                    "TaskStore-Username: {2}\r\n" +
-                    "TaskStore-Password: {3}\r\n" +
-                    "Host: {4}\r\n" + 
-                    "Content-Type: application/json\r\n" + 
-                    //"Content-Length: 3\r\n\r\n" +
-                    //"FOO\r\n\r\n",
-                    "Transfer-Encoding: chunked\r\n\r\n",
-                    //"3\r\nFOO\r\n0\r\n\r\n",
-                    verb != null ? verb : "POST", 
-                    url,
-                    user.Name,
-                    user.Password,
-                    host);
-
-                byte[] buffer = Encoding.UTF8.GetBytes(request);
-                //byte[] buffer = EncodeString(request);
-
-                // send the request HTTP header
-                SendData(
-                    buffer, 
-                    -1,
-                    new EventHandler<SocketAsyncEventArgs>(delegate(object ob, SocketAsyncEventArgs ea)
-                    {
-                        if (e.SocketError != SocketError.Success)
-                        {
-                            // signal that a network operation is done and unsuccessful
-                            netOpInProgressDel.DynamicInvoke(false, false);
-
-                            // clean up the socket
-                            CleanupSocket();
-
-                            return;
-                        }
-                        
-                        // when the socket setup and HTTP POST + headers have been completed, 
-                        // signal the caller
-                        del.DynamicInvoke();
-                    }),
-                    netOpInProgressDel);
+                // send the HTTP POST to initialize the speech operation
+                SendPost(user, url, verb, del, netOpInProgressDel);
             });
 
-            // connect to the service
-            try
+            // if the socket isn't connected, connect now
+            if (socket.Connected == false)
             {
-                bool ret = socket.ConnectAsync(socketEventArg);
-                if (ret == false)
+                // connect to the service
+                try
+                {
+                    bool ret = socket.ConnectAsync(socketEventArg);
+                    if (ret == false)
+                    {
+                        // signal that a network operation is done and unsuccessful
+                        netOpInProgressDel.DynamicInvoke(false, false);
+
+                        // clean up the socket
+                        CleanupSocket();
+                    }
+                }
+                catch
                 {
                     // signal that a network operation is done and unsuccessful
                     netOpInProgressDel.DynamicInvoke(false, false);
@@ -281,16 +272,19 @@ namespace TaskStoreWinPhoneUtilities
                     CleanupSocket();
                 }
             }
-            catch
+            else
             {
-                // signal that a network operation is done and unsuccessful
-                netOpInProgressDel.DynamicInvoke(false, false);
-
-                // clean up the socket
-                CleanupSocket();
+                // socket already connected                 
+                // send the HTTP POST to initialize the speech operation
+                SendPost(user, url, verb, del, netOpInProgressDel);
             }
         }
 
+        /// <summary>
+        /// Receive and process a response from the service
+        /// </summary>
+        /// <param name="del">Delegate to invoke at the end of the operation</param>
+        /// <param name="netOpInProgressDel">Delegate to signal the network status</param>
         private static void ProcessNetworkResponse(Delegate del, Delegate netOpInProgressDel)
         {
             if (isRequestInProgress == false)
@@ -356,8 +350,11 @@ namespace TaskStoreWinPhoneUtilities
                     // signal that a network operation is done and successful
                     netOpInProgressDel.DynamicInvoke(false, true);
 
-                    // clean up the socket
-                    CleanupSocket();
+                    // reset the request in progress flag
+                    isRequestInProgress = false;
+
+                    // * leave the socket open for a potential next transaction *
+                    // CleanupSocket();
 
                     // invoke the delegate passed in with the actual response text to return to the caller
                     del.DynamicInvoke(body == null ? "" : body.Value); 
@@ -402,10 +399,10 @@ namespace TaskStoreWinPhoneUtilities
         /// <summary>
         /// Send a buffer on the socket
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="len">-1 means don't prefix the length; 0 means buffer.Length; positive means actual length</param>
-        /// <param name="eh"></param>
-        /// <param name="netOpInProgressDel"></param>
+        /// <param name="buffer">Data buffer to send</param>
+        /// <param name="len">Length of data: -1 means don't prefix the length; 0 means buffer.Length; positive means actual length</param>
+        /// <param name="eh">Event handler to invoke at the end of the operation</param>
+        /// <param name="netOpInProgressDel">Delegate to signal the network status</param>
         private static void SendData(byte[] buffer, int len, EventHandler<SocketAsyncEventArgs> eh, Delegate netOpInProgressDel)
         {
             // a request must be in progress
@@ -464,6 +461,64 @@ namespace TaskStoreWinPhoneUtilities
                 // clean up the socket
                 CleanupSocket();
             }
+        }
+
+        /// <summary>
+        /// Send an HTTP POST to start a new speech recognition transaction
+        /// </summary>
+        /// <param name="user">User to authenticate</param>
+        /// <param name="url">URL of the service</param>
+        /// <param name="verb">Verb to use (defaults to POST)</param>
+        /// <param name="del">Delegate to invoke when the request completes</param>
+        /// <param name="netOpInProgressDel">Delegate to signal the network status</param>
+        private static void SendPost(User user, string url, string verb, Delegate del, Delegate netOpInProgressDel)
+        {
+            // get a Uri for the service - this will be used to decode the host / port
+            Uri uri = new Uri(url);
+
+            string host = uri.Host;
+            if (uri.Port != 80)
+                host = String.Format("{0}:{1}", uri.Host, uri.Port);
+
+            // construct the HTTP POST buffer
+            string request = String.Format(
+                "{0} {1} HTTP/1.1\r\n" +
+                "User-Agent: TaskStore-WinPhone\r\n" +
+                "TaskStore-Username: {2}\r\n" +
+                "TaskStore-Password: {3}\r\n" +
+                "Host: {4}\r\n" +
+                "Content-Type: application/json\r\n" +
+                "Transfer-Encoding: chunked\r\n\r\n",
+                verb != null ? verb : "POST",
+                url,
+                user.Name,
+                user.Password,
+                host);
+
+            byte[] buffer = Encoding.UTF8.GetBytes(request);
+
+            // send the request HTTP header
+            SendData(
+                buffer,
+                -1,
+                new EventHandler<SocketAsyncEventArgs>(delegate(object o, SocketAsyncEventArgs e)
+                {
+                    if (e.SocketError != SocketError.Success)
+                    {
+                        // signal that a network operation is done and unsuccessful
+                        netOpInProgressDel.DynamicInvoke(false, false);
+
+                        // clean up the socket
+                        CleanupSocket();
+
+                        return;
+                    }
+
+                    // when the socket setup and HTTP POST + headers have been completed, 
+                    // signal the caller
+                    del.DynamicInvoke();
+                }),
+                netOpInProgressDel);
         }
 
         #endregion

@@ -184,11 +184,11 @@
             <Grid>
                 <Border Background="#FF1F1F1F" Height="190"/>
                 <StackPanel Width="480">
-                    <TextBlock x:Name="SpeechLabel" Margin="20,15,0,0" Text="tap speak to start" Style="{StaticResource PhoneTextExtraLargeStyle}" Width="460" />
+                    <TextBlock x:Name="SpeechLabel" Margin="20,15,0,0" Text="{Binding SpeechLabelText}" Style="{StaticResource PhoneTextExtraLargeStyle}" Width="460" />
                     <toolkit:PerformanceProgressBar x:Name="SpeechProgressBar" IsIndeterminate="True" Margin="0,20,0,0" Visibility="{Binding NetworkOperationInProgress}"/>
                     <StackPanel Orientation="Horizontal" Width="460" Margin="0,8,0,0">
-                        <Button x:Name="SpeechPopup_SpeakButton" Content="speak" Click="SpeechPopup_SpeakButton_Click" Width="230"/>
-                        <Button x:Name="SpeechPopup_CancelButton" Content="cancel" Click="SpeechPopup_CancelButton_Click" Width="230"/>
+                        <Button x:Name="SpeechPopup_SpeakButton" Content="{Binding SpeechButtonText}" IsEnabled="{Binding SpeechButtonEnabled}" Click="SpeechPopup_SpeakButton_Click" Width="230"/>
+                        <Button x:Name="SpeechPopup_CancelButton" Content="{Binding SpeechCancelButtonText}" Click="SpeechPopup_CancelButton_Click" Width="230"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
