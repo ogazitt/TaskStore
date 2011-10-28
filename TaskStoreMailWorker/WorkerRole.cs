@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Text;
 using System.Configuration;
+using ServiceHelpers;
 
 namespace TaskStoreMailWorker
 {
@@ -44,6 +45,9 @@ namespace TaskStoreMailWorker
 
         public override bool OnStart()
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
 

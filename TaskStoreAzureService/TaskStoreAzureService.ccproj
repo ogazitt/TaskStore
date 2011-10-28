@@ -45,12 +45,12 @@
       <RoleName>TaskStoreMailWorker</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\TaskStoreWebMvc3\TaskStoreWebMvc3.csproj">
-      <Name>TaskStoreWebMvc3</Name>
+    <ProjectReference Include="..\TaskStoreWebMvc3\TaskStoreWeb.csproj">
+      <Name>TaskStoreWeb</Name>
       <Project>{f391b690-2c45-4a8d-a99a-0c9dac3f79b8}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>TaskStoreWebMvc3</RoleName>
+      <RoleName>TaskStoreWeb</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>

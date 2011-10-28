@@ -9,8 +9,8 @@
     <ProjectGuid>{58BC6A29-DFA7-4765-BFF2-6BD4F5177C44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaskStoreWebMvc3.Tests</RootNamespace>
-    <AssemblyName>TaskStoreWebMvc3.Tests</AssemblyName>
+    <RootNamespace>TaskStoreWeb.Tests</RootNamespace>
+    <AssemblyName>TaskStoreWeb.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -56,9 +56,9 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TaskStoreWebMvc3\TaskStoreWebMvc3.csproj">
+    <ProjectReference Include="..\TaskStoreWebMvc3\TaskStoreWeb.csproj">
       <Project>{F391B690-2C45-4A8D-A99A-0C9DAC3F79B8}</Project>
-      <Name>TaskStoreWebMvc3</Name>
+      <Name>TaskStoreWeb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

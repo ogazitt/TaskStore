@@ -72,6 +72,10 @@
       <Project>{68E9CF8C-AB54-4CC7-A34F-C7F469E4EFE0}</Project>
       <Name>AE.Net.Mail</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoggingHelper\ServiceHelpers.csproj">
+      <Project>{F9A1E801-73CB-436A-BF0A-FD58B6473112}</Project>
+      <Name>ServiceHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TaskStoreServerEntities\TaskStoreServerEntities.csproj">
       <Project>{FC6908F4-5BA4-4AE0-BB87-E110EB76EDF7}</Project>
       <Name>TaskStoreServerEntities</Name>

@@ -50,7 +50,13 @@ namespace TaskStoreWebMvc3
             // map the WCF WebApi service routes
             RouteTable.Routes.MapServiceRoute<ConstantsResource>("constants", null);
             RouteTable.Routes.MapServiceRoute<ListTypeResource>("listtypes", null);
-            RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", null);
+            RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", 
+                new HttpConfiguration 
+                { 
+                    MaxReceivedMessageSize = 1048576, 
+                    MaxBufferSize = 1048576,
+                    //TransferMode = TransferMode.Streamed
+                });
             //RouteTable.Routes.Add(new ServiceRoute("speech", httpServiceHostFactory, typeof(SpeechResource)));
             //RouteTable.Routes.Add(new ServiceRoute("speech", null, typeof(SpeechResource)));
             

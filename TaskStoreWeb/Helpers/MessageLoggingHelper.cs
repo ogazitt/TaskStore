@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.ApplicationServer.Http.Channels;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using ServiceHelpers;
 
 namespace TaskStoreWeb.Helpers
 {
@@ -26,7 +27,7 @@ namespace TaskStoreWeb.Helpers
                 msg,
                 msg.Content != null ? msg.Content.ReadAsString() : "(empty)");
 
-            LoggingHelper.TraceLine(tracemsg, "Information");
+            LoggingHelper.TraceLine(tracemsg, LoggingHelper.LogLevel.Info);
 
             return msg.ToMessage();
         }
@@ -39,7 +40,7 @@ namespace TaskStoreWeb.Helpers
                 msg,
                 msg.Content != null ? msg.Content.ReadAsString() : "(empty)");
 
-            LoggingHelper.TraceLine(tracemsg, "Information");
+            LoggingHelper.TraceLine(tracemsg, LoggingHelper.LogLevel.Info);
 
             return msg.ToMessage();
         }
@@ -112,25 +113,6 @@ namespace TaskStoreWeb.Helpers
 
         void IServiceBehavior.Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
-        }
-    }
-
-    public class LoggingHelper
-    {
-        public static void TraceLine(string message, string level)
-        {
-            string msg = String.Format(
-                    "{0}: {1}",
-                    DateTime.Now.ToString(),
-                    message);
-
-            if (RoleEnvironment.IsAvailable)
-            {
-                Trace.WriteLine(msg, level);
-                Trace.Flush();
-            }
-            else
-                Console.WriteLine(msg);
         }
     }
 }

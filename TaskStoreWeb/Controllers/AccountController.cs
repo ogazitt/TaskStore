@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using TaskStoreWebMvc3.Models;
 using TaskStoreWeb.Models;
 using TaskStoreWeb.Helpers;
 using TaskStoreServerEntities;
+using ServiceHelpers;
 
 namespace TaskStoreWebMvc3.Controllers
 {
@@ -51,9 +51,12 @@ namespace TaskStoreWebMvc3.Controllers
                         ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("", "The user store is not reachable.  Please try again later.");
+                    
+                    // Log error
+                    LoggingHelper.TraceError("Membership.ValidateUser failed: " + ex.Message);
                 }
 
             }
@@ -97,11 +100,18 @@ namespace TaskStoreWebMvc3.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+
+                    // Log account creation
+                    LoggingHelper.TraceInfo("Account created successfully for user " + model.UserName);
+
                     return RedirectToAction("Index", "TL");
                 }
                 else
                 {
                     ModelState.AddModelError("", ErrorCodeToString(createStatus));
+
+                    // Log account creation failure
+                    LoggingHelper.TraceError("Account creation failed: " + ErrorCodeToString(createStatus));
                 }
             }
 
@@ -127,7 +137,6 @@ namespace TaskStoreWebMvc3.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 // ChangePassword will throw an exception rather
                 // than return false in certain failure scenarios.
                 bool changePasswordSucceeded;
@@ -143,10 +152,15 @@ namespace TaskStoreWebMvc3.Controllers
 
                 if (changePasswordSucceeded)
                 {
+                    // Log password change success
+                    LoggingHelper.TraceInfo("Password change request succeeded for user " + User.Identity.Name);
                     return RedirectToAction("ChangePasswordSuccess");
                 }
                 else
                 {
+                    // Log password change failure
+                    LoggingHelper.TraceError("Password change request failed for user " + User.Identity.Name);
+
                     ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
                 }
             }

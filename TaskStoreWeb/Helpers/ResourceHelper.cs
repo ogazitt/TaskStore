@@ -10,6 +10,7 @@ using System.IO;
 using TaskStoreWeb.Models;
 using System.Web.Security;
 using TaskStoreServerEntities;
+using ServiceHelpers;
 
 namespace TaskStoreWeb.Helpers
 {
@@ -22,11 +23,18 @@ namespace TaskStoreWeb.Helpers
         /// <returns>HTTP status code corresponding to authentication status</returns>
         public static HttpStatusCode AuthenticateUser(HttpRequestMessage req, TaskStore taskstore)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             User user = GetUserPassFromMessage(req);
 
             // if user/pass headers not found, return 400 Bad Request
             if (user == null)
+            {
+                // Log failure
+                LoggingHelper.TraceError("Bad request: no user information found");
                 return HttpStatusCode.BadRequest;
+            }
 
             try
             {
@@ -50,6 +58,9 @@ namespace TaskStoreWeb.Helpers
         /// <returns>HTTP status code corresponding to authentication status</returns>
         public static HttpStatusCode AuthenticateUserBAK(HttpRequestMessage req, TaskStore taskstore)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction(); 
+            
             User user = GetUserPassFromMessage(req);
 
             // if user/pass headers not found, return 400 Bad Request
@@ -95,6 +106,9 @@ namespace TaskStoreWeb.Helpers
         /// <returns>The HTTP status code to return</returns>
         public static HttpStatusCode CreateUser(TaskStore taskstore, User user, out MembershipCreateStatus createStatus)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+            
             try
             {
                 // create the user using the membership provider
@@ -113,14 +127,23 @@ namespace TaskStoreWeb.Helpers
                     taskstore.Users.Add(u);
                     taskstore.SaveChanges();
 
+                    // Log new user creation
+                    LoggingHelper.TraceInfo("Created new user " + user.Name);
                     return HttpStatusCode.Created;
                 }
                 else
+                {
+                    // Log failure
+                    LoggingHelper.TraceError("Failed to create new user " + user.Name);
                     return HttpStatusCode.Conflict;
+                }
             }
             catch (Exception)
             {
                 createStatus = MembershipCreateStatus.DuplicateUserName;
+
+                // Log new user creation
+                LoggingHelper.TraceError("Failed to create new user " + user.Name);
                 return HttpStatusCode.Conflict;
             }
         }
@@ -132,6 +155,9 @@ namespace TaskStoreWeb.Helpers
         /// <returns>User structure with filled in Name/Password</returns>
         public static User GetUserPassFromMessage(HttpRequestMessage req)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             string username = null;
             IEnumerable<string> values = new List<string>();
             if (req.Headers.TryGetValues("TaskStore-Username", out values) == true)
@@ -160,6 +186,9 @@ namespace TaskStoreWeb.Helpers
         /// <returns>The deserialized object</returns>
         public static object ProcessRequestBody(HttpRequestMessage req, Type t)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             if (req == null)
                 return null;
 
@@ -177,6 +206,9 @@ namespace TaskStoreWeb.Helpers
             }
 
             // no transfer encodings match
+
+            // Log error condition
+            LoggingHelper.TraceError("ProcessRequestBody: content-type unrecognized: " + contentType);
             return null;
         }
     }

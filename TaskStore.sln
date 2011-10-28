@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPKeyboardHelper", "WPKeybo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWinPhoneUtilitiesTests", "TaskStoreWinPhoneUtilitiesTests\TaskStoreWinPhoneUtilitiesTests.csproj", "{7705F3AC-A18F-4B01-8B28-819AC3013E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWebMvc3", "TaskStoreWebMvc3\TaskStoreWebMvc3.csproj", "{F391B690-2C45-4A8D-A99A-0C9DAC3F79B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWeb", "TaskStoreWebMvc3\TaskStoreWeb.csproj", "{F391B690-2C45-4A8D-A99A-0C9DAC3F79B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWebMvc3.Tests", "TaskStoreWebMvc3.Tests\TaskStoreWebMvc3.Tests.csproj", "{58BC6A29-DFA7-4765-BFF2-6BD4F5177C44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWeb.Tests", "TaskStoreWebMvc3.Tests\TaskStoreWeb.Tests.csproj", "{58BC6A29-DFA7-4765-BFF2-6BD4F5177C44}"
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "TaskStoreAzureService", "TaskStoreAzureService\TaskStoreAzureService.ccproj", "{46E77407-C105-4F01-AE6F-5CDB3CEE491F}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreServerEntities", "TaskStoreServerEntities\TaskStoreServerEntities.csproj", "{FC6908F4-5BA4-4AE0-BB87-E110EB76EDF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AE.Net.Mail", "AENetMail\AE.Net.Mail.csproj", "{68E9CF8C-AB54-4CC7-A34F-C7F469E4EFE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHelpers", "LoggingHelper\ServiceHelpers.csproj", "{F9A1E801-73CB-436A-BF0A-FD58B6473112}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -186,6 +188,16 @@ Global
 		{68E9CF8C-AB54-4CC7-A34F-C7F469E4EFE0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{68E9CF8C-AB54-4CC7-A34F-C7F469E4EFE0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{68E9CF8C-AB54-4CC7-A34F-C7F469E4EFE0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F9A1E801-73CB-436A-BF0A-FD58B6473112}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

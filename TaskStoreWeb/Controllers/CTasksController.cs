@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TaskStoreWeb.Models;
-using TaskStoreWebMvc3.Models;
 using TaskStoreServerEntities;
 
 namespace TaskStoreWebMvc3.Controllers

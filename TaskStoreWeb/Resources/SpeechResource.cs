@@ -17,6 +17,7 @@ using System.IO;
 using System.Net.Http.Headers;
 using TaskStoreServerEntities;
 using System.Threading;
+using ServiceHelpers;
 
 namespace TaskStoreWeb.Resources
 {
@@ -35,6 +36,9 @@ namespace TaskStoreWeb.Resources
 
         public SpeechResource()
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             // enable debug flag if this is a debug build
 #if DEBUG
             isDebugEnabled = true;
@@ -63,6 +67,9 @@ namespace TaskStoreWeb.Resources
         [WebInvoke(UriTemplate = "", Method = "POST")]
         public HttpResponseMessageWrapper<string> SpeechToText(HttpRequestMessage req)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             HttpStatusCode code = ResourceHelper.AuthenticateUser(req, TaskStore);
 
             if (code != HttpStatusCode.OK)
@@ -83,7 +90,7 @@ namespace TaskStoreWeb.Resources
             byte[] speechToParse = req.Content.ReadAsByteArray();
             MemoryStream ms = new MemoryStream(speechToParse);
 
-#if FOO
+#if KILL
             string msg = WriteSpeechFile(user, speechToParse);
             if (msg != null)
                 return new HttpResponseMessageWrapper<string>(req, msg, HttpStatusCode.OK);
@@ -128,13 +135,16 @@ namespace TaskStoreWeb.Resources
                 ReleaseSpeechEngine(sre);
 
                 // speech failed
-                LoggingHelper.TraceLine("Speech recognition failed: " + ex.Message, "Error");
+                LoggingHelper.TraceError("Speech recognition failed: " + ex.Message);
                 return new HttpResponseMessageWrapper<string>(req, HttpStatusCode.InternalServerError);
             }
         }
 
         SpeechRecognitionEngine GetSpeechEngine()
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             // this code must be thread safe
             lock (sreLock)
             {
@@ -160,6 +170,9 @@ namespace TaskStoreWeb.Resources
 
         void InitializeGrammar(string grammarPath, string appDataPath, string fileName)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             // construct App Root directory using drive letter from appDataPath and the approot path
             string appRootDir = appDataPath.Substring(0, 1) + @":\approot\Content\grammars";
             try
@@ -170,11 +183,11 @@ namespace TaskStoreWeb.Resources
             }
             catch (DirectoryNotFoundException)
             {
-                LoggingHelper.TraceLine("Directory " + grammarPath + " not found", "Error");
+                LoggingHelper.TraceError("Directory " + grammarPath + " not found");
                 // if the directory doesn't exist, move it over from the approot
                 if (Directory.Exists(appRootDir))
                 {
-                    LoggingHelper.TraceLine("Creating " + appDataPath, "Information");
+                    LoggingHelper.TraceInfo("Creating " + appDataPath);
                     try
                     {
                         Directory.CreateDirectory(appDataPath);
@@ -182,48 +195,54 @@ namespace TaskStoreWeb.Resources
                     }
                     catch (Exception ex)
                     {
-                        LoggingHelper.TraceLine("Create Directory " + appDataPath + " failed: " + ex.Message, "Error");
+                        LoggingHelper.TraceError("Create Directory " + appDataPath + " failed: " + ex.Message);
                     }
                 }
                 else
-                    LoggingHelper.TraceLine("Directory " + appRootDir + " does not exist - cannot initialize grammar", "Error");
+                    LoggingHelper.TraceError("Directory " + appRootDir + " does not exist - cannot initialize grammar");
             }
             catch (FileNotFoundException)
             {
-                LoggingHelper.TraceLine("File " + grammarPath + " not found", "Error");
+                LoggingHelper.TraceError("File " + grammarPath + " not found");
                 InitializeGrammarCopyFiles(appDataPath, fileName, appRootDir);
             }
             catch (Exception ex)
             {
-                LoggingHelper.TraceLine("Cannot find grammars: " + ex.Message, "Error");
+                LoggingHelper.TraceError("Cannot find grammars: " + ex.Message);
             }
         }
 
         private static void InitializeGrammarCopyFiles(string appDataPath, string fileName, string appRootDir)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             if (File.Exists(Path.Combine(appRootDir, fileName)))
             {                
-                LoggingHelper.TraceLine("Copying " + appRootDir + " to " + appDataPath, "Information");
+                LoggingHelper.TraceInfo("Copying " + appRootDir + " to " + appDataPath);
                 try
                 {
                     foreach (var file in Directory.EnumerateFiles(appRootDir))
                     {
                         string fname = Path.GetFileName(file);
-                        LoggingHelper.TraceLine("Copying " + Path.Combine(appRootDir, fname) + " to " + Path.Combine(appDataPath, fname), "Information");
+                        LoggingHelper.TraceInfo("Copying " + Path.Combine(appRootDir, fname) + " to " + Path.Combine(appDataPath, fname));
                         File.Copy(Path.Combine(appRootDir, fname), Path.Combine(appDataPath, fname));
                     }
                 }
                 catch (Exception ex)
                 {
-                    LoggingHelper.TraceLine("Copy file failed: " + ex.Message, "Error");
+                    LoggingHelper.TraceError("Copy file failed: " + ex.Message);
                 }
             }
             else
-                LoggingHelper.TraceLine("File " + Path.Combine(appRootDir, fileName) + " does not exist - cannot initialize grammar", "Error");
+                LoggingHelper.TraceError("File " + Path.Combine(appRootDir, fileName) + " does not exist - cannot initialize grammar");
         }
 
         void InitializeSpeechEngine(SpeechRecognitionEngine sre)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             try
             {
                 // initialize and cache format info
@@ -236,7 +255,7 @@ namespace TaskStoreWeb.Resources
                 string fileName = @"TELLME-SMS-LM.cfgp";
                 string appDataPath = HttpContext.Current.Server.MapPath("~/Content/grammars");
                 string grammarPath = Path.Combine(appDataPath, fileName);
-                LoggingHelper.TraceLine("Grammar path: " + grammarPath, "Information");
+                LoggingHelper.TraceInfo("Grammar path: " + grammarPath);
 
                 // make sure the grammar files are copied over from the approot directory to the appDataPath
                 InitializeGrammar(grammarPath, appDataPath, fileName);
@@ -248,12 +267,15 @@ namespace TaskStoreWeb.Resources
             }
             catch (Exception ex)
             {
-                LoggingHelper.TraceLine("Speech Engine initialization failed: " + ex.Message, "Error");            
+                LoggingHelper.TraceError("Speech Engine initialization failed: " + ex.Message);            
             }
         }
 
         static void ReleaseSpeechEngine(SpeechRecognitionEngine sre)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             // this code must be thread safe
             lock (sreLock)
             {
@@ -273,6 +295,9 @@ namespace TaskStoreWeb.Resources
 
         static void ResetSpeechEngine(object obj)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             SpeechInfo si = (SpeechInfo)obj;
             SpeechRecognitionEngine sre = si.Engine;
             byte[] speechByteArray = si.SpeechByteArray;
@@ -287,6 +312,9 @@ namespace TaskStoreWeb.Resources
 
         string WriteSpeechFile(User user, byte[] bytes)
         {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
             try
             {
                 //Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/files"));
