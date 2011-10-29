@@ -1,3 +1,40 @@
 TaskStore source tree
 
-More details later
+	Docs: design and other documents
+
+	source: root directory for all source code and tests
+
+	  clients: (test) clients of the service
+	    ImapTest: test of the IMAP support
+	    SpeechTest: test of the speech recognition service
+	    TaskStoreAdminClient: simple admin client over the TaskStore database
+	    TaskStoreClients.[sln,suo]: solution files for the clients
+
+	  service: TaskStore Service main directory
+	    AENetMail: IMAP implementation for .NET
+	    packages: NuGet packages that the projects depend on
+	    ServiceHelpers: Helpers that are common to all services 
+	    TaskStoreAzureService: container project for Azure roles
+	    TaskStoreData: SQL Azure and SQL Express schemas for the database
+	    TaskStoreMailWorker: Worker role that converts mail into tasks
+	    TaskStoreServerEntities: code-first model for the server entities
+	    TaskStoreWeb: Main project for both the website and web API
+	    tests: a subdirectory that contains the tests for the service
+	    TaskStoreService.[sln,suo]: solution files for the service
+  
+	  winphone: Windows Phone client implementation
+	    TaskStoreClientEntities: client projection of the TaskStore entities (model for the app)
+	    TaskStoreWinPhone: main project for WP7 client (contains views and viewmodels)
+	    TaskStoreWinPhoneUtilities: separable utilities from the main WP7 UI
+	    tests: a subdirectory that contains the tests for the WP7 client
+	    WPKeyboardHelper: helper project for processing keyboard input
+	    TaskStoreWinPhone.[sln,suo]: solution files for the phone client
+
+	  TaskStore.[sln,suo]: solution files for both the service and the winphone client
+
+Note: building the project files will create two additional directories that NOT in source control:
+
+	bin: all the binaries for the all the projects
+
+	obj: all the object files for all the projects 
+	
