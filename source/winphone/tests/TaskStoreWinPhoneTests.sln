@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWinPhoneUtilitiesTests", "TaskStoreWinPhoneUtilitiesTests\TaskStoreWinPhoneUtilitiesTests.csproj", "{7705F3AC-A18F-4B01-8B28-819AC3013E42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreWinPhoneUtilities", "..\TaskStoreWinPhoneUtilities\TaskStoreWinPhoneUtilities.csproj", "{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskStoreClientEntities", "..\TaskStoreClientEntities\TaskStoreClientEntities.csproj", "{2BD03228-793E-4A41-A89E-1C1987753A81}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TaskStore.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7705F3AC-A18F-4B01-8B28-819AC3013E42}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DE7362EF-03DB-4FE2-BFD9-C9F83143C4BC}.Release|x86.ActiveCfg = Release|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2BD03228-793E-4A41-A89E-1C1987753A81}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
