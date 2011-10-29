@@ -13,7 +13,7 @@ using Microsoft.ApplicationServer.Http;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 
-namespace TaskStoreWebMvc3
+namespace TaskStoreWeb
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

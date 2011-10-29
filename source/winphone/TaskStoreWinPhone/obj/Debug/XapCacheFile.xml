@@ -1,14 +1,14 @@
-﻿<xapCache source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/28/2011 11:42:16 PM">
-  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="10/28/2011 11:37:57 PM" />
+﻿<xapCache source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/29/2011 12:35:10 AM">
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="10/29/2011 12:35:09 AM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Background.png" archivePath="Background.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="10/28/2011 11:13:39 PM" />
-  <file source="C:\Users\Omri\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="10/28/2011 11:42:15 PM" />
+  <file source="C:\Users\Omri\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="10/29/2011 12:35:08 AM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="9/15/2011 3:36:26 PM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.0\Toolkit\Feb11\Bin\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="2/17/2011 3:27:04 PM" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.0\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="9/1/2010 1:41:46 AM" />
-  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreEntities.dll" archivePath="TaskStoreEntities.dll" lastWriteTime="10/28/2011 11:37:52 PM" />
-  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreWinPhoneUtilities.dll" archivePath="TaskStoreWinPhoneUtilities.dll" lastWriteTime="10/28/2011 11:37:54 PM" />
-  <file source="C:\Users\Omri\TaskStore\bin\Debug\WPKeyboardHelper.dll" archivePath="WPKeyboardHelper.dll" lastWriteTime="10/28/2011 11:37:52 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreEntities.dll" archivePath="TaskStoreEntities.dll" lastWriteTime="10/29/2011 12:35:05 AM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreWinPhoneUtilities.dll" archivePath="TaskStoreWinPhoneUtilities.dll" lastWriteTime="10/29/2011 12:35:06 AM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\WPKeyboardHelper.dll" archivePath="WPKeyboardHelper.dll" lastWriteTime="10/29/2011 12:35:05 AM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\Site.css" archivePath="Content\Site.css" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\Welcome.html" archivePath="Content\Welcome.html" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\WP7.css" archivePath="Content\WP7.css" lastWriteTime="10/28/2011 11:13:39 PM" />
@@ -36,7 +36,7 @@
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.multiadd.rest.png" archivePath="Images\appbar.multiadd.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
-  <file source="C:\Users\Omri\TaskStore\bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/28/2011 11:37:57 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/29/2011 12:35:09 AM" />
   <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.email.rest.png" archivePath="Images\appbar.feature.email.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.settings.rest.png" archivePath="Images\appbar.feature.settings.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />

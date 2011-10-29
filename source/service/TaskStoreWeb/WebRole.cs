@@ -6,7 +6,7 @@ using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using ServiceHelpers;
 
-namespace TaskStoreWebMvc3
+namespace TaskStoreWeb
 {
     public class WebRole : RoleEntryPoint
     {
