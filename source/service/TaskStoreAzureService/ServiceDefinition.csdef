@@ -7,7 +7,7 @@
       <Import moduleName="RemoteForwarder" />
     </Imports>
   </WorkerRole>
-  <WebRole name="TaskStoreWeb" vmsize="Small">
+  <WebRole name="TaskStoreWeb" vmsize="ExtraSmall">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -16,7 +16,7 @@
       </Site>
     </Sites>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="Endpoint1" protocol="http" port="8080" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />

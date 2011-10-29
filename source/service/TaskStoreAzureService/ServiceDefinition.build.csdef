@@ -16,7 +16,7 @@
       <Import moduleName="RemoteForwarder" />
     </Imports>
   </WorkerRole>
-  <WebRole name="TaskStoreWeb" vmsize="Small">
+  <WebRole name="TaskStoreWeb" vmsize="ExtraSmall">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -25,11 +25,13 @@
       </Site>
     </Sites>
     <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+      <InputEndpoint name="Endpoint1" protocol="http" port="8080" />
+      <InputEndpoint name="Microsoft.WindowsAzure.Plugins.WebDeploy.InputEndpoint" protocol="tcp" port="8172" localPort="8172" />
     </Endpoints>
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />
+      <Import moduleName="WebDeploy" />
     </Imports>
   </WebRole>
 </ServiceDefinition>
