@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="TaskStoreAzureService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="2" osVersion="*">
+  <Role name="TaskStoreMailWorker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=taskstorage;AccountKey=S7YxPLj8qIUZq0h/pik7NQnmT2+wD4O0G4hzZEn2UOkQ06iUg8e1bX8m8S5d2iPJuhkJfeWAYGUdRsi/N9UhIA==" />
+      <!--<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />-->
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Omri" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEB2cloKeNwahRAgHEvMvVcYwDQYJKoZIhvcNAQEBBQAEggEAh8g67IJtIGyKlGH0+ZxUE0sm7EaLTiWYMqPcTA3yXVYsRsuMbK4d/WkrB4kHTbvdJxGCkXFaFreYm6yWaopjKJZ05K8dsCdIeNExB4BflSvrvctU7Q8pmHGtdkgbC3LtzGAuAxlC+dm1KaZHYfnwcwpXyFSArlef3yoM4fRbvfMAhEv9aa+vsXQ2H62BHT28iFlpGO26ii8xk54IMpNHHEniVvu4GhbyIaLLQixNXv+LubULrWyhkM7uqRxgeSwGeUeQobdUR0TkauiKt9DeRVEb12vMWwD4c9L5NiK45+4aAHrObZJMIDsaY16S2YE/zKDIC/Z7nWIEhAknTfiAtjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECGIqwxGybQbogBBETP1w6FrZmdSK1T9y1sYE" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2020-08-31T23:59:59.0000000-07:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D19C2E1BBFDB2C6CCDF76EC64A34739610255066" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <Role name="TaskStoreWeb">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Omri" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEB2cloKeNwahRAgHEvMvVcYwDQYJKoZIhvcNAQEBBQAEggEAh8g67IJtIGyKlGH0+ZxUE0sm7EaLTiWYMqPcTA3yXVYsRsuMbK4d/WkrB4kHTbvdJxGCkXFaFreYm6yWaopjKJZ05K8dsCdIeNExB4BflSvrvctU7Q8pmHGtdkgbC3LtzGAuAxlC+dm1KaZHYfnwcwpXyFSArlef3yoM4fRbvfMAhEv9aa+vsXQ2H62BHT28iFlpGO26ii8xk54IMpNHHEniVvu4GhbyIaLLQixNXv+LubULrWyhkM7uqRxgeSwGeUeQobdUR0TkauiKt9DeRVEb12vMWwD4c9L5NiK45+4aAHrObZJMIDsaY16S2YE/zKDIC/Z7nWIEhAknTfiAtjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECGIqwxGybQbogBBETP1w6FrZmdSK1T9y1sYE" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2020-08-31T23:59:59.0000000-07:00" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D19C2E1BBFDB2C6CCDF76EC64A34739610255066" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>
