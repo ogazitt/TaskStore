@@ -1,61 +1,61 @@
-﻿<xapCache source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/28/2011 10:47:44 PM">
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="10/28/2011 8:50:37 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Background.png" archivePath="Background.png" lastWriteTime="6/22/2011 4:17:35 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="6/20/2011 10:42:17 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="10/28/2011 10:47:42 PM" />
+﻿<xapCache source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/28/2011 11:42:16 PM">
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="10/28/2011 11:37:57 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Background.png" archivePath="Background.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="10/28/2011 11:42:15 PM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="9/15/2011 3:36:26 PM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.0\Toolkit\Feb11\Bin\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="2/17/2011 3:27:04 PM" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.0\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="9/1/2010 1:41:46 AM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\TaskStoreEntities.dll" archivePath="TaskStoreEntities.dll" lastWriteTime="10/28/2011 10:15:55 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\TaskStoreWinPhoneUtilities.dll" archivePath="TaskStoreWinPhoneUtilities.dll" lastWriteTime="10/28/2011 10:15:55 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\WPKeyboardHelper.dll" archivePath="WPKeyboardHelper.dll" lastWriteTime="10/28/2011 10:15:55 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Content\Site.css" archivePath="Content\Site.css" lastWriteTime="8/2/2011 6:13:17 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Content\Welcome.html" archivePath="Content\Welcome.html" lastWriteTime="8/2/2011 6:15:48 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Content\WP7.css" archivePath="Content\WP7.css" lastWriteTime="8/2/2011 6:13:17 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.email.rest.png" archivePath="Images\appbar.feature.email.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.settings.rest.png" archivePath="Images\appbar.feature.settings.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.folder.rest.png" archivePath="Images\appbar.folder.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.mic.pressed.png" archivePath="Images\button.mic.pressed.png" lastWriteTime="9/20/2011 9:08:52 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.search.png" archivePath="Images\button.search.png" lastWriteTime="7/20/2011 5:12:22 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.search.pressed.png" archivePath="Images\button.search.pressed.png" lastWriteTime="7/20/2011 5:34:53 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\connected.false.png" archivePath="Images\connected.false.png" lastWriteTime="7/28/2011 9:10:56 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\connected.true.png" archivePath="Images\connected.true.png" lastWriteTime="7/28/2011 9:13:35 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.mic.png" archivePath="Images\button.mic.png" lastWriteTime="9/20/2011 9:00:31 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.high.png" archivePath="Images\priority.high.png" lastWriteTime="7/19/2011 5:30:37 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.low.png" archivePath="Images\priority.low.png" lastWriteTime="7/27/2011 11:09:30 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.none.png" archivePath="Images\priority.none.png" lastWriteTime="7/19/2011 5:57:03 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\SplashScreenImage2.jpg" archivePath="SplashScreenImage2.jpg" lastWriteTime="7/30/2011 2:58:40 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="8/2/2011 5:31:46 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="7/18/2011 6:12:03 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="7/18/2011 6:13:10 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.add.rest.png" archivePath="Images\appbar.add.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.cancel.rest.png" archivePath="Images\appbar.cancel.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.edit.rest.png" archivePath="Images\appbar.edit.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.multiadd.rest.png" archivePath="Images\appbar.multiadd.rest.png" lastWriteTime="7/9/2011 5:27:50 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/28/2011 10:15:57 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.feature.email.rest.png" archivePath="Images\appbar.feature.email.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.feature.settings.rest.png" archivePath="Images\appbar.feature.settings.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\button.search.png" archivePath="Images\button.search.png" lastWriteTime="7/20/2011 5:12:22 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\button.search.pressed.png" archivePath="Images\button.search.pressed.png" lastWriteTime="7/20/2011 5:34:53 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\connected.false.png" archivePath="Images\connected.false.png" lastWriteTime="7/28/2011 9:10:56 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\connected.true.png" archivePath="Images\connected.true.png" lastWriteTime="7/28/2011 9:13:35 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\priority.high.png" archivePath="Images\priority.high.png" lastWriteTime="8/25/2011 1:24:37 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\priority.low.png" archivePath="Images\priority.low.png" lastWriteTime="8/25/2011 1:24:37 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\priority.none.png" archivePath="Images\priority.none.png" lastWriteTime="8/25/2011 1:24:37 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\SplashScreenImage2.jpg" archivePath="SplashScreenImage2.jpg" lastWriteTime="7/30/2011 2:58:40 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="8/2/2011 5:31:46 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="7/18/2011 6:12:03 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="7/18/2011 6:13:10 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.add.rest.png" archivePath="Images\appbar.add.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.cancel.rest.png" archivePath="Images\appbar.cancel.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.edit.rest.png" archivePath="Images\appbar.edit.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="8/17/2010 3:41:24 PM" />
-  <file source="C:\Users\Omri\Documents\Visual Studio 2010\Projects\TaskStore\bin\Debug\Images\appbar.multiadd.rest.png" archivePath="Images\appbar.multiadd.rest.png" lastWriteTime="7/9/2011 5:27:50 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreEntities.dll" archivePath="TaskStoreEntities.dll" lastWriteTime="10/28/2011 11:37:52 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\TaskStoreWinPhoneUtilities.dll" archivePath="TaskStoreWinPhoneUtilities.dll" lastWriteTime="10/28/2011 11:37:54 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\WPKeyboardHelper.dll" archivePath="WPKeyboardHelper.dll" lastWriteTime="10/28/2011 11:37:52 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\Site.css" archivePath="Content\Site.css" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\Welcome.html" archivePath="Content\Welcome.html" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Content\WP7.css" archivePath="Content\WP7.css" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.email.rest.png" archivePath="Images\appbar.feature.email.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.feature.settings.rest.png" archivePath="Images\appbar.feature.settings.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.folder.rest.png" archivePath="Images\appbar.folder.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.mic.pressed.png" archivePath="Images\button.mic.pressed.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.search.png" archivePath="Images\button.search.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.search.pressed.png" archivePath="Images\button.search.pressed.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\connected.false.png" archivePath="Images\connected.false.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\connected.true.png" archivePath="Images\connected.true.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\button.mic.png" archivePath="Images\button.mic.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.high.png" archivePath="Images\priority.high.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.low.png" archivePath="Images\priority.low.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\priority.none.png" archivePath="Images\priority.none.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\SplashScreenImage2.jpg" archivePath="SplashScreenImage2.jpg" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.add.rest.png" archivePath="Images\appbar.add.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.cancel.rest.png" archivePath="Images\appbar.cancel.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.edit.rest.png" archivePath="Images\appbar.edit.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Images\appbar.multiadd.rest.png" archivePath="Images\appbar.multiadd.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="10/28/2011 11:37:57 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.email.rest.png" archivePath="Images\appbar.feature.email.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.search.rest.png" archivePath="Images\appbar.feature.search.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.feature.settings.rest.png" archivePath="Images\appbar.feature.settings.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\button.search.png" archivePath="Images\button.search.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\button.search.pressed.png" archivePath="Images\button.search.pressed.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\connected.false.png" archivePath="Images\connected.false.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\connected.true.png" archivePath="Images\connected.true.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\priority.high.png" archivePath="Images\priority.high.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\priority.low.png" archivePath="Images\priority.low.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\priority.none.png" archivePath="Images\priority.none.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\SplashScreenImage2.jpg" archivePath="SplashScreenImage2.jpg" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Toolkit.Content\ApplicationBar.Check.png" archivePath="Toolkit.Content\ApplicationBar.Check.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Toolkit.Content\ApplicationBar.Cancel.png" archivePath="Toolkit.Content\ApplicationBar.Cancel.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.add.rest.png" archivePath="Images\appbar.add.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.cancel.rest.png" archivePath="Images\appbar.cancel.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.delete.rest.png" archivePath="Images\appbar.delete.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.edit.rest.png" archivePath="Images\appbar.edit.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.refresh.rest.png" archivePath="Images\appbar.refresh.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.save.rest.png" archivePath="Images\appbar.save.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
+  <file source="C:\Users\Omri\TaskStore\bin\Debug\Images\appbar.multiadd.rest.png" archivePath="Images\appbar.multiadd.rest.png" lastWriteTime="10/28/2011 11:13:39 PM" />
 </xapCache>
