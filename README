@@ -32,7 +32,7 @@ TaskStore source tree
 
 	  TaskStore.[sln,suo]: solution files for both the service and the winphone client
 
-Note: building the project files will create two additional directories that NOT in source control:
+Note: building the project files will create two additional directories that should NOT be in source control:
 
 	bin: all the binaries for the all the projects
 
