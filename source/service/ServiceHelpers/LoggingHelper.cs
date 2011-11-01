@@ -45,10 +45,8 @@ namespace ServiceHelpers
             StackTrace st = new StackTrace(true);
             StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                "Entering {0} {1}:{2}",
-                sf.GetFileName(),
-                sf.GetMethod().Name,
-                sf.GetFileLineNumber());
+                "Entering {0}",
+                StackInfoText());
             TraceLine(msg, LogLevel.Detail);
         }
 
@@ -57,10 +55,8 @@ namespace ServiceHelpers
             StackTrace st = new StackTrace(true);
             StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                "Info from {0} {1}:{2}; {3}",
-                sf.GetFileName(),
-                sf.GetMethod().Name,
-                sf.GetFileLineNumber(),
+                "Info from {0} - {1}",
+                StackInfoText(),
                 message);
             TraceLine(msg, LogLevel.Info);
         }
@@ -70,10 +66,8 @@ namespace ServiceHelpers
             StackTrace st = new StackTrace(true);
             StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                "Error in {0} {1}:{2}; {3}",
-                sf.GetFileName(),
-                sf.GetMethod().Name,
-                sf.GetFileLineNumber(),
+                "Error in {0} - {1}",
+                StackInfoText(),
                 message);
             TraceLine(msg, LogLevel.Error);
         }
@@ -83,13 +77,13 @@ namespace ServiceHelpers
             StackTrace st = new StackTrace(true);
             StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                "***Fatal Error*** in {0} {1}:{2}; {3}",
-                sf.GetFileName(),
-                sf.GetMethod().Name,
-                sf.GetFileLineNumber(),
+                "***Fatal Error*** in {0} - {1}",
+                StackInfoText(),
                 message);
             TraceLine(msg, LogLevel.Fatal);
         }
+
+        #region Helpers
 
         private static string LevelText(LogLevel level)
         {
@@ -107,5 +101,22 @@ namespace ServiceHelpers
                     return "Unknown";
             }
         }
+
+        private static string StackInfoText()
+        {
+            StackTrace st = new StackTrace(true);
+            StackFrame sf = st.GetFrame(2);
+            string fullFileName = sf.GetFileName();
+            string[] lines = fullFileName.Split('\\');
+            string filename = lines[lines.Length - 1];
+            string msg = String.Format(
+                "{0}() in {1}:{2}",
+                sf.GetMethod().Name,
+                filename,
+                sf.GetFileLineNumber());
+            return msg;
+        }
+
+        #endregion
     }
 }

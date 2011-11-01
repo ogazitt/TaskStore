@@ -32,7 +32,7 @@ namespace TaskStoreWinPhoneUtilities
         }
 
         static Socket socket = null;
-        static DnsEndPoint dnsEndPoint = null;
+        static EndPoint endPoint = null;
 
         // only one network operation at a time
         static bool isRequestInProgress = false;
@@ -223,11 +223,14 @@ namespace TaskStoreWinPhoneUtilities
             if (socket == null)
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                dnsEndPoint = new DnsEndPoint(uri.Host, uri.Port, AddressFamily.InterNetwork);
+                if (uri.Host == "localhost")
+                    endPoint = new IPEndPoint(IPAddress.IPv6Loopback, uri.Port);
+                else
+                    endPoint = new DnsEndPoint(uri.Host, uri.Port);
             }
 
             SocketAsyncEventArgs socketEventArg = new SocketAsyncEventArgs();
-            socketEventArg.RemoteEndPoint = dnsEndPoint;
+            socketEventArg.RemoteEndPoint = endPoint;
 
             // set the connect completion delegate
             socketEventArg.Completed += new EventHandler<SocketAsyncEventArgs>(delegate(object o, SocketAsyncEventArgs e)
@@ -263,7 +266,7 @@ namespace TaskStoreWinPhoneUtilities
                         CleanupSocket();
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     // signal that a network operation is done and unsuccessful
                     netOpInProgressDel.DynamicInvoke(false, false);
@@ -291,7 +294,7 @@ namespace TaskStoreWinPhoneUtilities
                 return;
 
             SocketAsyncEventArgs socketReceiveEventArg = new SocketAsyncEventArgs();
-            socketReceiveEventArg.RemoteEndPoint = dnsEndPoint;
+            socketReceiveEventArg.RemoteEndPoint = endPoint;
             socketReceiveEventArg.Completed += new EventHandler<SocketAsyncEventArgs>(delegate(object o, SocketAsyncEventArgs e)
             {
                 if (e.SocketError != SocketError.Success)
@@ -410,7 +413,7 @@ namespace TaskStoreWinPhoneUtilities
                 return;
             
             SocketAsyncEventArgs socketSendEventArg = new SocketAsyncEventArgs();
-            socketSendEventArg.RemoteEndPoint = dnsEndPoint;
+            socketSendEventArg.RemoteEndPoint = endPoint;
             if (eh != null)
                 socketSendEventArg.Completed += eh;
 

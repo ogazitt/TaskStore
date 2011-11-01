@@ -71,10 +71,8 @@ namespace TaskStoreWeb.Resources
             LoggingHelper.TraceFunction();
 
             HttpStatusCode code = ResourceHelper.AuthenticateUser(req, TaskStore);
-
             if (code != HttpStatusCode.OK)
                 return new HttpResponseMessageWrapper<string>(req, code);  // user not authenticated
-            User user = ResourceHelper.GetUserPassFromMessage(req);
 
             // get a free instance of the speech recognition engine
             SpeechRecognitionEngine sre = null;
@@ -87,23 +85,24 @@ namespace TaskStoreWeb.Resources
                     Thread.Sleep(1000);
             }
 
-            byte[] speechToParse = req.Content.ReadAsByteArray();
-            MemoryStream ms = new MemoryStream(speechToParse);
+            try
+            {
+                //byte[] speechToParse = req.Content.ReadAsByteArray();
+                //MemoryStream ms = new MemoryStream(speechToParse);
+                //LoggingHelper.TraceLine("Speech to parse: " + speechToParse.Length, LoggingHelper.LogLevel.Detail);
 
 #if KILL
             string msg = WriteSpeechFile(user, speechToParse);
             if (msg != null)
                 return new HttpResponseMessageWrapper<string>(req, msg, HttpStatusCode.OK);
 #endif
-            
-            DateTime start = DateTime.Now;
-            string responseString = null;
-            sre.SetInputToAudioStream(ms, formatInfo);
 
-            try
-            {
+                DateTime start = DateTime.Now;
+                string responseString = null;
+                sre.SetInputToAudioStream(req.Content.ContentReadStream, formatInfo);
+
                 var result = sre.Recognize();
-                ms = null;
+                //ms = null;
 
                 if (result == null)
                     responseString = "[unrecognized]";
@@ -113,8 +112,11 @@ namespace TaskStoreWeb.Resources
                 DateTime end = DateTime.Now;
                 TimeSpan ts = end - start;
 
-                responseString += String.Format(" {0}.{1} seconds", ts.Seconds.ToString(), ts.Milliseconds.ToString());
+                // trace the recognized speech
+                string timing = String.Format(" {0}.{1} seconds", ts.Seconds.ToString(), ts.Milliseconds.ToString());
+                LoggingHelper.TraceLine(String.Format("Recognized '{0}' in{1}", responseString, timing), LoggingHelper.LogLevel.Detail);
 
+                responseString += timing;
                 var response = new HttpResponseMessageWrapper<string>(req, responseString, HttpStatusCode.OK);
                 response.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
 
@@ -131,11 +133,12 @@ namespace TaskStoreWeb.Resources
             }
             catch (Exception ex)
             {
+                // speech failed
+                LoggingHelper.TraceError("Speech recognition failed: " + ex.Message);
+
                 // release engine instance
                 ReleaseSpeechEngine(sre);
 
-                // speech failed
-                LoggingHelper.TraceError("Speech recognition failed: " + ex.Message);
                 return new HttpResponseMessageWrapper<string>(req, HttpStatusCode.InternalServerError);
             }
         }
@@ -164,6 +167,11 @@ namespace TaskStoreWeb.Resources
 
                 // set the in use flag and return the SRE
                 sreInUseArray[i] = true;
+
+                // log the speech engine used
+                LoggingHelper.TraceLine(String.Format("Using SpeechEngine[{0}]", i), LoggingHelper.LogLevel.Detail);
+
+                // return speech engine
                 return sreArray[i];
             }
         }
@@ -183,7 +191,7 @@ namespace TaskStoreWeb.Resources
             }
             catch (DirectoryNotFoundException)
             {
-                LoggingHelper.TraceError("Directory " + grammarPath + " not found");
+                LoggingHelper.TraceError("Directory " + appDataPath + " not found");
                 // if the directory doesn't exist, move it over from the approot
                 if (Directory.Exists(appRootDir))
                 {
@@ -333,6 +341,7 @@ namespace TaskStoreWeb.Resources
             }
             catch (Exception ex)
             {
+                LoggingHelper.TraceError("Write speech file failed: " + ex.Message);
                 return ex.Message;
             }
         }
