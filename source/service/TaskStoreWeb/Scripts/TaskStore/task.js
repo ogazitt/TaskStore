@@ -170,7 +170,7 @@ task.createTaskEditDialog = function (listType) {
     buttonsEditTask[language.data.edit_cancel] = function () { $(this).dialog('close') };
 
     // construct the dialog fields
-    //   note - width='200' is required on td and span fields - haven't figured out why the 'fieldname' (appropriately styled in TaskStore.css)
+    //   note - width='108' is required on td and span fields - haven't figured out why the 'fieldname' (appropriately styled in TaskStore.css)
     //   doesn't take care of the width automatically. 
     var table = {};
     table["primary"] = "<table>";
@@ -182,7 +182,7 @@ task.createTaskEditDialog = function (listType) {
         var listTypeClass = "taskfieldvalue-" + listType.ID;
 
         table[tableIndex] += "<tr rel='" + fieldType.FieldTypeID + "'>";
-        table[tableIndex] += "<td class='fieldname' width='200'><span class='fieldname'>" + fieldType.DisplayName + "</span></td>";
+        table[tableIndex] += "<td class='fieldname' width='108'><span class='fieldname'>" + fieldType.DisplayName + "</span></td>";
         table[tableIndex] += "<td>";
         switch (fieldType.DisplayType) {
             case "Date":

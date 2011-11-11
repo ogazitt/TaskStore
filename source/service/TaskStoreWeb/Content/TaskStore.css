@@ -113,6 +113,10 @@ li
 {
     width: 200;
 }
+select.dialoginputfield
+{
+    margin-right: -10px;
+}
 
 /* add bar */
 
