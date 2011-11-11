@@ -71,11 +71,13 @@ tasklist.createListEditDialog = function () {
     var template = html.checkboxElement(false);
     template = $(template).addClass("listtemplate").outerHTML();
     // construct the dialog fields
+    //   note - width='200' is required on td and span fields - haven't figured out why the 'fieldname' (appropriately styled in TaskStore.css)
+    //   doesn't take care of the width automatically. 
     var table = "<table>";
     // Name
     table += "<tr>";
-    table += "<td><span>Name</span></td>";
-    table += "<td><input class='dialoginputfield listname' value=''></input></td>";
+    table += "<td width='200'><span class='fieldname' width='200'>Name</span></td>";
+    table += "<td><input type='text' class='dialoginputfield listname' value=''></input></td>";
     table += "</tr>";
     // Type
     table += "<tr>";

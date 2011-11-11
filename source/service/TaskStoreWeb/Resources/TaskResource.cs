@@ -233,7 +233,7 @@ namespace TaskStoreWeb.Resources
             if (code != HttpStatusCode.OK)
                 return new HttpResponseMessageWrapper<Task>(req, code);  // user not authenticated
 
-            // the body will be two TaskLists - the original and the new values.  Verify this
+            // the body will be two Tasks - the original and the new values.  Verify this
             List<Task> clientTasks = ResourceHelper.ProcessRequestBody(req, typeof(List<Task>)) as List<Task>;
             if (clientTasks.Count != 2)
                 return new HttpResponseMessageWrapper<Task>(req, HttpStatusCode.BadRequest);

@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">Lists</asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
     <script src="/Scripts/TaskStore/ajaxhelper.js" type="text/javascript"></script>
     <script src="/Scripts/TaskStore/constants.js" type="text/javascript"></script>
     <script src="/Scripts/TaskStore/dialogs.js" type="text/javascript"></script>
@@ -13,9 +13,16 @@
     <script src="/Scripts/TaskStore/task.js" type="text/javascript"></script>
     <script src="/Scripts/TaskStore/tasklist.js" type="text/javascript"></script>
     <script src="/Scripts/TaskStore/taskstore.js" type="text/javascript"></script>
+    <script src="/Scripts/TaskStore/user.js" type="text/javascript"></script>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
+    <div id="logindisplay">
+        <% Html.RenderPartial("LogOnUserControl"); %>
+    </div> 
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
     <div class="add">
         <div class="addwrapper">
             <input type="text" class="input-add" placeholder="Add a new task here" />

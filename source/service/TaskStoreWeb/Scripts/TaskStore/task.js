@@ -170,6 +170,8 @@ task.createTaskEditDialog = function (listType) {
     buttonsEditTask[language.data.edit_cancel] = function () { $(this).dialog('close') };
 
     // construct the dialog fields
+    //   note - width='200' is required on td and span fields - haven't figured out why the 'fieldname' (appropriately styled in TaskStore.css)
+    //   doesn't take care of the width automatically. 
     var table = {};
     table["primary"] = "<table>";
     table["more"] = "<table class='moreTable'>";
@@ -180,11 +182,11 @@ task.createTaskEditDialog = function (listType) {
         var listTypeClass = "taskfieldvalue-" + listType.ID;
 
         table[tableIndex] += "<tr rel='" + fieldType.FieldTypeID + "'>";
-        table[tableIndex] += "<td width='200'><span class='fieldname' width='200'>" + fieldType.DisplayName + "</span></td>";
+        table[tableIndex] += "<td class='fieldname' width='200'><span class='fieldname'>" + fieldType.DisplayName + "</span></td>";
         table[tableIndex] += "<td>";
         switch (fieldType.DisplayType) {
             case "Date":
-                table[tableIndex] += "<input class='dialoginputfield timestamp datepicker " + fieldType.Name + " " + listTypeClass + "'/>";
+                table[tableIndex] += "<input type='date' class='dialoginputfield timestamp datepicker " + fieldType.Name + " " + listTypeClass + "'/>";
                 break;
             case "Priority":
                 var lp = html.createPriorityPicker(constants.Priorities);
@@ -200,7 +202,7 @@ task.createTaskEditDialog = function (listType) {
             case "TagList":
             case "ListPointer":
             default:
-                table[tableIndex] += "<input class='dialoginputfield " + fieldType.Name + " " + listTypeClass + "'/>";
+                table[tableIndex] += "<input type='text' class='dialoginputfield " + fieldType.Name + " " + listTypeClass + "'/>";
                 break;
             case "Boolean":
                 var checkbox = html.checkboxElement(false);

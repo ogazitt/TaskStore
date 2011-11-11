@@ -25,15 +25,17 @@ a:visited
 {
     color: #505abc;
 }
+
 a:hover
 {
-    color: #1d60ff;
     text-decoration: none;
 }
+/*
 a:active
 {
     color: #12eb87;
 }
+*/
 
 p, ul
 {
@@ -262,7 +264,9 @@ legend
 
 input[type="text"] 
 {
+/*
     width: 250px;
+*/
     font-size: 16px;
     line-height: 1.28;
     border: 1px solid #96a6c5;
@@ -271,7 +275,9 @@ input[type="text"]
 
 input[type="password"] 
 {
+/*
     width: 250px;
+*/
     font-size: 16px;
     line-height: 1.28;
     border: 1px solid #96a6c5;
@@ -343,32 +349,35 @@ a#logo
      width:200;
 }
 
+/* login display */
+
 #logindisplay
 {
     font-size:1.1em;
     display:block;
     text-align:right;
-    margin:10px;
+    margin:5px;
     color:White;
+    float: right;
+    margin-top: 3px;
 }
 
 #logindisplay a:link
 {
-    color: white;
-    text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: white;
-    text-decoration: underline;
 }
 
 #logindisplay a:hover
 {
-    color: white;
+    font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
 }
+
+/* main div */
 
 #taskstore-main
 {
@@ -405,7 +414,23 @@ table#taskstore-main-table td
 {
     float: left;
     padding-left: 25px;
-    margin-top: -57px;
+    /*margin-top: -57px;*/
+    margin-top: -30px;
+}
+
+#logincontrol input[type="text"], #logincontrol input[type="password"]
+{
+    width: 300px;
+}
+
+#registercontrol input[type="text"], #registercontrol input[type="password"]
+{
+    width: 300px;
+}
+
+#registercontrol fieldset
+{
+    width: 320px;
 }
 
 /* Styles for validation helpers

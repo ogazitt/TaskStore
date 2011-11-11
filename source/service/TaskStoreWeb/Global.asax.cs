@@ -35,31 +35,18 @@ namespace TaskStoreWeb
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
-//                new { controller = new NotInValuesConstraint(new[] { "constants", "listtypes", "tags", "tasklists", "users" }) }
                 new { controller = new NotInValuesConstraint(new[] { "constants", "listtypes", "speech", "tags", "tasks", "tasklists", "users" }) }
             );
 
-            HttpServiceHostFactory httpServiceHostFactory = new HttpServiceHostFactory();
-            httpServiceHostFactory.Configuration = new HttpConfiguration
-            {
-                // MaxBufferSize = 1048576,
-                MaxReceivedMessageSize = 1048576, 
-                TransferMode = TransferMode.Streamed
-            };           
- 
             // map the WCF WebApi service routes
             RouteTable.Routes.MapServiceRoute<ConstantsResource>("constants", null);
             RouteTable.Routes.MapServiceRoute<ListTypeResource>("listtypes", null);
             RouteTable.Routes.MapServiceRoute<SpeechResource>("speech", 
                 new HttpConfiguration 
                 { 
-                    MaxReceivedMessageSize = 1048576, 
-                    MaxBufferSize = 1048576,
-                    //TransferMode = TransferMode.Streamed
-                });
-            //RouteTable.Routes.Add(new ServiceRoute("speech", httpServiceHostFactory, typeof(SpeechResource)));
-            //RouteTable.Routes.Add(new ServiceRoute("speech", null, typeof(SpeechResource)));
-            
+                    MaxReceivedMessageSize = 1048576, // 1MB == 32seconds of speech
+                    MaxBufferSize = 1048576, // 1MB == 32seconds of speech
+                });          
             RouteTable.Routes.MapServiceRoute<TagResource>("tags", null);
             RouteTable.Routes.MapServiceRoute<TaskResource>("tasks", null);
             RouteTable.Routes.MapServiceRoute<TaskListResource>("tasklists", null);

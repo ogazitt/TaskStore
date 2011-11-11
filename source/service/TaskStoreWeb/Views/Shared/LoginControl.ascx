@@ -4,7 +4,7 @@
 <script src="<%: Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js") %>" type="text/javascript"></script>
 
 <% using (Html.BeginForm()) { %>
-    <div>
+    <div id="logincontrol">
         <fieldset>
             <legend>Login (or <%: Html.ActionLink("sign up", "Register", "Account") %> for a new free account)</legend>
         

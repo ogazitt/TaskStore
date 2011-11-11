@@ -244,5 +244,71 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<List<TaskList>>(req, HttpStatusCode.NotFound);
             }
         }
+
+        /// <summary>
+        /// Update a user 
+        /// </summary>
+        /// <param name="id">id for the user to delete</param>
+        /// <returns></returns>
+        [WebInvoke(UriTemplate = "{id}", Method = "PUT")]
+        public HttpResponseMessageWrapper<User> UpdateUser(HttpRequestMessage req, Guid id)
+        {
+            HttpStatusCode code = ResourceHelper.AuthenticateUser(req, TaskStore);
+            if (code != HttpStatusCode.OK)
+                return new HttpResponseMessageWrapper<User>(req, code);  // user not authenticated
+
+            // the body will be two Users - the original and the new values.  Verify this
+            List<User> clientUsers = ResourceHelper.ProcessRequestBody(req, typeof(List<User>)) as List<User>;
+            if (clientUsers.Count != 2)
+                return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.BadRequest);
+
+            // get the original and new tasks out of the message body
+            User originalUser = clientUsers[0];
+            User newUser = clientUsers[1];
+
+            // make sure the task ID's match
+            if (originalUser.ID != newUser.ID)
+                return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.BadRequest);
+            if (originalUser.ID != id)
+                return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.BadRequest);
+
+            TaskStore taskstore = TaskStore;
+
+            User user = ResourceHelper.GetUserPassFromMessage(req);
+            User dbUser = taskstore.Users.Single<User>(u => u.Name == user.Name && u.Password == user.Password);
+
+            // check to make sure the old password in the message matches what's in the database
+            if (originalUser.Password != dbUser.Password)
+                return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.Forbidden);
+            
+            try
+            {
+                // get the membership user
+                MembershipUser mu = Membership.GetUser(originalUser.Name);
+                
+                // change the password
+                string usrpwd = mu.ResetPassword();
+                mu.ChangePassword(usrpwd, newUser.Password);
+                
+                // change the e-mail
+                mu.Email = newUser.Email;
+
+                // update the membership provider
+                Membership.UpdateUser(mu);
+
+                // update the user data in the TaskStore database
+                dbUser.Password = newUser.Password;
+                dbUser.Email = newUser.Email;
+                int rows = taskstore.SaveChanges();
+                if (rows < 1)
+                    return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.InternalServerError);
+                else
+                    return new HttpResponseMessageWrapper<User>(req, dbUser, HttpStatusCode.Accepted);
+            }
+            catch (Exception)
+            {
+                return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.InternalServerError);
+            }
+        }
     }
 }

@@ -87,10 +87,6 @@ namespace TaskStoreWeb.Resources
 
             try
             {
-                //byte[] speechToParse = req.Content.ReadAsByteArray();
-                //MemoryStream ms = new MemoryStream(speechToParse);
-                //LoggingHelper.TraceLine("Speech to parse: " + speechToParse.Length, LoggingHelper.LogLevel.Detail);
-
 #if KILL
             string msg = WriteSpeechFile(user, speechToParse);
             if (msg != null)

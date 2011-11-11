@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="taskstore-main">
+<div id="taskstore-main">
     <center>
         <table id="taskstore-main-table" width="100%">
             <tr>
@@ -18,6 +18,6 @@
                 </div></td>
             </tr>
         </table>
-        </center>
-    </div>
+    </center>
+</div>
 </asp:Content>

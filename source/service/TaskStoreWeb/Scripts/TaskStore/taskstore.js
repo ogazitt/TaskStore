@@ -34,6 +34,13 @@ taskstore.refresh = function () {
             var response = ajaxhelper.validate(data);
             // reinitialize the jquery ajax helper with the user credentials
             init.ajax_init(response.Name, response.Password);
+            // save the username and password in the user object
+            user.User = {
+                ID: response.ID,
+                Name: response.Name,
+                Password: response.Password,
+                Email: response.Email
+            };
 
             // save the tasklists array into the tasklists property
             taskstore.tasklists = response.TaskLists;
@@ -74,7 +81,8 @@ taskstore.refresh = function () {
 
 taskstore.routes = {
     task: "tasks",
-    tasklist: "tasklists"
+    tasklist: "tasklists",
+    user: "users"
 };
 
 taskstore.updateList = function (oldList, newList) {
@@ -253,4 +261,19 @@ taskstore.remove = function (objType, obj, successFunc) {
                 successFunc(resp);
         }
     });
-}
+};
+
+taskstore.updateUser = function(oldUser, newUser) {
+    //update the user
+    taskstore.update("user", oldUser, newUser, function (u) {
+        if (u != null && u != undefined) {
+            user.User = {   
+                ID: u.ID, 
+                Name: u.Name,
+                Password: u.Password,
+                Email: u.Email
+            };
+            init.ajax_init(u.Name, u.Password);
+        }
+    });    
+};

@@ -46,7 +46,7 @@
 			<%: Html.CheckBox("Complete", item.Complete) %>
         </td>
         <td>
-            <%: Html.DropDownList("PriorityID", ((IEnumerable<TaskStoreWeb.Models.Priority>)ViewBag.PossiblePriorities).Select(option => new SelectListItem {
+            <%: Html.DropDownList("PriorityID", ((IEnumerable<TaskStoreServerEntities.Priority>)ViewBag.PossiblePriorities).Select(option => new SelectListItem {
 		        Text = (option == null ? "None" : option.Name), 
                 Value = option.PriorityID.ToString(),
                 Selected = (item != null) && (option.PriorityID == item.PriorityID)

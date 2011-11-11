@@ -168,7 +168,7 @@
   <ItemGroup>
     <Content Include="Content\About.css" />
     <Content Include="Content\all.css" />
-    <Content Include="Content\jquery-ui-1.8.7.custom.css" />
+    <Content Include="Content\themes\base\jquery-ui-1.8.7.custom.css" />
     <Content Include="Content\TaskStore.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -183,6 +183,7 @@
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\jquery.ui.accordion.css" />
     <Content Include="Content\themes\base\jquery.ui.all.css" />
@@ -265,6 +266,7 @@
     <Content Include="Images\taskstore-graphic.png" />
     <Content Include="Images\taskstore-logo2.png" />
     <Content Include="Images\taskstore.png" />
+    <Content Include="Images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Images\winphone-logo.jpg" />
     <Content Include="Images\winphone-marketplace-logo.png" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
@@ -278,6 +280,7 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\TaskStore\constants.js" />
     <Content Include="Scripts\TaskStore\ajaxhelper.js" />
+    <Content Include="Scripts\TaskStore\user.js" />
     <Content Include="Scripts\TaskStore\tasklist.js" />
     <Content Include="Scripts\TaskStore\dialogs.js" />
     <Content Include="Scripts\TaskStore\html.js" />
@@ -363,7 +366,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Bin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

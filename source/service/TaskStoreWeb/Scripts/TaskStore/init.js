@@ -12,6 +12,7 @@ $(document).ready(function () {
     };
     // initialize the page
     init.ajax_init(null, null);
+    init.login_init();
     constants.refresh();
     taskstore.refresh();
     settings.init();
@@ -210,3 +211,48 @@ init.header_init = function () {
     });
 };
 
+init.login_init = function () {
+    $("#loggedin")
+		.button({
+		    text: true,
+		    icons: {
+		        primary: "ui-icon-gear",
+		        secondary: "ui-icon-triangle-1-s"
+		    }
+		})
+		.click(function () {
+		    // open the menu
+		    $("#loginmenu").toggle("blind", null, 150);
+		    // create a mousedown handler that closes the menu for any mousedown event
+		    $("*").mousedown(function (event, ui) {
+		        $("*").unbind("mousedown");
+		        $("#loginmenu").hide();
+		        // hack(y): switch on the text inside the target for the menu item to invoke
+		        switch (event.target.innerHTML) {
+		            case "Manage Settings":
+		                user.openManageSettingsDialog();
+		                break;
+		            case "Change Password":
+		                user.openChangePasswordDialog();
+		                break;
+		            case "Sign Out":
+		                //document.getElementById("logoff").click();
+		                window.location = "/Account/Logoff";
+		                break;
+		        };
+		    });
+		});
+
+    // create the menu (hidden)
+    $("#loginmenu").menu({
+        focus: function (event, ui) {
+        }
+    }).hide();
+
+    /*
+    $("#signout").click(function () {
+    document.getElementById("logoff").click();
+    //$("#logoff").click();
+    });
+    */
+};
