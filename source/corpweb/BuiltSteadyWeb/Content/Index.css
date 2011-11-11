@@ -1,0 +1,165 @@
+﻿/* CSS pseudo class clear fix */
+/* from http://nicolasgallagher.com/micro-clearfix-hack/ */
+
+/* For modern browsers */
+.cf:before,
+.cf:after {
+  content: "";
+  display: table;
+}
+.cf:after {
+  clear: both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+  zoom: 1;
+}
+
+html {
+  height: 100%;
+}
+
+table {
+  height: 100%;
+  margin: 0 auto;
+}
+
+td {
+  text-align: center;
+}
+
+body {
+  height: 100%;
+  margin:0;
+  padding:0;
+  background-color: #e5e6e7;
+  font-family: facitweb, Verdana, sans-serif;
+}
+
+div#content {
+  height: 245px;
+}
+
+#early-access h2 {
+  float: left;
+  margin:0;
+  padding: 0 8px 0 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #b7b8ba;
+  background-color: #e5e6e7;  /* IE fix text rendering w/ opacity filter */
+}
+
+#early-access div.button {
+  margin-left: -1px;
+}
+
+div.input {
+  float: left;
+  position: relative;
+  height: 28px;
+  width: 240px;
+  /*-*/
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 3px 0 0 3px;
+}
+
+div.input input {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 232px;
+  /*-*/
+  color:#333;
+  border: none;
+  border-color: transparent;
+  font-size: 16px;
+  font-family: facitweb, Verdana, sans-serif;
+}
+
+div.input input.label-input-label {
+  color: #ddd;
+}
+
+div.input input:focus {
+  outline: none;
+}
+
+/* Forgive me, I designed and built the entire page in like an hour */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  div.input input { top: 1px; }
+}
+
+#submitted {
+  color: #666;
+  font-size: 20px;
+}
+
+#submitted-email {
+  font-weight: 600;
+}
+
+/*----------------------------------------------------------------------------*/
+
+div.button {
+  float:left;
+  /*-*/
+  border-right: 1px solid #dedfdf;
+  border-bottom: 1px solid #dedfdf;
+  border-radius: 0 3px 3px 0;
+}
+
+div.button a {
+  float:left;
+  padding:4px 8px 3px;
+  height:21px;
+  /*-*/
+  background:#f2f3f3;
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.5, rgb(233,235,236)),
+      color-stop(0.96, rgb(242,243,243)),
+      color-stop(0.98, rgb(246,247,248))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(233,235,236) 50%,
+      rgb(242,243,243) 96%,
+      rgb(246,247,248) 98%
+  );
+  /*-*/
+  border-top: 1px solid #c7c8c9;
+  border-right: 1px solid #a8abad;
+  border-bottom: 1px solid #a8abad;
+  border-left: 1px solid #c7c8c9;
+  border-radius:0 3px 3px 0;
+  /*-*/
+  outline: none;
+  font-size:16px;
+  color:#666;
+  text-decoration:none;
+  white-space: nowrap;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+}
+
+div.button:active {
+  border-right-color:#e9e9e9;
+  border-bottom-color:#e9e9e9;
+}
+
+div.button a:active {
+  padding:5px 7px 2px 9px;
+  /*-*/
+  background:#dddedf;
+  border-top-color:#c4c5c7;
+  border-right-color:#cdcecf;
+  border-bottom-color:#cdcecf;
+  border-left-color:#c4c5c7;
+  /*-*/
+  color:#656565;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
+}

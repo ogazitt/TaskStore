@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="https://builtsteady.com:8172/msdeploy.axd" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="builtsteady.com" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="builtsteady.com - Web Deploy" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="builtsteadycom_dep" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA63DHekMFdUGi7FFJRXbEcQAAAAACAAAAAAAQZgAAAAEAACAAAACp1aFZhmdF8r2i4ACSfqf30U1qGSStMPNCtDZJSlnJgQAAAAAOgAAAAAIAACAAAADDcO5Die/f3SDaKVk+yiB3go/OgFQ9hb3Iza7Biur23iAAAACfRAwNvU5uCLlEt4gXLH1EkdEEy1Ay59WmWEa7dH6mEUAAAADx5scF4JVEThf6AZeSu2falDMcoIpt8L7s5D4dhs607DNHWE9/Ekya6ACkpvP+wV+N10ktIWYPwTLU+ZISFxuA" SelectedForPublish="True" />
+</publishData>
