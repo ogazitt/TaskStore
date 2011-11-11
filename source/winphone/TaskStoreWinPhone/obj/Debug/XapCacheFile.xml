@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/31/2011 10:50:07 PM">
+﻿<xapCache source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\TaskStoreWinPhone.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="11/7/2011 9:37:29 PM">
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\..\..\..\bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="10/29/2011 12:35:09 AM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\Background.png" archivePath="Background.png" lastWriteTime="10/28/2011 11:13:39 PM" />
   <file source="C:\Users\Omri\TaskStore\source\winphone\TaskStoreWinPhone\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="10/28/2011 11:13:39 PM" />
-  <file source="C:\Users\Omri\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="10/31/2011 10:50:06 PM" />
+  <file source="C:\Users\Omri\TaskStore\obj\Debug\TaskStoreWinPhone.dll" archivePath="TaskStoreWinPhone.dll" lastWriteTime="11/7/2011 9:37:28 PM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.dll" archivePath="Microsoft.Phone.Controls.dll" lastWriteTime="9/15/2011 3:36:26 PM" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.0\Toolkit\Feb11\Bin\Microsoft.Phone.Controls.Toolkit.dll" archivePath="Microsoft.Phone.Controls.Toolkit.dll" lastWriteTime="2/17/2011 3:27:04 PM" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.0\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="9/1/2010 1:41:46 AM" />
