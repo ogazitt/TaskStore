@@ -157,6 +157,7 @@
     <Compile Include="Models\TaskStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ConstantsResource.cs" />
+    <Compile Include="Resources\TraceResource.cs" />
     <Compile Include="Resources\SpeechResource.cs" />
     <Compile Include="Resources\ListTypeResource.cs" />
     <Compile Include="Resources\TagResource.cs" />

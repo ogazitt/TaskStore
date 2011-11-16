@@ -41,6 +41,9 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // trace event
+            TraceHelper.AddMessage("Main: constructor");
+
             // enable the debug tab if this is a debug build
 #if DEBUG
             isDebugTabEnabled = true;
@@ -95,8 +98,20 @@ namespace TaskStoreWinPhone
 
         private void AboutMenuItem_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to About");
+
             // Navigate to the about page
             NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
+        }
+
+        private void DebugMenuItem_Click(object sender, EventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to Debug");
+
+            // Navigate to the about page
+            NavigationService.Navigate(new Uri("/DebugPage.xaml", UriKind.Relative));
         }
 
         // Event handlers for Debug tab
@@ -287,9 +302,13 @@ namespace TaskStoreWinPhone
             if (ListsListBox.SelectedIndex == -1)
                 return;
 
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to TaskList");
+
             TaskList tasklist = App.ViewModel.TaskLists[ListsListBox.SelectedIndex];
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=TaskList&ID=" + tasklist.ID.ToString(), UriKind.Relative));
+            //NavigationService.Navigate(new Uri("/ListPage.xaml?type=TaskList&ID=" + tasklist.ID.ToString(), UriKind.Relative));
 
             // Reset selected index to -1 (no selection)
             ListsListBox.SelectedIndex = -1;
@@ -298,6 +317,9 @@ namespace TaskStoreWinPhone
         // Event handlers for Lists tab
         private void Lists_AddButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to ListEditor");
+
             // Navigate to the ListEditor page
             NavigationService.Navigate(
                 new Uri("/TaskListEditor.xaml?ID=new",
@@ -306,6 +328,8 @@ namespace TaskStoreWinPhone
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            TraceHelper.AddMessage("Main: Loaded");
+
             // if this is a DEBUG build, add a debug tab
             if (isDebugTabEnabled && debugPanelAdded == false)
             {
@@ -371,6 +395,9 @@ namespace TaskStoreWinPhone
 
             // enable the tasks listbox
             disableListBoxSelectionChanged = false;
+
+            // trace exit
+            TraceHelper.AddMessage("Exiting Main Loaded");
         }
 
         // When page is navigated to, switch to the specified tab
@@ -482,6 +509,9 @@ namespace TaskStoreWinPhone
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to Settings");
+
             // Navigate to the settings page
             NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
         }
@@ -492,12 +522,18 @@ namespace TaskStoreWinPhone
             HyperlinkButton button = (HyperlinkButton)e.OriginalSource;
             Guid tagID = (Guid)button.Tag;
 
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to TaskList");
+
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=Tag&ID=" + tagID.ToString(), UriKind.Relative));
         }
 
         private void Tags_AddButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to TagEditor");
+
             // Navigate to the ListEditor page
             NavigationService.Navigate(
                 new Uri("/TagEditor.xaml?ID=new",
@@ -511,6 +547,10 @@ namespace TaskStoreWinPhone
                 return;
 
             Tag tag = App.ViewModel.Tags[TagsListBox.SelectedIndex];
+
+            // Trace the navigation and start a new timing
+            TraceHelper.StartMessage("Navigating to TaskList");
+
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=Tag&ID=" + tag.ID.ToString(), UriKind.Relative));
 
@@ -521,7 +561,10 @@ namespace TaskStoreWinPhone
         // Event handlers for tasks tab
         private void Tasks_AddButton_Click(object sender, EventArgs e)
         {
-            // Navigate to the ListEditor page
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to Task");
+
+            // Navigate to the Task page
             NavigationService.Navigate(
                 new Uri("/TaskPage.xaml?ID=new",
                 UriKind.Relative));
@@ -645,6 +688,9 @@ namespace TaskStoreWinPhone
 
             if (t == null)
                 return;
+
+            // trace page navigation
+            TraceHelper.StartMessage("Main: Navigate to Task");
 
             // Navigate to the new page
             NavigationService.Navigate(

@@ -16,6 +16,9 @@ using System.Collections.Generic;
 using TaskStoreClientEntities;
 using System.Runtime.Serialization.Json;
 using System.Net.Browser;
+using SharpCompress.Compressor;
+using SharpCompress.Compressor.Deflate;
+using SharpCompress.Writer.GZip;
 
 namespace TaskStoreWinPhoneUtilities
 {
@@ -26,9 +29,9 @@ namespace TaskStoreWinPhoneUtilities
             get
             {
                 //return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:62362" : "http://api.taskstore.net:8080";
-                return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:8080" : "http://api.taskstore.net:8080";
+                //return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:8080" : "http://api.taskstore.net:8080";
                 //return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://omrig-air:8080" : "http://api.taskstore.net:8080";
-                //return "http://api.taskstore.net:8080";
+                return "http://api.taskstore.net:8080";
             }
         }
         public static string BaseUrl { get { return baseUrl; } }
@@ -130,6 +133,18 @@ namespace TaskStoreWinPhoneUtilities
         public static void GetUser(User user, Delegate del, Delegate netOpInProgressDel)
         {
             InvokeWebServiceRequest(user, baseUrl + "/users", "GET", null, del, netOpInProgressDel, new AsyncCallback(ProcessResponse<User>));
+        }
+
+        /// <summary>
+        /// Send a byte array of the trace file to the service 
+        /// </summary>
+        /// <param name="user">User structure for authorization information</param>
+        /// <param name="del">Delegate to callback with the User info</param>
+        /// <param name="bytes">Byte array of trace file</param>
+        /// <param name="netOpInProgressDel"></param>
+        public static void SendTrace(User user, byte[] bytes, Delegate del, Delegate netOpInProgressDel)
+        {
+            InvokeWebServiceRequest(user, baseUrl + "/trace", "POST", bytes, del, netOpInProgressDel, new AsyncCallback(ProcessResponse<string>));
         }
 
         /// <summary>
@@ -256,7 +271,8 @@ namespace TaskStoreWinPhoneUtilities
                 return;
 
             // signal that a network operation is starting
-            netOpInProgressDel.DynamicInvoke(true, null);
+            if (netOpInProgressDel != null)
+                netOpInProgressDel.DynamicInvoke(true, null);
 
             //bool registerResult = WebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
 
@@ -290,7 +306,8 @@ namespace TaskStoreWinPhoneUtilities
                     isRequestInProgress = false;
 
                     // signal that a network operation is done and unsuccessful
-                    netOpInProgressDel.DynamicInvoke(false, false);
+                    if (netOpInProgressDel != null)
+                        netOpInProgressDel.DynamicInvoke(false, false);
                 }
             }
             else
@@ -315,7 +332,8 @@ namespace TaskStoreWinPhoneUtilities
                 {
                     isRequestInProgress = false;
                     // signal that a network operation is done and unsuccessful
-                    netOpInProgressDel.DynamicInvoke(false, false);
+                    if (netOpInProgressDel != null)
+                        netOpInProgressDel.DynamicInvoke(false, false);
                 }
             }
         }
@@ -352,6 +370,8 @@ namespace TaskStoreWinPhoneUtilities
                     if (state.RequestBody.GetType() == typeof(byte[]))
                     {
                         byte[] bytes = (byte[])state.RequestBody;
+                        stream = new GZipStream(stream, CompressionMode.Compress);
+                        request.ContentType = "application/x-gzip";
                         stream.Write(bytes, 0, bytes.Length);
                     }
                     else
@@ -391,7 +411,8 @@ namespace TaskStoreWinPhoneUtilities
                 isRequestInProgress = false;
 
                 // signal the operation is done and unsuccessful
-                netOpInProgressDel.DynamicInvoke(false, false);
+                if (netOpInProgressDel != null)
+                    netOpInProgressDel.DynamicInvoke(false, false);
             }
         }
 
@@ -405,33 +426,36 @@ namespace TaskStoreWinPhoneUtilities
         {
             WebServiceState state = result.AsyncState as WebServiceState;
             if (state == null)
-                return; 
+                return;
 
-            Delegate netOpStatusDel = state.NetworkOperationInProgressDelegate as Delegate;
-            if (netOpStatusDel == null)
-                return;  // if no delegate was passed, the results can't be processed
-
-            // get the method-specific delegate
-            Delegate del = state.Delegate as Delegate;
-            if (del == null)
-                return;  // if no delegate was passed, the results can't be processed
+            // get the network operation status delegate
+            Delegate netOpInProgressDel = state.NetworkOperationInProgressDelegate as Delegate;
 
             // get the web response and make sure it's not null (failed)
             HttpWebResponseWrapper<T> resp = GetWebResponse<T>(result);
             if (resp == null)
             {
                 // signal that the network operation completed unsuccessfully
-                netOpStatusDel.DynamicInvoke(false, false);
+            if (netOpInProgressDel != null)
+                netOpInProgressDel.DynamicInvoke(false, false);
                 return;
             }
             else
             {
-                // signal that the network operation completed and whether it completed successfully
-                if (resp.StatusCode == HttpStatusCode.OK || resp.StatusCode == HttpStatusCode.Created || resp.StatusCode == HttpStatusCode.Accepted)
-                    netOpStatusDel.DynamicInvoke(false, true);
-                else
-                    netOpStatusDel.DynamicInvoke(false, false);
+                if (netOpInProgressDel != null)
+                {
+                    // signal that the network operation completed and whether it completed successfully
+                    if (resp.StatusCode == HttpStatusCode.OK || resp.StatusCode == HttpStatusCode.Created || resp.StatusCode == HttpStatusCode.Accepted)
+                        netOpInProgressDel.DynamicInvoke(false, true);
+                    else
+                        netOpInProgressDel.DynamicInvoke(false, false);
+                }
             }
+
+            // get the method-specific delegate
+            Delegate del = state.Delegate as Delegate;
+            if (del == null)
+                return;  // if no delegate was passed, the results can't be processed
 
             // invoke the delegate with the response body
             try
@@ -455,30 +479,34 @@ namespace TaskStoreWinPhoneUtilities
             if (state == null)
                 return;
 
-            Delegate netOpStatusDel = state.NetworkOperationInProgressDelegate as Delegate;
-            if (netOpStatusDel == null)
-                return;  // if no delegate was passed, the results can't be processed
+            // get the network operation status delegate
+            Delegate netOpInProgressDel = state.NetworkOperationInProgressDelegate as Delegate;
+
+            // get the web response
+            HttpWebResponseWrapper<User> resp = GetWebResponse<User>(result);
+            if (resp == null)
+            {
+                // signal that the network operation completed unsuccessfully
+                if (netOpInProgressDel != null)
+                    netOpInProgressDel.DynamicInvoke(false, false);
+                return;
+            }
+            else
+            {
+                if (netOpInProgressDel != null)
+                {
+                    // signal that the network operation completed and whether it completed successfully
+                    if (resp.StatusCode == HttpStatusCode.OK || resp.StatusCode == HttpStatusCode.Created || resp.StatusCode == HttpStatusCode.Accepted)
+                        netOpInProgressDel.DynamicInvoke(false, true);
+                    else
+                        netOpInProgressDel.DynamicInvoke(false, false);
+                }
+            }
 
             // get the method-specific delegate
             Delegate del = state.Delegate as Delegate;
             if (del == null)
                 return;  // if no delegate was passed, the results can't be processed
-
-            HttpWebResponseWrapper<User> resp = GetWebResponse<User>(result);
-            if (resp == null)
-            {
-                // signal that the network operation completed unsuccessfully
-                netOpStatusDel.DynamicInvoke(false, false);
-                return;
-            }
-            else
-            {
-                // signal that the network operation completed and whether it completed successfully
-                if (resp.StatusCode == HttpStatusCode.OK || resp.StatusCode == HttpStatusCode.Created || resp.StatusCode == HttpStatusCode.Accepted)
-                    netOpStatusDel.DynamicInvoke(false, true);
-                else
-                    netOpStatusDel.DynamicInvoke(false, false);
-            }
 
             // invoke the operation-specific delegate
             if (resp == null)

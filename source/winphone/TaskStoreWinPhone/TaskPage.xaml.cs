@@ -27,6 +27,7 @@ using WPKeyboardHelper;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Device.Location;
+using System.ComponentModel;
 
 namespace TaskStoreWinPhone
 {
@@ -47,14 +48,23 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // trace event
+            TraceHelper.AddMessage("Task: constructor");
+
             ConnectedIconImage.DataContext = App.ViewModel;
 
-            this.IsTabStop = true; 
+            this.IsTabStop = true;
+
+            this.Loaded += new RoutedEventHandler(TaskPage_Loaded);
+            this.BackKeyPress += new EventHandler<CancelEventArgs>(TaskPage_BackKeyPress);
         }
 
         // When page is navigated to set data context to selected item in listType
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // trace event
+            TraceHelper.AddMessage("Task: OnNavigatedTo");
+
             // check to make sure we haven't initialized yet
             if (isInitialized == true)
                 return;
@@ -69,6 +79,9 @@ namespace TaskStoreWinPhone
             // must have a task ID passed (either a valid GUID or "new")
             if (NavigationContext.QueryString.TryGetValue("ID", out taskIDString) == false)
             {
+                // trace page navigation
+                TraceHelper.StartMessage("Task: Navigate back");
+
                 NavigationService.GoBack();
                 return;
             }
@@ -137,6 +150,9 @@ namespace TaskStoreWinPhone
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("Task: Navigate back");
+
             // Navigate back to the tastlist page
             NavigationService.GoBack();
         }
@@ -173,6 +189,9 @@ namespace TaskStoreWinPhone
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
+
+            // trace page navigation
+            TraceHelper.StartMessage("Task: Navigate back");
 
             // Navigate back to the tasklist page
             NavigationService.GoBack();
@@ -251,8 +270,26 @@ namespace TaskStoreWinPhone
             // signal the tasklist that the FirstDue property needs to be recomputed
             taskList.NotifyPropertyChanged("FirstDue");
 
+            // trace page navigation
+            TraceHelper.StartMessage("Task: Navigate back");
+
             // Navigate back to the tasklist page
             NavigationService.GoBack();
+        }
+
+        void TaskPage_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("Task: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
+        void TaskPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // trace event
+            TraceHelper.AddMessage("Task: Loaded");
         }
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
@@ -852,6 +889,9 @@ namespace TaskStoreWinPhone
                                 valueTextBlock.Text = String.Format("to {0}", tl.Name);
                                 button.Click += new RoutedEventHandler(delegate
                                 {
+                                    // trace page navigation
+                                    TraceHelper.StartMessage("Task: Navigate to TaskList");
+
                                     // Navigate to the new page
                                     NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=TaskList&ID=" + tl.ID.ToString(), UriKind.Relative));
                                 });

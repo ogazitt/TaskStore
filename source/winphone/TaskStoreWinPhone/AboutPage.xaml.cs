@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using TaskStoreWinPhoneUtilities;
 
 namespace TaskStoreWinPhone
 {
@@ -19,9 +20,30 @@ namespace TaskStoreWinPhone
         public AboutPage()
         {
             InitializeComponent();
-            
+
+            // trace event
+            TraceHelper.AddMessage("About: constructor");
+
             // Set the data context of the page to the main view model
             DataContext = App.ViewModel;
+
+            Loaded += new RoutedEventHandler(About_Loaded);
+            BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(About_BackKeyPress);
+        }
+
+        void About_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("About: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
+        void About_Loaded(object sender, RoutedEventArgs e)
+        {
+            // trace event
+            TraceHelper.AddMessage("About: Loaded");
         }
 
         // Event handlers for About tab

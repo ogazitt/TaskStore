@@ -114,7 +114,7 @@ namespace TaskStoreWinPhone
                 }
             }
         }
-        
+
         private TaskList defaultTaskList;
         /// <summary>
         /// Default task list to add new tasks to
@@ -165,6 +165,30 @@ namespace TaskStoreWinPhone
                     NotifyPropertyChanged("LastNetworkOperationStatus");
                     NotifyPropertyChanged("ConnectedText");
                     NotifyPropertyChanged("ConnectedIcon");
+                }
+            }
+        }
+
+        private Dictionary<Guid, TaskList> lists;
+        /// <summary>
+        /// A dictionary of TaskLists
+        /// </summary>
+        public Dictionary<Guid, TaskList> Lists
+        {
+            get
+            {
+                return lists;
+            }
+            set
+            {
+                if (value != lists)
+                {
+                    lists = value;
+
+                    // save the new ListTypes in isolated storage
+                    StorageHelper.WriteLists(lists.Values);
+
+                    NotifyPropertyChanged("Lists");
                 }
             }
         }
@@ -328,6 +352,26 @@ namespace TaskStoreWinPhone
             }
         }
 
+        private ObservableCollection<string> traceMessages;
+        /// <summary>
+        /// List of trace messages
+        /// </summary>
+        public ObservableCollection<string> TraceMessages
+        {
+            get
+            {
+                return traceMessages;
+            }
+            set
+            {
+                if (value != traceMessages)
+                {
+                    traceMessages = value;
+                    NotifyPropertyChanged("TraceMessages");
+                }
+            }
+        }
+
         private User user;
         /// <summary>
         /// User object corresponding to the authenticated user
@@ -406,6 +450,9 @@ namespace TaskStoreWinPhone
         /// </summary>
         public About GetAboutData()
         {
+            // trace getting data
+            TraceHelper.AddMessage("Get About Data");
+
             // get a stream to the about XML file 
             StreamResourceInfo aboutFile =
               Application.GetResourceStream(new Uri("/TaskStoreWinPhone;component/About.xml", UriKind.Relative));
@@ -423,6 +470,9 @@ namespace TaskStoreWinPhone
         {
             if (retrievedConstants == false)
             {
+                // trace getting constants
+                TraceHelper.AddMessage("Get Constants");
+
                 WebServiceHelper.GetConstants(
                     User, 
                     new GetConstantsCallbackDelegate(GetConstantsCallback), 
@@ -437,6 +487,9 @@ namespace TaskStoreWinPhone
         {
             if (retrievedConstants == true)
             {
+                // trace getting user data
+                TraceHelper.AddMessage("Get User Data");
+
                 WebServiceHelper.GetUser(
                     User, 
                     new GetUserDataCallbackDelegate(GetUserDataCallback),
@@ -452,6 +505,9 @@ namespace TaskStoreWinPhone
             // check if the data has already been loaded
             if (this.IsDataLoaded == true)
                 return;
+
+            // trace loading data
+            TraceHelper.AddMessage("Load Data");
 
             // get the about data from the About.xml local resource
             this.About = GetAboutData();
@@ -496,6 +552,9 @@ namespace TaskStoreWinPhone
                     t.CreateTags(tags);
 
             this.IsDataLoaded = true;
+
+            // trace finished loading data
+            TraceHelper.AddMessage("Finished Load Data");
         }
 
         /// <summary>
@@ -520,6 +579,9 @@ namespace TaskStoreWinPhone
 
             // get type name for the record 
             string typename = record.BodyTypeName;
+
+            // trace playing record
+            TraceHelper.AddMessage(String.Format("Play Queue: {0} {1}", record.ReqType, typename));
 
             // invoke the appropriate web service call based on the record type
             switch (record.ReqType)
@@ -608,18 +670,6 @@ namespace TaskStoreWinPhone
             }
         }
 
-        public void SpeechToText(byte[] speech, Delegate del)
-        {
-            if (retrievedConstants == true)
-            {
-                WebServiceHelper.SpeechToText(
-                    User,
-                    speech,
-                    del,
-                    new NetworkOperationInProgressCallbackDelegate(NetworkOperationInProgressCallback));
-            }
-        }
-
         /// <summary>
         /// Main routine for performing a sync with the Service.  It will chain the following operations:
         ///     1.  Get Constants
@@ -645,6 +695,9 @@ namespace TaskStoreWinPhone
         public delegate void GetConstantsCallbackDelegate(Constants constants);
         private void GetConstantsCallback(Constants constants)
         {
+            // trace callback
+            TraceHelper.AddMessage(String.Format("Finished Get Constants: {0}", constants == null ? "null" : "success"));
+
             if (constants != null)
             {
                 retrievedConstants = true;
@@ -671,6 +724,9 @@ namespace TaskStoreWinPhone
         public delegate void GetUserDataCallbackDelegate(User user);
         private void GetUserDataCallback(User user)
         {
+            // trace callback
+            TraceHelper.AddMessage(String.Format("Finished Get User Data: {0}", constants == null ? "null" : "success"));
+
             if (user != null)
             {
                 // reset and save the user credentials
@@ -712,6 +768,9 @@ namespace TaskStoreWinPhone
         public delegate void PlayQueueCallbackDelegate(Object obj);
         private void PlayQueueCallback(object obj)
         {
+            // trace callback
+            TraceHelper.AddMessage(String.Format("Finished Play Queue: {0}", obj == null ? "null" : "success"));
+
             // dequeue the current record (which removes it from the queue)
             RequestQueue.RequestRecord record = RequestQueue.DequeueRequestRecord();
 

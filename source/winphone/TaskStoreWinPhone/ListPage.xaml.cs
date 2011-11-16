@@ -19,10 +19,11 @@ using System.Windows.Data;
 using System.ComponentModel;
 using System.Threading;
 using Microsoft.Xna.Framework.Audio;
+using System.Windows.Media.Imaging;
 
 namespace TaskStoreWinPhone
 {
-    public partial class TaskListPage : PhoneApplicationPage, INotifyPropertyChanged
+    public partial class ListPage : PhoneApplicationPage, INotifyPropertyChanged
     {
         private TaskList taskList;
         public TaskList TaskList
@@ -171,12 +172,12 @@ namespace TaskStoreWinPhone
         }
 
         // Constructor
-        public TaskListPage()
+        public ListPage()
         {
             InitializeComponent();
 
             // trace data
-            TraceHelper.AddMessage("TaskList: constructor");
+            TraceHelper.AddMessage("List: constructor");
 
             // set some data context information
             ConnectedIconImage.DataContext = App.ViewModel;
@@ -225,14 +226,14 @@ namespace TaskStoreWinPhone
             BackKeyPress += new EventHandler<CancelEventArgs>(TaskListPage_BackKeyPress);
 
             // trace data
-            TraceHelper.AddMessage("Exiting TaskList constructor");
+            TraceHelper.AddMessage("Exiting List constructor");
         }
 
         // When page is navigated to set data context to selected item in listType
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // trace data
-            TraceHelper.AddMessage("TaskList: OnNavigatedTo");
+            TraceHelper.AddMessage("List: OnNavigatedTo");
 
             string IDString = "";
             string typeString = "";
@@ -241,7 +242,7 @@ namespace TaskStoreWinPhone
             if (NavigationContext.QueryString.TryGetValue("type", out typeString) == false)
             {
                 // trace page navigation
-                TraceHelper.StartMessage("TaskList: Navigate back");
+                TraceHelper.StartMessage("List: Navigate back");
 
                 // navigate back
                 NavigationService.GoBack();
@@ -254,7 +255,7 @@ namespace TaskStoreWinPhone
                     if (NavigationContext.QueryString.TryGetValue("ID", out IDString) == false)
                     {
                         // trace page navigation
-                        TraceHelper.StartMessage("TaskList: Navigate back");
+                        TraceHelper.StartMessage("List: Navigate back");
 
                         // navigate back
                         NavigationService.GoBack();
@@ -276,7 +277,7 @@ namespace TaskStoreWinPhone
                         // this will send us back to the MainPage which is appropriate.
 
                         // trace page navigation
-                        TraceHelper.StartMessage(String.Format("TaskList: Navigate back (exception: {0})", ex.Message));
+                        TraceHelper.StartMessage(String.Format("List: Navigate back (exception: {0})", ex.Message));
 
                         // navigate back
                         NavigationService.GoBack();
@@ -287,7 +288,7 @@ namespace TaskStoreWinPhone
                     if (NavigationContext.QueryString.TryGetValue("ID", out IDString) == false)
                     {
                         // trace page navigation
-                        TraceHelper.StartMessage("TaskList: Navigate back");
+                        TraceHelper.StartMessage("List: Navigate back");
 
                         // navigate back
                         NavigationService.GoBack();
@@ -312,7 +313,7 @@ namespace TaskStoreWinPhone
                         // this will send us back to the MainPage which is appropriate.
 
                         // trace page navigation
-                        TraceHelper.StartMessage("TaskList: Navigate back");
+                        TraceHelper.StartMessage("List: Navigate back");
 
                         // navigate back
                         NavigationService.GoBack();
@@ -321,7 +322,7 @@ namespace TaskStoreWinPhone
                     break;
                 default:
                     // trace page navigation
-                    TraceHelper.StartMessage("TaskList: Navigate back");
+                    TraceHelper.StartMessage("List: Navigate back");
 
                     // navigate back
                     NavigationService.GoBack();
@@ -346,7 +347,7 @@ namespace TaskStoreWinPhone
         private void AddButton_Click(object sender, EventArgs e)
         {
             // trace page navigation
-            TraceHelper.StartMessage("TaskList: Navigate to Task");
+            TraceHelper.StartMessage("List: Navigate to Task");
 
             // Navigate to the new page
             NavigationService.Navigate(
@@ -449,7 +450,7 @@ namespace TaskStoreWinPhone
             if (taskList.ID != Guid.Empty)
             {
                 // trace page navigation
-                TraceHelper.StartMessage("TaskList: Navigate to ListEditor");
+                TraceHelper.StartMessage("List: Navigate to ListEditor");
 
                 // Navigate to the TaskListEditor page
                 NavigationService.Navigate(
@@ -459,7 +460,7 @@ namespace TaskStoreWinPhone
             else
             {
                 // trace page navigation
-                TraceHelper.StartMessage("TaskList: Navigate to TagEditor");
+                TraceHelper.StartMessage("List: Navigate to TagEditor");
 
                 // Navigate to the TagEditor page
                 NavigationService.Navigate(
@@ -590,7 +591,7 @@ namespace TaskStoreWinPhone
                 return;
 
             // trace page navigation
-            TraceHelper.StartMessage("TaskList: Navigate to Task");
+            TraceHelper.StartMessage("List: Navigate to Task");
 
             // Navigate to the new page
             NavigationService.Navigate(
@@ -609,7 +610,7 @@ namespace TaskStoreWinPhone
         private void ListsButton_Click(object sender, EventArgs e)
         {
             // trace page navigation
-            TraceHelper.StartMessage("TaskList: Navigate to Main");
+            TraceHelper.StartMessage("List: Navigate to Main");
 
             // Navigate to the main page
             NavigationService.Navigate(
@@ -693,7 +694,7 @@ namespace TaskStoreWinPhone
                     return;
 
                 // trace page navigation
-                TraceHelper.StartMessage("TaskList: Navigate to Settings");
+                TraceHelper.StartMessage("List: Navigate to Settings");
 
                 // Navigate to the settings page
                 NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
@@ -915,16 +916,16 @@ namespace TaskStoreWinPhone
             Guid tagID = (Guid)button.Tag;
 
             // trace page navigation
-            TraceHelper.StartMessage("TaskList: Navigate to Tag");
+            TraceHelper.StartMessage("List: Navigate to Tag");
 
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=Tag&ID=" + tagID.ToString(), UriKind.Relative));
+            NavigationService.Navigate(new Uri("/ListPage.xaml?type=Tag&ID=" + tagID.ToString(), UriKind.Relative));
         }
 
         void TaskListPage_BackKeyPress(object sender, CancelEventArgs e)
         {
             // trace page navigation
-            TraceHelper.StartMessage("TaskList: Navigate back");
+            TraceHelper.StartMessage("List: Navigate back");
 
             // navigate back
             NavigationService.GoBack();
@@ -933,12 +934,49 @@ namespace TaskStoreWinPhone
         void TaskListPage_Loaded(object sender, RoutedEventArgs e)
         {
             // trace page navigation
-            TraceHelper.AddMessage("TaskList: Loaded");
+            TraceHelper.AddMessage("List: Loaded");
+
+            // create the control tree and render the tasklist
+            RenderList();
+
+            // trace page navigation
+            TraceHelper.AddMessage("Finished List Loaded");
         }
 
         #endregion
 
         #region Helpers
+
+        /// <summary>
+        /// Get System.Windows.Media.Colors from a string color name
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private System.Windows.Media.Color GetDisplayColor(string c)
+        {
+            switch (c)
+            {
+                case "White":
+                    return Colors.White;
+                case "Blue":
+                    return Colors.Blue;
+                case "Brown":
+                    return Colors.Brown;
+                case "Green":
+                    return Colors.Green;
+                case "Orange":
+                    return Colors.Orange;
+                case "Purple":
+                    return Colors.Purple;
+                case "Red":
+                    return Colors.Red;
+                case "Yellow":
+                    return Colors.Yellow;
+                case "Gray":
+                    return Colors.Gray;
+            }
+            return Colors.White;
+        }
 
         /// <summary>
         /// Find a tasklist by ID and then return its index 
@@ -957,6 +995,79 @@ namespace TaskStoreWinPhone
             {
                 return -1;
             }
+        }
+
+        private void RenderList()
+        {
+            foreach (Task t in taskList.Tasks)
+                RenderTask(t);
+        }
+
+        private void RenderTask(Task t)
+        {
+            FrameworkElement element;
+            ListBoxItem listBoxItem = new ListBoxItem();
+            StackPanel sp = new StackPanel() { Margin = new Thickness(0, -5, 0, 0), Width = 432d };
+            listBoxItem.Content = sp;
+
+            // first line (priority icon, checkbox, name)
+            Grid itemLineOne = new Grid(); 
+            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            itemLineOne.Children.Add(element = new Image() { Source = new BitmapImage(new Uri(t.PriorityIDIcon, UriKind.Relative)), Margin = new Thickness(0, 2, 0, 0) });
+            element.SetValue(Grid.ColumnProperty, 0);
+            itemLineOne.Children.Add(element = new CheckBox() { IsChecked = t.Complete, Tag = t.ID });
+            element.SetValue(Grid.ColumnProperty, 1);
+            ((CheckBox) element).Click += new RoutedEventHandler(CompleteCheckbox_Click);
+            itemLineOne.Children.Add(element = new TextBlock()
+            {
+                Text = t.Name,
+                Style = (Style)App.Current.Resources["PhoneTextLargeStyle"],
+                Foreground = new SolidColorBrush(GetDisplayColor(t.NameDisplayColor)),
+                Margin = new Thickness(0, 12, 0, 0)
+            });
+            element.SetValue(Grid.ColumnProperty, 2);
+            sp.Children.Add(itemLineOne);
+
+            // second line (duedate, tags)
+            Grid itemLineTwo = new Grid();
+            itemLineTwo.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            itemLineTwo.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            itemLineTwo.Children.Add(element = new TextBlock()
+            {
+                Text = t.DueDisplay,
+                FontSize = (double)App.Current.Resources["PhoneFontSizeNormal"],
+                //Style = (Style)App.Current.Resources["PhoneTextNormalStyle"],
+                Foreground = new SolidColorBrush(GetDisplayColor(t.DueDisplayColor)),
+                Margin = new Thickness(32, -17, 0, 0)
+            });
+            element.SetValue(Grid.ColumnProperty, 0);
+            StackPanel tagStackPanel = new StackPanel()
+            {
+                Margin = new Thickness(32, -17, 0, 0),
+                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Right
+            };
+            tagStackPanel.SetValue(Grid.ColumnProperty, 1);
+            foreach (var tag in t.Tags)
+            {
+                HyperlinkButton button;
+                tagStackPanel.Children.Add(button = new HyperlinkButton()
+                {
+                    ClickMode = ClickMode.Release,
+                    Content = tag.Name,
+                    FontSize = (double)App.Current.Resources["PhoneFontSizeNormal"],
+                    Foreground = new SolidColorBrush(GetDisplayColor(tag.Color)),
+                    Tag = tag.ID
+                });
+                button.Click += Tag_HyperlinkButton_Click;
+            }
+            itemLineTwo.Children.Add(tagStackPanel);
+            sp.Children.Add(itemLineTwo);
+
+            // add the new item to the listbox
+            ByNameListBox.Items.Add(listBoxItem);
         }
 
         private void SetContext(TaskList newTaskList)
@@ -989,6 +1100,9 @@ namespace TaskStoreWinPhone
 
                 // set the source for the current tab (doing all three is too expensive)
                 OrderedSource[PivotControl.SelectedIndex].Source = taskList.Tasks;
+
+                // test
+                //ByNameListBox.DataContext = this;
             //});
         }
 

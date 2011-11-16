@@ -25,13 +25,17 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // trace event
+            TraceHelper.AddMessage("Settings: constructor");
+
             // Set the data context of the page to the main view model
             DataContext = App.ViewModel;
 
             // set up tabbing
             this.IsTabStop = true;
 
-            this.Loaded += new RoutedEventHandler(SettingsPage_Loaded);
+            Loaded += new RoutedEventHandler(SettingsPage_Loaded);
+            BackKeyPress += new EventHandler<CancelEventArgs>(SettingsPage_BackKeyPress);
         }
 
         private bool enableCreateButton;
@@ -127,8 +131,20 @@ namespace TaskStoreWinPhone
                 new MainViewModel.NetworkOperationInProgressCallbackDelegate(App.ViewModel.NetworkOperationInProgressCallback));
         }
 
+        void SettingsPage_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("Settings: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
         void SettingsPage_Loaded(object sender, RoutedEventArgs e)
         {
+            // trace page navigation
+            TraceHelper.AddMessage("Settings: Loaded");
+
             // initialize some fields
             DefaultListPicker.ItemsSource = App.ViewModel.TaskLists;
             DefaultListPicker.DisplayMemberPath = "Name";
@@ -167,6 +183,9 @@ namespace TaskStoreWinPhone
 
             // save the default tasklist in any case
             App.ViewModel.DefaultTaskList = DefaultListPicker.SelectedItem as TaskList;
+
+            // trace page navigation
+            TraceHelper.StartMessage("Settings: Navigate back");
 
             // go back to main page
             NavigationService.GoBack();

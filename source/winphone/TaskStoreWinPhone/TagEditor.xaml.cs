@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using TaskStoreClientEntities;
 using Microsoft.Phone.Shell;
 using TaskStoreWinPhoneUtilities;
+using System.ComponentModel;
 
 namespace TaskStoreWinPhone
 {
@@ -25,16 +26,32 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // trace event
+            TraceHelper.AddMessage("TagEditor: constructor");
+
             // enable tabbing
             this.IsTabStop = true;
 
             this.Loaded += new RoutedEventHandler(TagEditor_Loaded);
+            this.BackKeyPress += new EventHandler<CancelEventArgs>(TagEditor_BackKeyPress);
         }
 
         #region Event Handlers
 
+        void TagEditor_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("TagEditor: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
         void TagEditor_Loaded(object sender, RoutedEventArgs e)
         {
+            // trace event
+            TraceHelper.AddMessage("TagEditor: Loaded");
+
             ConnectedIconImage.DataContext = App.ViewModel;
 
             string tagIDString = "";
@@ -80,6 +97,10 @@ namespace TaskStoreWinPhone
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("TagEditor: Navigate back");
+
+            // navigate back
             NavigationService.GoBack();
         }
         
@@ -112,6 +133,9 @@ namespace TaskStoreWinPhone
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
+
+            // trace page navigation
+            TraceHelper.StartMessage("TagEditor: Navigate back");
 
             // Navigate back to the main page
             NavigationService.GoBack();
@@ -169,6 +193,9 @@ namespace TaskStoreWinPhone
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
+
+            // trace page navigation
+            TraceHelper.StartMessage("TagEditor: Navigate back");
 
             // Navigate back to the main page
             NavigationService.GoBack();

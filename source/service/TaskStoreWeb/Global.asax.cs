@@ -35,7 +35,7 @@ namespace TaskStoreWeb
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
-                new { controller = new NotInValuesConstraint(new[] { "constants", "listtypes", "speech", "tags", "tasks", "tasklists", "users" }) }
+                new { controller = new NotInValuesConstraint(new[] { "constants", "listtypes", "speech", "tags", "tasks", "tasklists", "trace", "users" }) }
             );
 
             // map the WCF WebApi service routes
@@ -50,6 +50,7 @@ namespace TaskStoreWeb
             RouteTable.Routes.MapServiceRoute<TagResource>("tags", null);
             RouteTable.Routes.MapServiceRoute<TaskResource>("tasks", null);
             RouteTable.Routes.MapServiceRoute<TaskListResource>("tasklists", null);
+            RouteTable.Routes.MapServiceRoute<TraceResource>("trace", null);
             RouteTable.Routes.MapServiceRoute<UserResource>("users", null);
         }
 

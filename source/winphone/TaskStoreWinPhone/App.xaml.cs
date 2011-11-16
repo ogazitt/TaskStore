@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using TaskStoreWinPhoneUtilities;
 
 namespace TaskStoreWinPhone
 {
@@ -46,6 +47,9 @@ namespace TaskStoreWinPhone
         /// </summary>
         public App()
         {
+            // trace app start
+            TraceHelper.StartMessage("App starting");
+
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 

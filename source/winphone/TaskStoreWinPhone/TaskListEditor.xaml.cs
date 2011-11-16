@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using TaskStoreClientEntities;
 using Microsoft.Phone.Shell;
 using TaskStoreWinPhoneUtilities;
+using System.ComponentModel;
 
 namespace TaskStoreWinPhone
 {
@@ -25,51 +26,26 @@ namespace TaskStoreWinPhone
         {
             InitializeComponent();
 
+            // trace event
+            TraceHelper.AddMessage("ListEditor: constructor");
+
             ConnectedIconImage.DataContext = App.ViewModel;
 
             // enable tabbing
             this.IsTabStop = true;
 
             this.Loaded += new RoutedEventHandler(TaskListEditor_Loaded);
+            this.BackKeyPress += new EventHandler<CancelEventArgs>(TaskListEditor_BackKeyPress);
         }
 
         #region Event Handlers
 
-        void TaskListEditor_Loaded(object sender, RoutedEventArgs e)
-        {
-            string taskListIDString = "";
-
-            if (NavigationContext.QueryString.TryGetValue("ID", out taskListIDString))
-            {
-                if (taskListIDString == "new")
-                {
-                    // new tasklist
-                    taskListCopy = new TaskList();
-                    DataContext = taskListCopy;
-                }
-                else
-                {
-                    Guid taskListID = new Guid(taskListIDString);
-                    taskList = App.ViewModel.TaskLists.Single<TaskList>(tl => tl.ID == taskListID);
-
-                    // make a deep copy of the task for local binding
-                    taskListCopy = new TaskList(taskList);
-                    DataContext = taskListCopy;
-
-                    // add the delete button to the ApplicationBar
-                    var button = new ApplicationBarIconButton() { Text = "Delete", IconUri = new Uri("/Images/appbar.delete.rest.png", UriKind.Relative) };
-                    button.Click += new EventHandler(DeleteButton_Click);
-                    
-                    // insert after the save button but before the cancel button
-                    ApplicationBar.Buttons.Add(button);
-                }
-
-                RenderListTypes();
-            }
-        }
-
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            // trace page navigation
+            TraceHelper.StartMessage("ListEditor: Navigate back");
+
+            // navigate back
             NavigationService.GoBack();
         }
         
@@ -105,6 +81,9 @@ namespace TaskStoreWinPhone
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
+
+            // trace page navigation
+            TraceHelper.StartMessage("ListEditor: Navigate back");
 
             // Navigate back to the main page
             NavigationService.GoBack();
@@ -173,8 +152,56 @@ namespace TaskStoreWinPhone
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
 
+            // trace page navigation
+            TraceHelper.StartMessage("ListEditor: Navigate back");
+
             // Navigate back to the main page
             NavigationService.GoBack();
+        }
+
+        void TaskListEditor_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("ListEditor: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
+        void TaskListEditor_Loaded(object sender, RoutedEventArgs e)
+        {
+            // trace event
+            TraceHelper.AddMessage("ListEditor: Loaded");
+
+            string taskListIDString = "";
+
+            if (NavigationContext.QueryString.TryGetValue("ID", out taskListIDString))
+            {
+                if (taskListIDString == "new")
+                {
+                    // new tasklist
+                    taskListCopy = new TaskList();
+                    DataContext = taskListCopy;
+                }
+                else
+                {
+                    Guid taskListID = new Guid(taskListIDString);
+                    taskList = App.ViewModel.TaskLists.Single<TaskList>(tl => tl.ID == taskListID);
+
+                    // make a deep copy of the task for local binding
+                    taskListCopy = new TaskList(taskList);
+                    DataContext = taskListCopy;
+
+                    // add the delete button to the ApplicationBar
+                    var button = new ApplicationBarIconButton() { Text = "Delete", IconUri = new Uri("/Images/appbar.delete.rest.png", UriKind.Relative) };
+                    button.Click += new EventHandler(DeleteButton_Click);
+
+                    // insert after the save button but before the cancel button
+                    ApplicationBar.Buttons.Add(button);
+                }
+
+                RenderListTypes();
+            }
         }
 
         #endregion

@@ -16,12 +16,10 @@ using System.Collections.Generic;
 using TaskStoreClientEntities;
 using System.Text;
 using System.Threading;
-using System.Runtime.Serialization.Json;
-using Newtonsoft.Json;
 
 namespace TaskStoreWinPhoneUtilities
 {
-    public class StorageHelper
+    public class StorageHelperBAK
     {
         static private Dictionary<string, object> fileLocks = new Dictionary<string, object>()
         {
@@ -48,29 +46,23 @@ namespace TaskStoreWinPhoneUtilities
             using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 // use a DCS to de/serialize the xml file
-                DataContractJsonSerializer dc = new DataContractJsonSerializer(typeof(Constants));
-                Constants constants = new Constants();
+                DataContractSerializer dc = new DataContractSerializer(typeof(Constants), "Constants", "");
 
                 try
                 {
                     // if the file opens, read the contents and replace the generated data
-                    using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Constants.json", FileMode.Open, file))
+                    using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Constants.xml", FileMode.Open, file))
                     {
-                        constants = (Constants)dc.ReadObject(stream);
-                        //string json = new StreamReader(stream).ReadToEnd();
-                        //constants = (Constants)JsonConvert.DeserializeObject(json, constants.GetType());
-                        //constants = JsonConvert.DeserializeObject<Constants>(json);
-
                         // trace reading data
                         TraceHelper.AddMessage("Finished Read Constants");
 
-                        return constants;
+                        return (Constants)dc.ReadObject(stream);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // trace reading data
-                    TraceHelper.AddMessage("Exception Read Constants: " + ex.Message);
+                    TraceHelper.AddMessage("Finished Read Constants");
 
                     return null;
                 }
@@ -96,18 +88,15 @@ namespace TaskStoreWinPhoneUtilities
                         return;
                     }
 
-                    DataContractJsonSerializer dc = new DataContractJsonSerializer(constants.GetType());
+                    DataContractSerializer dc = new DataContractSerializer(constants.GetType(), "Constants", "");
 
-                    using (IsolatedStorageFileStream stream = file.CreateFile("Constants.json"))
+                    using (IsolatedStorageFileStream stream = file.CreateFile("Constants.xml"))
                     {
                         dc.WriteObject(stream, constants);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    // trace writing data
-                    TraceHelper.AddMessage("Exception Write Constants: " + ex.Message);
-                    return;
                 }
             }
 
@@ -315,13 +304,13 @@ namespace TaskStoreWinPhoneUtilities
             using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 // use a DCS to de/serialize the xml file
-                DataContractJsonSerializer dc = new DataContractJsonSerializer(list.GetType());
+                DataContractSerializer dc = new DataContractSerializer(list.GetType(), elementName, "");
                 IsolatedStorageFileStream stream = null;
 
                 // try to open the file
                 try
                 {
-                    using (stream = new IsolatedStorageFileStream(elementName + ".json", FileMode.Open, file))
+                    using (stream = new IsolatedStorageFileStream(elementName + ".xml", FileMode.Open, file))
                     {
                         // if the file opens, read the contents and replace the generated data
                         try
@@ -344,7 +333,7 @@ namespace TaskStoreWinPhoneUtilities
                             string s = new StreamReader(stream).ReadToEnd();
 
                             // trace exception
-                            TraceHelper.AddMessage(String.Format("Exception Reading {0}: {1}; {2}", elementName, ex.Message, s));
+                            TraceHelper.AddMessage(String.Format("Exception reading {0}: {1}; {2}", elementName, ex.Message, s));
            
                             return null;
                         }
@@ -353,7 +342,7 @@ namespace TaskStoreWinPhoneUtilities
                 catch (Exception ex)
                 {
                     // trace exception
-                    TraceHelper.AddMessage(String.Format("Exception Reading {0}: {1}", elementName, ex.Message));
+                    TraceHelper.AddMessage(String.Format("Exception reading {0}: {1}", elementName, ex.Message));
 
                     return null;
                 }
@@ -389,19 +378,19 @@ namespace TaskStoreWinPhoneUtilities
                             return;
                         }
 
-                        DataContractJsonSerializer dc = new DataContractJsonSerializer(list.GetType());
-                        using (IsolatedStorageFileStream stream = file.CreateFile(elementName + ".json"))
+                        DataContractSerializer dc = new DataContractSerializer(list.GetType(), elementName, "");
+                        using (IsolatedStorageFileStream stream = file.CreateFile(elementName + ".xml"))
                         {
                             dc.WriteObject(stream, list);
                         }
 
                         // trace writing data
-                        TraceHelper.AddMessage(String.Format("Finished Writing {0}", elementName));
+                        TraceHelper.AddMessage(String.Format("Finished writing {0}", elementName));
                     }
                     catch (Exception ex)
                     {
                         // trace exception
-                        TraceHelper.AddMessage(String.Format("Exception Writing {0}: {1}", elementName, ex.Message));
+                        TraceHelper.AddMessage(String.Format("Exception writing {0}: {1}", elementName, ex.Message));
                     }
                 }
             }

@@ -144,6 +144,7 @@
                 <shell:ApplicationBarMenuItem Text="about" Click="AboutMenuItem_Click"/>
                 <shell:ApplicationBarMenuItem Text="email lists" Click="EmailMenuItem_Click"/>
                 <shell:ApplicationBarMenuItem Text="erase all data" Click="EraseMenuItem_Click"/>
+                <shell:ApplicationBarMenuItem Text="debug information" Click="DebugMenuItem_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
