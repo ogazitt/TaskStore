@@ -17,5 +17,7 @@
     <PublishSolutionConfiguration>Debug</PublishSolutionConfiguration>
     <PublishProfile>Default</PublishProfile>
     <TimestampLabel>True</TimestampLabel>
+    <PackageProfile>Default</PackageProfile>
+    <PackageSolutionConfiguration>Debug</PackageSolutionConfiguration>
   </PropertyGroup>
 </Project>

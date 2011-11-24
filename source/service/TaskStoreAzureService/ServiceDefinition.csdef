@@ -6,6 +6,8 @@
       <Import moduleName="RemoteAccess" />
       <Import moduleName="RemoteForwarder" />
     </Imports>
+    <ConfigurationSettings>
+    </ConfigurationSettings>
   </WorkerRole>
   <WebRole name="TaskStoreWeb" vmsize="ExtraSmall">
     <Sites>
