@@ -92,22 +92,6 @@ namespace TaskStoreWinPhone
                     });
             }
 
-            if (1 == 2)
-            {
-                for (int j = 0; j < 10000; j++)
-                    taskList.Tasks.Add(new Task() { TaskListID = taskList.ID, Name = "j" + j.ToString() });
-
-                // save the changes to local storage
-                var datetimelist = new List<DateTime>();
-                for (int i = 0; i < 3; i++)
-                {
-                    StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-                    datetimelist.Add(DateTime.Now);
-                }
-            }
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
-
             // re-render the debug tab
             RenderDebugPanel();
         }

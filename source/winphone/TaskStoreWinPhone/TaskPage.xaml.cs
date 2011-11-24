@@ -74,7 +74,36 @@ namespace TaskStoreWinPhone
 
             // reset the tab index
             tabIndex = 0;
-            
+
+            // don't render the tasklist field by default
+            bool renderTaskListField = false;
+
+            // find the taskist that this task would belong to
+            string taskListIDString = "";
+            if (NavigationContext.QueryString.TryGetValue("taskListID", out taskListIDString))
+            {
+                Guid taskListID = new Guid(taskListIDString);
+                if (taskListID != Guid.Empty)
+                {
+                    try
+                    {
+                        //taskList = App.ViewModel.TaskLists.Single(tl => tl.ID == taskListID);
+                        taskList = App.ViewModel.LoadList(taskListID);
+                    }
+                    catch (Exception)
+                    {
+                        taskList = null;
+                    }
+                }
+            }
+
+            // if we haven't found a tasklist, use the default one
+            if (taskList == null)
+            {
+                taskList = App.ViewModel.DefaultTaskList;
+                renderTaskListField = true;
+            }
+
             string taskIDString = "";
             // must have a task ID passed (either a valid GUID or "new")
             if (NavigationContext.QueryString.TryGetValue("ID", out taskIDString) == false)
@@ -86,37 +115,9 @@ namespace TaskStoreWinPhone
                 return;
             }
 
-            // don't render the tasklist field by default
-            bool renderTaskListField = false;
-
             // the task page is used to construct a new item
             if (taskIDString == "new")
             {
-                // find the taskist that this task would belong to
-                string taskListIDString = "";
-                if (NavigationContext.QueryString.TryGetValue("taskListID", out taskListIDString))
-                {
-                    Guid taskListID = new Guid(taskListIDString);
-                    if (taskListID != Guid.Empty)
-                    {
-                        try
-                        {
-                            taskList = App.ViewModel.TaskLists.Single(tl => tl.ID == taskListID);
-                        }
-                        catch (Exception)
-                        {
-                            taskList = null;
-                        }
-                    }
-                }
-                
-                // if we haven't found a tasklist, use the default one
-                if (taskList == null)
-                {
-                    taskList = App.ViewModel.DefaultTaskList;
-                    renderTaskListField = true;
-                }
-
                 // remove the "actions" tab
                 //TaskPagePivotControl.Items.RemoveAt(0);
                 //((PivotItem)(TaskPagePivotControl.Items[0])).IsEnabled = false;
@@ -132,8 +133,9 @@ namespace TaskStoreWinPhone
             {
                 // editing an existing item
                 Guid id = new Guid(taskIDString);
-                thisTask = App.ViewModel.Tasks.Single(t => t.ID == id);
-                taskList = App.ViewModel.TaskLists.Single(tl => tl.ID == thisTask.TaskListID);
+                //thisTask = App.ViewModel.Tasks.Single(t => t.ID == id);
+                //taskList = App.ViewModel.TaskLists.Single(tl => tl.ID == thisTask.TaskListID);
+                thisTask = taskList.Tasks.Single(t => t.ID == id);
 
                 // make a deep copy of the task for local binding
                 taskCopy = new Task(thisTask);
@@ -182,10 +184,11 @@ namespace TaskStoreWinPhone
             taskList.Tasks.Remove(thisTask);
 
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
+            //StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
+            StorageHelper.WriteList(taskList);
 
             // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            //App.ViewModel.NotifyPropertyChanged("Tasks");
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -259,10 +262,11 @@ namespace TaskStoreWinPhone
             }
             
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
+            //StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
+            StorageHelper.WriteList(taskList);
 
             // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            //App.ViewModel.NotifyPropertyChanged("Tasks");
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -552,7 +556,8 @@ namespace TaskStoreWinPhone
                     ListPicker taskListPicker = new ListPicker() { MinWidth = minWidth, IsTabStop = true };
                     taskListPicker.ItemsSource = App.ViewModel.TaskLists;
                     taskListPicker.DisplayMemberPath = "Name";
-                    taskListPicker.SelectedIndex = App.ViewModel.TaskLists.IndexOf(taskList);
+                    TaskList tl = App.ViewModel.TaskLists.FirstOrDefault(list => list.ID == taskList.ID);
+                    taskListPicker.SelectedIndex = App.ViewModel.TaskLists.IndexOf(tl);
                     taskListPicker.SelectionChanged += new SelectionChangedEventHandler(delegate { pi.SetValue(taskCopy, App.ViewModel.TaskLists[taskListPicker.SelectedIndex].ID, null); });
                     taskListPicker.TabIndex = tabIndex++;
                     EditStackPanel.Children.Add(taskListPicker);
@@ -893,7 +898,8 @@ namespace TaskStoreWinPhone
                                     TraceHelper.StartMessage("Task: Navigate to TaskList");
 
                                     // Navigate to the new page
-                                    NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=TaskList&ID=" + tl.ID.ToString(), UriKind.Relative));
+                                    //NavigationService.Navigate(new Uri("/TaskListPage.xaml?type=TaskList&ID=" + tl.ID.ToString(), UriKind.Relative));
+                                    NavigationService.Navigate(new Uri("/ListPage.xaml?type=TaskList&ID=" + tl.ID.ToString(), UriKind.Relative));
                                 });
                             }
                             catch (Exception)
@@ -922,6 +928,7 @@ namespace TaskStoreWinPhone
                             valueTextBlock.SetBinding(TextBlock.TextProperty, new Binding(pi.Name));
                             button.Click += new RoutedEventHandler(delegate
                             {
+#if WINPHONE7 // Pre-MANGO
                                 string mapUrl = "maps:";
                                 bool space = false;
                                 foreach (string part in valueString.Split(' '))
@@ -932,6 +939,9 @@ namespace TaskStoreWinPhone
                                     space = true;
                                 }
                                 WebBrowserTask mapTask = new WebBrowserTask() { Uri = new Uri(mapUrl) };
+#else // MANGO
+                                BingMapsTask mapTask = new BingMapsTask() { SearchTerm = valueString };
+#endif
                                 mapTask.Show();
                             });
                             break;
@@ -956,7 +966,10 @@ namespace TaskStoreWinPhone
                             valueTextBlock.SetBinding(TextBlock.TextProperty, new Binding(pi.Name));
                             button.Click += new RoutedEventHandler(delegate
                             {
-                                WebBrowserTask browserTask = new WebBrowserTask() { Uri = new Uri((string)val) };
+                                string url = (string)val;
+                                if (url.Substring(1, 4) != "http")
+                                    url = String.Format("http://{0}", url);
+                                WebBrowserTask browserTask = new WebBrowserTask() { Uri = new Uri(url) };
                                 browserTask.Show();
                             });
                             break;

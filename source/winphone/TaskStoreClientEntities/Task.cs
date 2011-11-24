@@ -16,6 +16,8 @@ namespace TaskStoreClientEntities
         {
             created = DateTime.UtcNow;
             lastModified = DateTime.UtcNow;
+            taskTags = new ObservableCollection<TaskTag>();
+            tags = new ObservableCollection<Tag>();
         }
 
         public Task(Task task)
@@ -59,7 +61,9 @@ namespace TaskStoreClientEntities
             }
 
             // store the tag collection (which will invoke setter and trigger databinding)
-            Tags = newTags;
+            //Tags = newTags;
+            // don't trigger databinding
+            tags = newTags;
         }
 
         private Guid id;

@@ -34,44 +34,6 @@
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="SearchHeader" Grid.Row="0" Text="{Binding SearchTerm}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="12,-25,0,0" />
                     <ListBox Grid.Row="1" x:Name="TasksListBox" Margin="0,0,0,0" ItemsSource="{Binding TasksViewSource.View}" SelectionChanged="TasksListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,-5,0,0" Width="432">
-                                    <Grid x:Name="ItemLineOne" Background="Transparent">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding PriorityIDIcon}" Margin="0,2,0,0" />
-                                        <CheckBox Grid.Column="1" x:Name="CompleteCheckbox" IsChecked="{Binding Complete, Mode=TwoWay}" Click="Tasks_CompleteCheckbox_Click" Tag="{Binding ID}"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{Binding NameDisplayColor}" Margin="0,12,0,0" />
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding DueDisplay}" Margin="32,-17,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding DueDisplayColor}" />
-                                        <StackPanel Grid.Column="1" x:Name="TagListStackPanel" Margin="32,-17,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
-                                            <ListBox ItemsSource="{Binding Tags}">
-                                                <ListBox.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListBox.ItemsPanel>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <HyperlinkButton ClickMode="Release" Content="{Binding Name}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" Click="Tag_HyperlinkButton_Click" Tag="{Binding ID}"/>
-                                                        <!--<TextBlock Text="{Binding Name}" Margin="20,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" tilt:TiltEffect.SuppressTilt="True" />-->
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PivotItem>

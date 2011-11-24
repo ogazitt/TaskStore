@@ -177,6 +177,9 @@ namespace TaskStoreClientEntities
             }
         }
 
+        // local property
+        public bool Synced { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

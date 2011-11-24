@@ -25,34 +25,18 @@ namespace TaskStoreWinPhone
 {
     public partial class ListPage : PhoneApplicationPage, INotifyPropertyChanged
     {
+        private const int rendersize = 10;  // limit of elements to render immediately
+        private bool constructorCalled = false;
         private TaskList taskList;
-        public TaskList TaskList
-        {
-            get
-            {
-                return taskList;
-            }
-            set
-            {
-                if (value != taskList)
-                {
-                    taskList = value;
-                    NotifyPropertyChanged("TaskList");
-                }
-            }
-        }
+        private TaskListHelper TaskListHelper;
         private Tag tag;
-        private bool disableListBoxSelectionChanged = true;
+
         private SpeechHelper.SpeechState speechState;
-        
         private string speechDebugString = null;
         private DateTime speechStart;
 
         // ViewSource for the TaskList collection for Import Template (used for filtering out non-template lists)
         public CollectionViewSource ImportTemplateViewSource { get; set; }
-
-        // property that controls the sort order for the ListBoxes
-        public List<CollectionViewSource> OrderedSource { get; set; }
 
         private Visibility networkOperationInProgress = Visibility.Collapsed;
         /// <summary>
@@ -188,42 +172,15 @@ namespace TaskStoreWinPhone
             SpeechPopup_CancelButton.DataContext = this;
             SpeechLabel.DataContext = this;
 
-            OrderedSource = new List<CollectionViewSource>();
-
-            // add the name viewsource (which is a sorted view of the tasklist by name)
-            var nameViewSource = new CollectionViewSource();
-            using (nameViewSource.DeferRefresh())
-            {
-                nameViewSource.SortDescriptions.Add(new SortDescription("Complete", ListSortDirection.Ascending));
-                nameViewSource.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                OrderedSource.Add(nameViewSource);
-                ByNameListBox.DataContext = this;
-            }
-            // add the due viewsource (which is a sorted view of the tasklist by due date)
-            var dueViewSource = new CollectionViewSource();
-            using (dueViewSource.DeferRefresh())
-            {
-                dueViewSource.SortDescriptions.Add(new SortDescription("Complete", ListSortDirection.Ascending));
-                dueViewSource.SortDescriptions.Add(new SortDescription("DueSort", ListSortDirection.Ascending));
-                dueViewSource.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                OrderedSource.Add(dueViewSource);
-                ByDueListBox.DataContext = this;
-            }
-            // add the priority viewsource (which is a sorted view of the tasklist by priority)
-            var priViewSource = new CollectionViewSource();
-            using (priViewSource.DeferRefresh())
-            {
-                priViewSource.SortDescriptions.Add(new SortDescription("Complete", ListSortDirection.Ascending));
-                priViewSource.SortDescriptions.Add(new SortDescription("PriorityIDSort", ListSortDirection.Descending));
-                priViewSource.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                OrderedSource.Add(priViewSource);
-                ByPriListBox.DataContext = this;
-            }
             ImportTemplateViewSource = new CollectionViewSource();
             ImportTemplateViewSource.Filter += new FilterEventHandler(ImportTemplate_Filter);
 
-            Loaded += new RoutedEventHandler(TaskListPage_Loaded);
-            BackKeyPress += new EventHandler<CancelEventArgs>(TaskListPage_BackKeyPress);
+            // add some event handlers
+            Loaded += new RoutedEventHandler(ListPage_Loaded);
+            BackKeyPress += new EventHandler<CancelEventArgs>(ListPage_BackKeyPress);
+
+            // set the constructor called flag
+            constructorCalled = true;
 
             // trace data
             TraceHelper.AddMessage("Exiting List constructor");
@@ -267,8 +224,22 @@ namespace TaskStoreWinPhone
                     // get the tasklist and make it the datacontext
                     try
                     {
-                        taskList = App.ViewModel.TaskLists.Single(tl => tl.ID == id);
-                        SetContext(taskList);
+                        taskList = App.ViewModel.LoadList(id);
+
+                        // if the load failed, this list has been deleted
+                        if (taskList == null)
+                        {
+                            // the list isn't found - this can happen when the list we were just 
+                            // editing was removed in TaskListEditor, which then goes back to TaskListPage.
+                            // this will send us back to the MainPage which is appropriate.
+
+                            // trace page navigation
+                            TraceHelper.StartMessage("List: Navigate back");
+
+                            // navigate back
+                            NavigationService.GoBack();
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -301,10 +272,12 @@ namespace TaskStoreWinPhone
                     try
                     {
                         tag = App.ViewModel.Tags.Single(t => t.ID == id);
-                        taskList = new TaskList() { ID = Guid.Empty, Name = String.Format("tasks with {0} tag", tag.Name), Tasks = App.ViewModel.Tasks };
-                        SetContext(taskList);
-                        foreach (var source in OrderedSource)
-                            source.Filter += new FilterEventHandler(Tag_Filter);
+                        taskList = new TaskList() 
+                        { 
+                            ID = Guid.Empty, 
+                            Name = String.Format("tasks with {0} tag", tag.Name), 
+                            Tasks = App.ViewModel.Tasks.Where(t => t.TaskTags.Any(tg => tg.TagID == tag.ID)).ToObservableCollection()
+                        };
                     }
                     catch (Exception)
                     {
@@ -329,17 +302,22 @@ namespace TaskStoreWinPhone
                     return;
             }
 
-            // workaround for the CollectionViewSource wrappers that are used for the different ListBox sorts
-            // setting SelectionMode to Multiple removes the issue where the SelectionChanged event handler gets
-            // invoked every time the list is changed (which triggers a re-sort).  The SelectionMode gets reset back
-            // to Single when the SelectionChanged events handler gets called (for a valid reason - i.e. user action)
-            SetSelectionMode(SelectionMode.Multiple);
+            // set datacontext 
+            DataContext = taskList;
 
-            // enable the listbox
-            disableListBoxSelectionChanged = false;
+            // create the TaskListHelper
+            TaskListHelper = new TaskStoreWinPhone.TaskListHelper(
+                taskList, 
+                new RoutedEventHandler(CompleteCheckbox_Click), 
+                new RoutedEventHandler(Tag_HyperlinkButton_Click));
+
+            // store the current listbox and ordering
+            PivotItem item = (PivotItem) PivotControl.Items[PivotControl.SelectedIndex];
+            TaskListHelper.ListBox = (ListBox)((Grid)item.Content).Children[1];
+            TaskListHelper.OrderBy = (string)item.Header;
 
             // trace data
-            TraceHelper.AddMessage("Exiting TaskList OnNavigatedTo");
+            TraceHelper.AddMessage("Exiting List OnNavigatedTo");
         }
 
         #region Event Handlers
@@ -374,8 +352,8 @@ namespace TaskStoreWinPhone
             // create a copy of that task
             Task taskCopy = new Task(task);
 
-            // toggle the Complete flag on the task copy to reflect the original state 
-            taskCopy.Complete = !taskCopy.Complete;
+            // toggle the complete flag to reflect the checkbox click
+            task.Complete = !task.Complete;
 
             // enqueue the Web Request Record
             RequestQueue.EnqueueRequestRecord(
@@ -384,17 +362,14 @@ namespace TaskStoreWinPhone
                     ReqType = RequestQueue.RequestRecord.RequestType.Update,
                     Body = new List<Task>() { taskCopy, task },
                     BodyTypeName = "Task",
-                    ID = taskCopy.ID
+                    ID = task.ID
                 });
-
-            // trigger databinding by creating a new taskList and binding to it
-            SetContext(null);
+            
+            // reorder the task in the tasklist and the ListBox
+            TaskListHelper.ReOrderTask(taskList, task);
 
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            StorageHelper.WriteList(taskList);
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -409,11 +384,10 @@ namespace TaskStoreWinPhone
             if (result != MessageBoxResult.OK)
                 return;
 
-            // we will be building a new tasklist of only the non-completed items
-            TaskList newTaskList = new TaskList(taskList);
-            newTaskList.Tasks.Clear();
-            
-            foreach (var task in taskList.Tasks)
+            // create a copy of the tasklist to foreach over.  this is because we can't delete
+            // from the original collection while it's being enumerated.
+            TaskList tl = new TaskList(taskList);
+            foreach (var task in tl.Tasks)
             {
                 if (task.Complete == true)
                 {
@@ -424,22 +398,14 @@ namespace TaskStoreWinPhone
                             ReqType = RequestQueue.RequestRecord.RequestType.Delete,
                             Body = task
                         });
-                }
-                else
-                {
-                    // add the non-completed task to the new list
-                    newTaskList.Tasks.Add(task);
+
+                    // remove the task from the original collection and from ListBox
+                    TaskListHelper.RemoveTask(taskList, task);
                 }
             }
 
-            // replace the main tasklist and databind to the new list
-            SetContext(newTaskList);
-
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            StorageHelper.WriteList(taskList);
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -485,7 +451,6 @@ namespace TaskStoreWinPhone
 
             // open the popup, disable list selection bug
             ImportTemplatePopup.IsOpen = true;
-            SetSelectionMode(SelectionMode.Multiple);
         }
 
         private void ImportTemplatePopup_ImportButton_Click(object sender, RoutedEventArgs e)
@@ -494,9 +459,7 @@ namespace TaskStoreWinPhone
             if (tl == null)
                 return;
 
-            // add the task to a new tasklist reference (to trigger databinding)
-            var newTaskList = new TaskList(taskList);
-
+            // add the tasks in the template to the existing list
             foreach (Task t in tl.Tasks)
             {
                 DateTime now = DateTime.UtcNow;
@@ -521,17 +484,17 @@ namespace TaskStoreWinPhone
                     });
 
                 // add the task to the local collection
-                newTaskList.Tasks.Add(task);
+                // note that we don't use TaskListHelper.AddTask() here because it is typically more efficient
+                // to add all the tasks and then re-render the entire list.  This is because 
+                // the typical use case is to import a template into an empty (or nearly empty) list.
+                taskList.Tasks.Add(task);
             }
 
-            // replace the main tasklist and databind to the new list
-            SetContext(newTaskList);
+            // render the new list 
+            TaskListHelper.RenderList(taskList);
 
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            StorageHelper.WriteList(taskList);
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -549,14 +512,6 @@ namespace TaskStoreWinPhone
         // Handle selection changed on ListBox
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // if listbox is disabled (because we've navigated off this page), return without handling this event.
-            // this condition can happen when we've already navigated off this page, and an async network operation
-            // creates a new Tasks collection, which is databound to this ListBox.  Since we have a ViewSourceCollection as 
-            // the databinding source, and a sort is applied, the Selection will be changed automatically and trigger this
-            // event even though we're not on the page anymore.
-            if (disableListBoxSelectionChanged == true)
-                return;
-
             ListBox listBox = (ListBox)sender;
             // If selected index is -1 (no selection) do nothing
             if (listBox.SelectedIndex == -1)
@@ -565,26 +520,10 @@ namespace TaskStoreWinPhone
             // get the task associated with this click
             Task task = null;
 
-            if (listBox.SelectionMode == SelectionMode.Multiple)
-            {
-                var selItems = listBox.SelectedItems;
-                var c = selItems.Count;
-                // the last task in the SelectedItems collection is the one we want (the previous one(s) were generated by re-binding 
-                // events and are spurious)
-                foreach (var item in selItems)
-                {
-                    task = (Task)item;
-                }
-
-                // reset the selection mode to single (it's now safe to do so)
-                // note: this will recursively reinvoke the SelectionChanged event handler
-                SetSelectionMode(SelectionMode.Single);  
-            }
-            else
-            {
-                // this is a single selection mode - just retrieve the current selection
-                task = (Task)listBox.SelectedItem;
-            }
+            // retrieve the current selection
+            ListBoxItem item = listBox.SelectedItem as ListBoxItem;
+            if (item != null)
+                task = item.Tag as Task;
 
             // if there is no task, return without processing the event
             if (task == null)
@@ -598,12 +537,33 @@ namespace TaskStoreWinPhone
                 new Uri(String.Format("/TaskPage.xaml?ID={0}&taskListID={1}", task.ID, task.TaskListID),
                 UriKind.Relative));
 
-            // we need to disable the selection changed event so that we don't get cascading calls to Navigate which will
-            // cause a navigation exception
-            disableListBoxSelectionChanged = true;
-
             // Reset selected index to -1 (no selection)
             listBox.SelectedIndex = -1;
+        }
+
+        // handle ListPage events
+        void ListPage_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.StartMessage("List: Navigate back");
+
+            // navigate back
+            NavigationService.GoBack();
+        }
+
+        void ListPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // trace page navigation
+            TraceHelper.AddMessage("List: Loaded");
+
+            // reset the constructor flag
+            constructorCalled = false;
+
+            // create the control tree and render the tasklist
+            TaskListHelper.RenderList(taskList);
+
+            // trace page navigation
+            TraceHelper.AddMessage("Finished List Loaded");
         }
 
         // handle events associated with the Lists button
@@ -619,10 +579,16 @@ namespace TaskStoreWinPhone
 
         private void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (OrderedSource[PivotControl.SelectedIndex].Source == null)
+            // store the current listbox
+            TaskListHelper.ListBox = (ListBox)((Grid)((PivotItem)PivotControl.SelectedItem).Content).Children[1];
+            TaskListHelper.OrderBy = (string)((PivotItem)PivotControl.SelectedItem).Header;
+
+            // the pivot control's selection changed event gets called during the initialization of a new
+            // page.  since we do rendering in the Loaded event handler, we need to skip rendering here
+            // so that we don't do it twice and slow down the loading of the page.
+            if (constructorCalled == false)
             {
-                // set the source for the current tab (doing all three is too expensive)
-                OrderedSource[PivotControl.SelectedIndex].Source = taskList.Tasks;
+                TaskListHelper.RenderList(taskList);
             }
         }
 
@@ -631,7 +597,6 @@ namespace TaskStoreWinPhone
         {
             // open the popup, disable list selection bug, and transfer focus to the popup text box
             QuickAddPopup.IsOpen = true;
-            SetSelectionMode(SelectionMode.Multiple);
             PopupTextBox.Focus();
         }
 
@@ -653,18 +618,11 @@ namespace TaskStoreWinPhone
                     Body = task
                 });
 
-            // add the task to a new tasklist reference (to trigger databinding)
-            var newTaskList = new TaskList(taskList);
-            newTaskList.Tasks.Add(task);
-
-            // replace the main tasklist and databind to the new list
-            SetContext(newTaskList);
+            // add the new task
+            TaskListHelper.AddTask(taskList, task);
 
             // save the changes to local storage
-            StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
+            StorageHelper.WriteList(taskList);
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
@@ -893,22 +851,6 @@ namespace TaskStoreWinPhone
         }
 
         // event handlers related to tags
-        private void Tag_Filter(object sender, FilterEventArgs e)
-        {
-            Task task = e.Item as Task;
-            try
-            {
-                TaskTag taskTag = task.TaskTags.Single(tt => tt.TagID == tag.ID);
-                if (taskTag != null)
-                    e.Accepted = true;
-                else
-                    e.Accepted = false;
-            }
-            catch (Exception)
-            {
-                e.Accepted = false;
-            }
-        }
 
         private void Tag_HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
@@ -922,212 +864,9 @@ namespace TaskStoreWinPhone
             NavigationService.Navigate(new Uri("/ListPage.xaml?type=Tag&ID=" + tagID.ToString(), UriKind.Relative));
         }
 
-        void TaskListPage_BackKeyPress(object sender, CancelEventArgs e)
-        {
-            // trace page navigation
-            TraceHelper.StartMessage("List: Navigate back");
-
-            // navigate back
-            NavigationService.GoBack();
-        }
-
-        void TaskListPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            // trace page navigation
-            TraceHelper.AddMessage("List: Loaded");
-
-            // create the control tree and render the tasklist
-            RenderList();
-
-            // trace page navigation
-            TraceHelper.AddMessage("Finished List Loaded");
-        }
-
         #endregion
 
         #region Helpers
-
-        /// <summary>
-        /// Get System.Windows.Media.Colors from a string color name
-        /// </summary>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        private System.Windows.Media.Color GetDisplayColor(string c)
-        {
-            switch (c)
-            {
-                case "White":
-                    return Colors.White;
-                case "Blue":
-                    return Colors.Blue;
-                case "Brown":
-                    return Colors.Brown;
-                case "Green":
-                    return Colors.Green;
-                case "Orange":
-                    return Colors.Orange;
-                case "Purple":
-                    return Colors.Purple;
-                case "Red":
-                    return Colors.Red;
-                case "Yellow":
-                    return Colors.Yellow;
-                case "Gray":
-                    return Colors.Gray;
-            }
-            return Colors.White;
-        }
-
-        /// <summary>
-        /// Find a tasklist by ID and then return its index 
-        /// </summary>
-        /// <param name="observableCollection"></param>
-        /// <param name="taskList"></param>
-        /// <returns></returns>
-        private int IndexOf(ObservableCollection<TaskList> lists, TaskList taskList)
-        {
-            try
-            {
-                TaskList taskListRef = lists.Single(tl => tl.ID == taskList.ID);
-                return lists.IndexOf(taskListRef);
-            }
-            catch (Exception)
-            {
-                return -1;
-            }
-        }
-
-        private void RenderList()
-        {
-            foreach (Task t in taskList.Tasks)
-                RenderTask(t);
-        }
-
-        private void RenderTask(Task t)
-        {
-            FrameworkElement element;
-            ListBoxItem listBoxItem = new ListBoxItem();
-            StackPanel sp = new StackPanel() { Margin = new Thickness(0, -5, 0, 0), Width = 432d };
-            listBoxItem.Content = sp;
-
-            // first line (priority icon, checkbox, name)
-            Grid itemLineOne = new Grid(); 
-            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            itemLineOne.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            itemLineOne.Children.Add(element = new Image() { Source = new BitmapImage(new Uri(t.PriorityIDIcon, UriKind.Relative)), Margin = new Thickness(0, 2, 0, 0) });
-            element.SetValue(Grid.ColumnProperty, 0);
-            itemLineOne.Children.Add(element = new CheckBox() { IsChecked = t.Complete, Tag = t.ID });
-            element.SetValue(Grid.ColumnProperty, 1);
-            ((CheckBox) element).Click += new RoutedEventHandler(CompleteCheckbox_Click);
-            itemLineOne.Children.Add(element = new TextBlock()
-            {
-                Text = t.Name,
-                Style = (Style)App.Current.Resources["PhoneTextLargeStyle"],
-                Foreground = new SolidColorBrush(GetDisplayColor(t.NameDisplayColor)),
-                Margin = new Thickness(0, 12, 0, 0)
-            });
-            element.SetValue(Grid.ColumnProperty, 2);
-            sp.Children.Add(itemLineOne);
-
-            // second line (duedate, tags)
-            Grid itemLineTwo = new Grid();
-            itemLineTwo.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            itemLineTwo.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            itemLineTwo.Children.Add(element = new TextBlock()
-            {
-                Text = t.DueDisplay,
-                FontSize = (double)App.Current.Resources["PhoneFontSizeNormal"],
-                //Style = (Style)App.Current.Resources["PhoneTextNormalStyle"],
-                Foreground = new SolidColorBrush(GetDisplayColor(t.DueDisplayColor)),
-                Margin = new Thickness(32, -17, 0, 0)
-            });
-            element.SetValue(Grid.ColumnProperty, 0);
-            StackPanel tagStackPanel = new StackPanel()
-            {
-                Margin = new Thickness(32, -17, 0, 0),
-                Orientation = System.Windows.Controls.Orientation.Horizontal,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Right
-            };
-            tagStackPanel.SetValue(Grid.ColumnProperty, 1);
-            foreach (var tag in t.Tags)
-            {
-                HyperlinkButton button;
-                tagStackPanel.Children.Add(button = new HyperlinkButton()
-                {
-                    ClickMode = ClickMode.Release,
-                    Content = tag.Name,
-                    FontSize = (double)App.Current.Resources["PhoneFontSizeNormal"],
-                    Foreground = new SolidColorBrush(GetDisplayColor(tag.Color)),
-                    Tag = tag.ID
-                });
-                button.Click += Tag_HyperlinkButton_Click;
-            }
-            itemLineTwo.Children.Add(tagStackPanel);
-            sp.Children.Add(itemLineTwo);
-
-            // add the new item to the listbox
-            ByNameListBox.Items.Add(listBoxItem);
-        }
-
-        private void SetContext(TaskList newTaskList)
-        {
-            // dispatch all this work on the UI thread in order to stop the app from blocking
-            //Deployment.Current.Dispatcher.BeginInvoke(() =>
-            //{
-                // if a new copy wasn't passed, create a new one now (to facilitate databinding)
-                if (newTaskList == null)
-                    newTaskList = new TaskList(taskList);
-
-                // find the current tasklist's index and replace the entry in the viewmodel's TaskLists collection
-                // this call will return -1 if the tasklist's index is not found, because we are filtering by tag or doing a search
-                // in that case, we don't need to replace the list
-                int index = IndexOf(App.ViewModel.TaskLists, taskList);
-                if (index >= 0)
-                {
-                    // replace the existing list with the new reference
-                    App.ViewModel.TaskLists[index] = newTaskList;
-                }
-
-                // replace the top-level reference
-                taskList = newTaskList;
-
-                // reset the contexts for databinding
-                DataContext = newTaskList;
-                OrderedSource[0].Source = null;
-                OrderedSource[1].Source = null;
-                OrderedSource[2].Source = null;
-
-                // set the source for the current tab (doing all three is too expensive)
-                OrderedSource[PivotControl.SelectedIndex].Source = taskList.Tasks;
-
-                // test
-                //ByNameListBox.DataContext = this;
-            //});
-        }
-
-        /// <summary>
-        /// Set the selection mode for all three list boxes
-        /// </summary>
-        /// <param name="selectionMode"></param>
-        private void SetSelectionMode(SelectionMode selectionMode)
-        {
-            // workaround for the CollectionViewSource wrappers that are used for the different ListBox sorts
-            // setting SelectionMode to Multiple removes the issue where the SelectionChanged event handler gets
-            // invoked every time the list is changed (which triggers a resort).  The SelectionMode gets reset back
-            // to Single when the SelectionChanged events handler gets called (for a valid reason - i.e. user action)
-
-            // mitigate the recursive behavior of setting the SelectionMode re-invoking the SelectionChanged event handler
-            bool disableState = disableListBoxSelectionChanged;
-            disableListBoxSelectionChanged = true;
-
-            ByNameListBox.SelectionMode = selectionMode;
-            ByDueListBox.SelectionMode = selectionMode;
-            ByPriListBox.SelectionMode = selectionMode;
-
-            // reset the disable state
-            disableListBoxSelectionChanged = disableState;
-        }
 
         /// <summary>
         /// Set the UI based on the current state of the speech state machine

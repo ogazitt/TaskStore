@@ -184,10 +184,6 @@ namespace TaskStoreWinPhone
                 if (value != lists)
                 {
                     lists = value;
-
-                    // save the new ListTypes in isolated storage
-                    StorageHelper.WriteLists(lists.Values);
-
                     NotifyPropertyChanged("Lists");
                 }
             }
@@ -274,9 +270,15 @@ namespace TaskStoreWinPhone
             {
                 // create a concatenated list of tasks. This will be used for tasks and tags views
                 var newTasks = new ObservableCollection<Task>();
-                foreach (TaskList tl in taskLists)
-                    foreach (Task t in tl.Tasks)
-                        newTasks.Add(t);
+                if (taskLists != null)
+                {
+                    foreach (TaskList tl in taskLists)
+                    {
+                        if (tl.Tasks != null)
+                            foreach (Task t in tl.Tasks)
+                                newTasks.Add(t);
+                    }
+                }
                 return newTasks;
             }
         }
@@ -536,25 +538,55 @@ namespace TaskStoreWinPhone
                 this.Tags = InitializeTags();
             }
 
-            // read the tasklists - and create it if it doesn't exist
+            // create the Lists dictionary
+            if (this.lists == null)
+                this.Lists = new Dictionary<Guid, TaskList>();
+
+            // read the tasklists - and create it if it doesn't exist AND if the user credentials have never been set
             // note that this is the only instance where the property is assigned to 
             // we do this to initialize Tasks and DefaultTaskList
             // we don't do it for other properties because assigning to the property also triggers a StorageHelper.Write call
             this.TaskLists = StorageHelper.ReadTaskLists();
-            if (this.taskLists == null)
+            if (this.taskLists == null && (this.User == null || this.User.Synced == false))
             {
+                // we don't want to create the "starter" lists if we already have a sync relationship with the service
                 this.TaskLists = InitializeTaskLists();
             }
 
             // create the tags collection (client-only property)
-            foreach (TaskList tl in taskLists)
-                foreach (Task t in tl.Tasks)
-                    t.CreateTags(tags);
+            if (taskLists != null)
+            {
+                foreach (TaskList tl in taskLists)
+                {
+                    if (tl.Tasks != null)
+                        foreach (Task t in tl.Tasks)
+                            t.CreateTags(tags);
+                }
+            }
 
             this.IsDataLoaded = true;
 
             // trace finished loading data
             TraceHelper.AddMessage("Finished Load Data");
+        }
+
+        /// <summary>
+        /// Read list from isolated storage
+        /// </summary>
+        public TaskList LoadList(Guid id)
+        {
+            TaskList tl;
+            if (this.Lists.TryGetValue(id, out tl))
+                return tl;
+            else
+            {
+                TaskList list = App.ViewModel.TaskLists.Single(l => l.ID == id);
+                string name = String.Format("{0}-{1}", list.Name, id.ToString());
+                tl = StorageHelper.ReadList(name);
+                if (tl != null)
+                    this.Lists[id] = tl;
+            }
+            return tl;
         }
 
         /// <summary>
@@ -730,6 +762,7 @@ namespace TaskStoreWinPhone
             if (user != null)
             {
                 // reset and save the user credentials
+                user.Synced = true;
                 User = user;
 
                 // reset the user's list types
@@ -741,10 +774,19 @@ namespace TaskStoreWinPhone
                 // reset and save the user's tasklists
                 TaskLists = user.TaskLists;
 
-                // create the tags collection (client-only property)
+                // store the tasklists individually
                 foreach (TaskList tl in taskLists)
+                {
+                    // store the tasklist in the dictionary
+                    Lists[tl.ID] = tl;
+
+                    // create the tags collection (client-only property)
                     foreach (Task t in tl.Tasks)
                         t.CreateTags(tags);
+                    
+                    // save the tasklist in its own isolated storage file
+                    StorageHelper.WriteList(tl);
+                }
             }
         }
 
@@ -913,6 +955,9 @@ namespace TaskStoreWinPhone
             // create a To Do list
             taskLists.Add(taskList = new TaskList() { Name = "To Do", ListTypeID = ListType.ToDo, Tasks = new ObservableCollection<Task>() });
 
+            // add to the dictionary
+            Lists.Add(taskList.ID, taskList);
+
             // enqueue the Web Request Record
             RequestQueue.EnqueueRequestRecord(
                 new RequestQueue.RequestRecord()
@@ -944,6 +989,9 @@ namespace TaskStoreWinPhone
 
             // create a shopping list
             taskLists.Add(taskList = new TaskList() { Name = "Shopping", ListTypeID = ListType.Shopping, Tasks = new ObservableCollection<Task>() });
+
+            // add to the dictionary
+            Lists.Add(taskList.ID, taskList);
 
             // enqueue the Web Request Record
             RequestQueue.EnqueueRequestRecord(

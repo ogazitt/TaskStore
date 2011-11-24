@@ -10,9 +10,14 @@ TaskStore source tree
 	    TaskStoreAdminClient: simple admin client over the TaskStore database
 	    TaskStoreClients.[sln,suo]: solution files for the clients
 
+	  corpweb: Corporate website for BuiltSteady
+	    BuiltSteadyWeb: Main project for the website
+	    BuiltSteadyWeb.[sln,suo]: solution files for the website
+
+	  packages: NuGet packages that the projects depend on
+
 	  service: TaskStore Service main directory
 	    AENetMail: IMAP implementation for .NET
-	    packages: NuGet packages that the projects depend on
 	    ServiceHelpers: Helpers that are common to all services 
 	    TaskStoreAzureService: container project for Azure roles
 	    TaskStoreData: SQL Azure and SQL Express schemas for the database

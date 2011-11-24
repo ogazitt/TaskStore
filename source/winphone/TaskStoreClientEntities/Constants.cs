@@ -4,11 +4,34 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace TaskStoreClientEntities
 {
     public class Constants
     {
+        public Constants() 
+        {
+        }
+
+        public Constants(Constants constants)
+        {
+            Copy(constants);
+        }
+
+        public void Copy(Constants obj)
+        {
+            // copy all of the properties
+            foreach (PropertyInfo pi in this.GetType().GetProperties())
+            {
+                if (pi.CanWrite)
+                {
+                    var val = pi.GetValue(obj, null);
+                    pi.SetValue(this, val, null);
+                }
+            }
+        }
+
         private ObservableCollection<Action> actions;
         /// <summary>
         /// Actions collection property

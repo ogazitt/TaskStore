@@ -145,7 +145,11 @@ namespace TaskStoreWinPhoneUtilities
                     // send the chunk to the service
                     try
                     {
-                        NetworkHelper.SendSpeech(speechChunk, len, null, new NetworkDelegate(NetworkCallback));
+                        // get an encoded buffer
+                        byte[] encodedBuf = EncodeSpeech(speechBuffer, len);
+
+                        // invoke the network call
+                        NetworkHelper.SendSpeech(encodedBuf, encodedBuf.Length, null, new NetworkDelegate(NetworkCallback));
                     }
                     catch (Exception)
                     {
@@ -207,8 +211,12 @@ namespace TaskStoreWinPhoneUtilities
             // add the last speech buffer to the list
             speechBufferList.Add(lastBuf);
 
+            // get an encoded buffer
+            byte[] encodedBuf = EncodeSpeech(lastBuf, len);
+
             // send the terminator and receive the response
-            NetworkHelper.EndSpeech(lastBuf, len, del, new NetworkDelegate(NetworkCallback));
+            //NetworkHelper.EndSpeech(lastBuf, len, del, new NetworkDelegate(NetworkCallback));
+            NetworkHelper.EndSpeech(encodedBuf, encodedBuf.Length, del, new NetworkDelegate(NetworkCallback));
 
             // repeat the sentence back to the user
             PlaybackSpeech();
@@ -249,6 +257,11 @@ namespace TaskStoreWinPhoneUtilities
         #endregion
 
         #region Helpers
+
+        private static byte[] EncodeSpeech(byte[] buf, int len)
+        {
+            return buf;
+        }
 
         private static void PlaybackSpeech()
         {

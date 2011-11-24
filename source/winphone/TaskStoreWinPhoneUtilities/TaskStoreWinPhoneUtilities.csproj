@@ -48,6 +48,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.4.0.3\lib\sl3-wp\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NSpeex.Silverlight, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NSpeex.1.1\lib\NSpeex.Silverlight.dll</HintPath>
+    </Reference>
     <Reference Include="SharpCompress.WP7">
       <HintPath>..\..\packages\sharpcompress.0.6\lib\sl3-wp\SharpCompress.WP7.dll</HintPath>
     </Reference>
@@ -60,6 +63,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionHelper.cs" />
     <Compile Include="StorageHelperBAK.cs" />
     <Compile Include="RequestQueue.cs" />
     <Compile Include="HttpWrappers.cs" />

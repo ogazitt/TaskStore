@@ -25,6 +25,32 @@
         <!--Pivot Control-->
         <controls:Pivot x:Name="PivotControl" Title="SORT BY:" SelectionChanged="PivotControl_SelectionChanged">
             <!--Pivot item one-->
+            <controls:PivotItem Header="due">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,-28,0,10" Text="{Binding Name}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                    <ListBox Grid.Row="1" x:Name="ByDueListBox" Margin="0,0,0,0" SelectionChanged="ListBox_SelectionChanged">
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="priority">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="10,-28,0,10" Text="{Binding Name}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
+                    <ListBox Grid.Row="1" x:Name="ByPriListBox" Margin="0,0,0,0" SelectionChanged="ListBox_SelectionChanged">
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item three-->
             <controls:PivotItem Header="name">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -33,108 +59,6 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Margin="10,-28,0,10" Text="{Binding Name}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
                     <ListBox Grid.Row="1" x:Name="ByNameListBox" Margin="0,0,0,0" SelectionChanged="ListBox_SelectionChanged">
-                    </ListBox>
-                </Grid>
-            </controls:PivotItem>
-
-            <!--Pivot item two-->
-            <controls:PivotItem Header="due">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10,-28,0,10" Text="{Binding Name}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
-                    <ListBox Grid.Row="1" x:Name="ByDueListBox" Margin="0,0,0,0" ItemsSource="{Binding OrderedSource[1].View}" SelectionChanged="ListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,-5,0,0" Width="432">
-                                    <Grid x:Name="ItemLineOne" Background="Transparent">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding PriorityIDIcon}" Margin="0,2,0,0" />
-                                        <CheckBox Grid.Column="1" x:Name="CompleteCheckbox" IsChecked="{Binding Complete, Mode=TwoWay}" Click="CompleteCheckbox_Click" Tag="{Binding ID}"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{Binding NameDisplayColor}" Margin="0,12,0,0" />
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding DueDisplay}" Margin="32,-17,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding DueDisplayColor}" />
-                                        <StackPanel Grid.Column="1" x:Name="TagListStackPanel" Margin="32,-17,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
-                                            <ListBox ItemsSource="{Binding Tags}">
-                                                <ListBox.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListBox.ItemsPanel>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <HyperlinkButton ClickMode="Release" Content="{Binding Name}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" Click="Tag_HyperlinkButton_Click" Tag="{Binding ID}"/>
-                                                        <!--<TextBlock Text="{Binding Name}" Margin="20,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" tilt:TiltEffect.SuppressTilt="True" />-->
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-            </controls:PivotItem>
-
-            <!--Pivot item three-->
-            <controls:PivotItem Header="priority">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="10,-28,0,10" Text="{Binding Name}" Style="{StaticResource PhoneTextAccentStyle}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}"/>
-                    <ListBox Grid.Row="1" x:Name="ByPriListBox" Margin="0,0,0,0" ItemsSource="{Binding OrderedSource[2].View}" SelectionChanged="ListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,-5,0,0" Width="432">
-                                    <Grid x:Name="ItemLineOne" Background="Transparent">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding PriorityIDIcon}" Margin="0,2,0,0" />
-                                        <CheckBox Grid.Column="1" x:Name="CompleteCheckbox" IsChecked="{Binding Complete, Mode=TwoWay}" Click="CompleteCheckbox_Click" Tag="{Binding ID}"/>
-                                        <TextBlock Grid.Column="2" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{Binding NameDisplayColor}" Margin="0,12,0,0" />
-                                    </Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding DueDisplay}" Margin="32,-17,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding DueDisplayColor}" />
-                                        <StackPanel Grid.Column="1" x:Name="TagListStackPanel" Margin="32,-17,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
-                                            <ListBox ItemsSource="{Binding Tags}">
-                                                <ListBox.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <VirtualizingStackPanel Orientation="Horizontal"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListBox.ItemsPanel>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <HyperlinkButton ClickMode="Release" Content="{Binding Name}" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" Click="Tag_HyperlinkButton_Click" Tag="{Binding ID}"/>
-                                                        <!--<TextBlock Text="{Binding Name}" Margin="20,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{Binding Color}" tilt:TiltEffect.SuppressTilt="True" />-->
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PivotItem>

@@ -76,9 +76,6 @@ namespace TaskStoreWinPhone
             // save the changes to local storage
             StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
 
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
-
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
 
@@ -139,15 +136,12 @@ namespace TaskStoreWinPhone
                         ID = taskList.ID
                     });
 
-                // save the changes to the existing tasklist
-                taskList.Copy(taskListCopy);
+                // save the changes to the existing tasklist (make a deep copy)
+                taskList.Copy(taskListCopy, true);
             }
 
             // save the changes to local storage
             StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
-
-            // trigger a databinding refresh for tasks
-            App.ViewModel.NotifyPropertyChanged("Tasks");
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();

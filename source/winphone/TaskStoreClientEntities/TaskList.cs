@@ -18,10 +18,15 @@ namespace TaskStoreClientEntities
 
         public TaskList(TaskList list)
         {
-            Copy(list);
+            Copy(list, true);
         }
 
-        public void Copy(TaskList obj)
+        public TaskList(TaskList list, bool deepCopy)
+        {
+            Copy(list, deepCopy);
+        }
+
+        public void Copy(TaskList obj, bool deepCopy)
         {
             // copy all of the properties
             foreach (PropertyInfo pi in this.GetType().GetProperties())
@@ -33,12 +38,21 @@ namespace TaskStoreClientEntities
                 }
             }
 
-            // reinitialize the Tasks collection
-            this.tasks = new ObservableCollection<Task>();
-            foreach (Task t in obj.tasks)
+            if (deepCopy)
             {
-                this.tasks.Add(new Task(t));
+                // reinitialize the Tasks collection
+                this.tasks = new ObservableCollection<Task>();
+                foreach (Task t in obj.tasks)
+                {
+                    this.tasks.Add(new Task(t));
+                }
             }
+            else
+            {
+                this.tasks = new ObservableCollection<Task>();
+            }
+
+            NotifyPropertyChanged("Tasks");
         }
 
         public override string ToString()

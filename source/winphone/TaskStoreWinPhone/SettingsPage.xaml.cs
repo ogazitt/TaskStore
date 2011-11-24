@@ -261,6 +261,7 @@ namespace TaskStoreWinPhone
                     case HttpStatusCode.OK:
                         MessageBox.Show(String.Format("successfully linked with {0} account; data sync will start automatically.", Username.Text));
                         accountOperationSuccessful = true;
+                        user.Synced = true;
                         App.ViewModel.User = user;
                         App.ViewModel.SyncWithService();
                         break;
@@ -296,6 +297,7 @@ namespace TaskStoreWinPhone
                     case HttpStatusCode.Created:
                         MessageBox.Show(String.Format("user account {0} successfully created", Username.Text));
                         accountOperationSuccessful = true;
+                        user.Synced = true;
                         App.ViewModel.User = user;
                         App.ViewModel.SyncWithService();
                         break;

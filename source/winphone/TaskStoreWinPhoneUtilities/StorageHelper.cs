@@ -41,6 +41,9 @@ namespace TaskStoreWinPhoneUtilities
         /// <returns>retrieved constants</returns>
         public static Constants ReadConstants()
         {
+            return InternalReadFile<Constants>("Constants");
+
+            /*
             // trace reading data
             TraceHelper.AddMessage("Read Constants");
 
@@ -75,6 +78,7 @@ namespace TaskStoreWinPhoneUtilities
                     return null;
                 }
             }
+             */
         }
 
         /// <summary>
@@ -82,6 +86,11 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteConstants(Constants constants)
         {
+            // make a copy and do the write on the background thread
+            var copy = new Constants(constants);
+            ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<Constants>(copy, "Constants"); });
+            //InternalWriteFile<Constants>(constants, "Constants");
+            /*
             // trace writing data
             TraceHelper.AddMessage("Write Constants");
 
@@ -92,7 +101,7 @@ namespace TaskStoreWinPhoneUtilities
                 {
                     if (constants == null)
                     {
-                        file.DeleteFile("Constants.xml");
+                        file.DeleteFile("Constants.json");
                         return;
                     }
 
@@ -113,6 +122,7 @@ namespace TaskStoreWinPhoneUtilities
 
             // trace writing data
             TraceHelper.AddMessage("Finished Write Constants");
+             */
         }
 
         /// <summary>
@@ -152,22 +162,24 @@ namespace TaskStoreWinPhoneUtilities
         }
 
         /// <summary>
-        /// Read the contents of the Lists XML file from isolated storage
+        /// Read the contents of the List XML file from isolated storage
         /// </summary>
-        /// <returns>retrieved list of ListTypes</returns>
-        public static ObservableCollection<TaskList> ReadLists()
+        /// <returns>retrieved list</returns>
+        public static TaskList ReadList(string name)
         {
-            return InternalReadFile<TaskList>("Lists");
+            return InternalReadFile<TaskList>(name);
         }
 
         /// <summary>
-        /// Write the Lists XML to isolated storage
+        /// Write the List XML to isolated storage
         /// </summary>
-        public static void WriteLists(ICollection<TaskList> lists)
+        public static void WriteList(TaskList list)
         {
-            // do the write on the background thread
-            //ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ListType>(listTypes, "ListTypes"); });
-            InternalWriteFile<TaskList>(lists, "Lists");
+            // make a copy and do the write on the background thread
+            var copy = new TaskList(list);
+            string name = String.Format("{0}-{1}", list.Name, list.ID.ToString());
+            ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<TaskList>(copy, name); });
+            //InternalWriteFile<TaskList>(list, list.ID.ToString());
         }
 
         /// <summary>
@@ -176,7 +188,7 @@ namespace TaskStoreWinPhoneUtilities
         /// <returns>retrieved list of ListTypes</returns>
         public static ObservableCollection<ListType> ReadListTypes()
         {
-            return InternalReadFile<ListType>("ListTypes");
+            return InternalReadFile<ObservableCollection<ListType>>("ListTypes");
         }
 
         /// <summary>
@@ -184,9 +196,12 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteListTypes(ObservableCollection<ListType> listTypes)
         {
-            // do the write on the background thread
-            //ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ListType>(listTypes, "ListTypes"); });
-            InternalWriteFile<ListType>(listTypes, "ListTypes"); 
+            // make a copy and do the write on the background thread
+            var copy = new ObservableCollection<ListType>();
+            foreach (var item in listTypes)
+                copy.Add(new ListType(item));
+            ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<ListType>>(copy, "ListTypes"); });
+            //InternalWriteFile<ObservableCollection<ListType>>(listTypes, "ListTypes"); 
         }
 
         /// <summary>
@@ -195,7 +210,7 @@ namespace TaskStoreWinPhoneUtilities
         /// <returns>retrieved list of Tags</returns>
         public static ObservableCollection<Tag> ReadTags()
         {
-            return InternalReadFile<Tag>("Tags");
+            return InternalReadFile<ObservableCollection<Tag>>("Tags");
         }
 
         /// <summary>
@@ -203,9 +218,12 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteTags(ObservableCollection<Tag> tags)
         {
-            // do the write on the background thread
-            //ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<Tag>(tags, "Tags"); });
-            InternalWriteFile<Tag>(tags, "Tags");
+            // make a copy and do the write on the background thread
+            var copy = new ObservableCollection<Tag>();
+            foreach (var item in tags)
+                copy.Add(new Tag(item));
+            ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<Tag>>(copy, "Tags"); });
+            //InternalWriteFile<ObservableCollection<Tag>>(tags, "Tags");
         }
 
         /// <summary>
@@ -214,7 +232,7 @@ namespace TaskStoreWinPhoneUtilities
         /// <returns>retrieved list of TaskLists</returns>
         public static ObservableCollection<TaskList> ReadTaskLists()
         {
-            return InternalReadFile<TaskList>("TaskStore");
+            return InternalReadFile<ObservableCollection<TaskList>>("TaskLists");
         }
 
         /// <summary>
@@ -222,9 +240,13 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteTaskLists(ObservableCollection<TaskList> taskLists)
         {
-            // do the write on the background thread
-            //ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<TaskList>(taskLists, "TaskStore"); });
-            InternalWriteFile<TaskList>(taskLists, "TaskStore"); 
+            // make a copy and do the write on the background thread
+            var copy = new ObservableCollection<TaskList>();
+            foreach (var item in taskLists)
+                copy.Add(new TaskList(item, false));  // do a shallow copy
+            ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<TaskList>>(copy, "TaskLists"); });
+
+            //InternalWriteFile<ObservableCollection<TaskList>>(copy, "TaskStore");
         }
 
         /// <summary>
@@ -242,7 +264,8 @@ namespace TaskStoreWinPhoneUtilities
                 {
                     Name = (string)AppSettings["Username"],
                     Password = (string)AppSettings["Password"],
-                    Email = (string)AppSettings["Email"]
+                    Email = (string)AppSettings["Email"],
+                    Synced = (bool)AppSettings["Synced"]
                 };
                 if (user.Name == null || user.Name == "")
                     return null;
@@ -276,7 +299,8 @@ namespace TaskStoreWinPhoneUtilities
                 {
                     AppSettings["Username"] = null;
                     AppSettings["Password"] = null;
-                    AppSettings["Email"] = null; 
+                    AppSettings["Email"] = null;
+                    AppSettings["Synced"] = null;
                     AppSettings.Save();
                 }
                 else
@@ -284,6 +308,7 @@ namespace TaskStoreWinPhoneUtilities
                     AppSettings["Username"] = user.Name;
                     AppSettings["Password"] = user.Password;
                     AppSettings["Email"] = user.Email;
+                    AppSettings["Synced"] = user.Synced;
                     AppSettings.Save();
                 }
                 
@@ -302,20 +327,20 @@ namespace TaskStoreWinPhoneUtilities
         /// <summary>
         /// Generic ReadFile method
         /// </summary>
-        /// <typeparam name="T">Type of the returned collection items</typeparam>
+        /// <typeparam name="T">Type of the returned items</typeparam>
         /// <param name="elementName">Name of the element (as well as the prefix of the filename)</param>
         /// <returns>ObservableCollection of the type passed in</returns>
-        private static ObservableCollection<T> InternalReadFile<T>(string elementName)
+        private static T InternalReadFile<T>(string elementName)
         {
             // trace reading data
             TraceHelper.AddMessage(String.Format("Reading {0}", elementName));
-            
-            ObservableCollection<T> list = new ObservableCollection<T>();
+
+            T type;
             // use the app's isolated storage to retrieve the tasks
             using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
             {
                 // use a DCS to de/serialize the xml file
-                DataContractJsonSerializer dc = new DataContractJsonSerializer(list.GetType());
+                DataContractJsonSerializer dc = new DataContractJsonSerializer(typeof(T));
                 IsolatedStorageFileStream stream = null;
 
                 // try to open the file
@@ -327,16 +352,7 @@ namespace TaskStoreWinPhoneUtilities
                         try
                         {
                             DateTime one = DateTime.Now;
-                            list = (ObservableCollection<T>)dc.ReadObject(stream);
-                            if (1 == 2)
-                            {
-                                DateTime two = DateTime.Now;
-                                stream.Position = 0;
-                                string s = new StreamReader(stream).ReadToEnd();
-                                DateTime three = DateTime.Now;
-                                TimeSpan o = two - one;
-                                TimeSpan t = three - two;
-                            }
+                            type = (T)dc.ReadObject(stream);
                         }
                         catch (Exception ex)
                         {
@@ -346,7 +362,7 @@ namespace TaskStoreWinPhoneUtilities
                             // trace exception
                             TraceHelper.AddMessage(String.Format("Exception Reading {0}: {1}; {2}", elementName, ex.Message, s));
            
-                            return null;
+                            return default(T);
                         }
                     }
                 }
@@ -355,10 +371,10 @@ namespace TaskStoreWinPhoneUtilities
                     // trace exception
                     TraceHelper.AddMessage(String.Format("Exception Reading {0}: {1}", elementName, ex.Message));
 
-                    return null;
+                    return default(T);
                 }
 
-                return list;
+                return type;
             }
         }
 
@@ -366,33 +382,41 @@ namespace TaskStoreWinPhoneUtilities
         /// Generic WriteFile method
         /// </summary>
         /// <typeparam name="T">Type of the items in the list passed in</typeparam>
-        /// <param name="list">List to serialize</param>
+        /// <param name="obj">List to serialize</param>
         /// <param name="elementName">Name of the element (as well as the prefix of the filename)</param>
-        private static void InternalWriteFile<T>(ICollection<T> list, string elementName)
+        private static void InternalWriteFile<T>(T obj, string elementName)
         {
             // trace writing data
             TraceHelper.AddMessage(String.Format("Writing {0}", elementName));
 
+            // obtain the object to lock (or create one if it doesn't exist)
+            object fileLock;
+            if (fileLocks.TryGetValue(elementName, out fileLock) == false)
+            {
+                fileLock = new Object();
+                fileLocks[elementName] = fileLock; 
+            }
+
             // This method is only thread-safe IF the list parameter that is passed in is locked as well.
             // this is because the DCS below will enumerate through the list and if the list is modified while
             // this enumeration is taking place, DCS will throw.
-            lock (fileLocks[elementName])
+            lock (fileLock)
             {
                 // use the app's isolated storage to write the tasks
                 using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     try
                     {
-                        if (list == null)
+                        if (obj == null)
                         {
-                            file.DeleteFile(elementName + ".xml");
+                            file.DeleteFile(elementName + ".json");
                             return;
                         }
 
-                        DataContractJsonSerializer dc = new DataContractJsonSerializer(list.GetType());
+                        DataContractJsonSerializer dc = new DataContractJsonSerializer(obj.GetType());
                         using (IsolatedStorageFileStream stream = file.CreateFile(elementName + ".json"))
                         {
-                            dc.WriteObject(stream, list);
+                            dc.WriteObject(stream, obj);
                         }
 
                         // trace writing data
