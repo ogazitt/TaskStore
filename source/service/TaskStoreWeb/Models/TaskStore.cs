@@ -44,6 +44,7 @@ namespace TaskStoreWeb.Models
         // user-specific tables
         public DbSet<Field> Fields { get; set; }
         public DbSet<ListType> ListTypes { get; set; }
+        public DbSet<Operation> Operations { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TaskTag> TaskTags { get; set; }

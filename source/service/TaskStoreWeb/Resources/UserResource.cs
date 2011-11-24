@@ -40,7 +40,7 @@ namespace TaskStoreWeb.Resources
             TaskStore taskstore = TaskStore;
 
             // get the new user from the message body
-            User user = ResourceHelper.ProcessRequestBody(req, typeof(User)) as User;
+            User user = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(User)) as User;
 
             try
             {
@@ -74,7 +74,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<User>(req, code);  // user not authenticated
 
             // get the User from the message body
-            User clientUser = ResourceHelper.ProcessRequestBody(req, typeof(User)) as User;
+            User clientUser = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(User)) as User;
 
             // make sure the User ID's match
             if (clientUser.ID != id)
@@ -258,7 +258,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<User>(req, code);  // user not authenticated
 
             // the body will be two Users - the original and the new values.  Verify this
-            List<User> clientUsers = ResourceHelper.ProcessRequestBody(req, typeof(List<User>)) as List<User>;
+            List<User> clientUsers = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(List<User>)) as List<User>;
             if (clientUsers.Count != 2)
                 return new HttpResponseMessageWrapper<User>(req, HttpStatusCode.BadRequest);
 

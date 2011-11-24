@@ -41,7 +41,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Tag>(req, code);  // user not authenticated
 
             // get the new tag from the message body
-            Tag clientTag = ResourceHelper.ProcessRequestBody(req, typeof(Tag)) as Tag;
+            Tag clientTag = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(Tag)) as Tag;
 
             // make sure the Tag ID's match
             if (clientTag.ID != id)
@@ -166,7 +166,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Tag>(req, code);  // user not authenticated
 
             // get the new tag from the message body
-            Tag clientTag = ResourceHelper.ProcessRequestBody(req, typeof(Tag)) as Tag;
+            Tag clientTag = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(Tag)) as Tag;
 
             TaskStore taskstore = TaskStore;
 
@@ -222,7 +222,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Tag>(req, code);  // user not authenticated
 
             // the body will be two Tags - the original and the new values.  Verify this
-            List<Tag> clientTags = ResourceHelper.ProcessRequestBody(req, typeof(List<Tag>)) as List<Tag>;
+            List<Tag> clientTags = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(List<Tag>)) as List<Tag>;
             if (clientTags.Count != 2)
                 return new HttpResponseMessageWrapper<Tag>(req, HttpStatusCode.BadRequest);
 

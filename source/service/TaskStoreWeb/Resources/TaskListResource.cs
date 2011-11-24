@@ -43,7 +43,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<TaskList>(req, code);  // user not authenticated
 
             // get the TaskList from the message body
-            TaskList clientTaskList = ResourceHelper.ProcessRequestBody(req, typeof(TaskList)) as TaskList;
+            TaskList clientTaskList = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(TaskList)) as TaskList;
  
             // make sure the TaskList ID's match
             if (clientTaskList.ID != id)
@@ -165,7 +165,7 @@ namespace TaskStoreWeb.Resources
             if (code != HttpStatusCode.OK)  // user not authenticated
                 return new HttpResponseMessageWrapper<TaskList>(req, code);
 
-            TaskList clientTaskList = ResourceHelper.ProcessRequestBody(req, typeof(TaskList)) as TaskList;
+            TaskList clientTaskList = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(TaskList)) as TaskList;
 
             TaskStore taskstore = TaskStore;
 
@@ -232,7 +232,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<TaskList>(req, code);  // user not authenticated
 
             // the body will be two TaskLists - the original and the new values.  Verify this
-            List<TaskList> clientTaskLists = ResourceHelper.ProcessRequestBody(req, typeof(List<TaskList>)) as List<TaskList>;
+            List<TaskList> clientTaskLists = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(List<TaskList>)) as List<TaskList>;
             if (clientTaskLists.Count != 2)
                 return new HttpResponseMessageWrapper<TaskList>(req, HttpStatusCode.BadRequest);
 

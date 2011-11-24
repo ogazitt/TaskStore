@@ -11,6 +11,9 @@ using TaskStoreWeb.Models;
 using System.Web.Security;
 using TaskStoreServerEntities;
 using ServiceHelpers;
+using System.Reflection;
+using System.Collections;
+using Newtonsoft.Json;
 
 namespace TaskStoreWeb.Helpers
 {
@@ -184,7 +187,7 @@ namespace TaskStoreWeb.Helpers
         /// <param name="resp">HTTP response</param>
         /// <param name="t">Type to deserialize</param>
         /// <returns>The deserialized object</returns>
-        public static object ProcessRequestBody(HttpRequestMessage req, Type t)
+        public static object ProcessRequestBody(HttpRequestMessage req, TaskStore taskstore, Type t)
         {
             // Log function entrance
             LoggingHelper.TraceFunction();
@@ -192,24 +195,85 @@ namespace TaskStoreWeb.Helpers
             if (req == null)
                 return null;
 
-            string contentType = req.Content.Headers.ContentType.MediaType;
+            object value = null;
 
+            string contentType = req.Content.Headers.ContentType.MediaType;
             switch (contentType)
             {
                 case "application/json":
                     DataContractJsonSerializer dcjs = new DataContractJsonSerializer(t);
-                    return dcjs.ReadObject(req.Content.ContentReadStream);
+                    value = dcjs.ReadObject(req.Content.ContentReadStream);
+                    break;
                 case "text/xml":
                 case "application/xml":
                     DataContractSerializer dc = new DataContractSerializer(t);
-                    return dc.ReadObject(req.Content.ContentReadStream);
+                    value = dc.ReadObject(req.Content.ContentReadStream);
+                    break;
             }
 
-            // no transfer encodings match
+            if (value == null)
+            {
+                // Log error condition
+                LoggingHelper.TraceError("ProcessRequestBody: content-type unrecognized: " + contentType);
+            }
 
-            // Log error condition
-            LoggingHelper.TraceError("ProcessRequestBody: content-type unrecognized: " + contentType);
-            return null;
+            // log the operation in the operations table
+            try
+            {
+                User user = ResourceHelper.GetUserPassFromMessage(req);
+                User dbUser = taskstore.Users.Single<User>(u => u.Name == user.Name && u.Password == user.Password);
+
+                // initialize the body / oldbody
+                object body = value;
+                object oldBody = null;
+                Type bodyType = t;
+
+                // if this is an update, get the payload as a list
+                if (req.Method == HttpMethod.Put)
+                {
+                    IList list = (IList)value;
+                    oldBody = list[0];
+                    body = list[1];
+                    bodyType = body.GetType();
+                }
+
+                Guid id = (Guid)bodyType.GetProperty("ID").GetValue(body, null);
+                string name = (string)bodyType.GetProperty("Name").GetValue(body, null);
+
+                // insert the operation into the Operations table
+                Operation op = new Operation()
+                {
+                    ID = Guid.NewGuid(),
+                    UserID = dbUser.ID,
+                    Username = dbUser.Name,
+                    EntityID = id,
+                    EntityName = name,
+                    EntityType = bodyType.Name,
+                    OperationType = req.Method.Method,
+                    Body = JsonSerialize(body),
+                    OldBody = JsonSerialize(oldBody),
+                    Timestamp = DateTime.Now
+                };
+                taskstore.Operations.Add(op);
+                int rows = taskstore.SaveChanges();
+                if (rows < 1)
+                {
+                    // Log error condition
+                    LoggingHelper.TraceError("ProcessRequestBody: couldn't log operation: " + req.Method.Method);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error condition
+                LoggingHelper.TraceError("ProcessRequestBody: couldn't log operation: " + ex.Message);
+            }
+
+            return value;
+        }
+
+        private static string JsonSerialize(object body)
+        {
+            return JsonConvert.SerializeObject(body);
         }
     }
 }

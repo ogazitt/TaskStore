@@ -41,7 +41,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Task>(req, code);  // user not authenticated
 
             // get the new task from the message body
-            Task clientTask = ResourceHelper.ProcessRequestBody(req, typeof(Task)) as Task;
+            Task clientTask = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(Task)) as Task;
 
             // make sure the task ID's match
             if (clientTask.ID != id)
@@ -153,7 +153,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Task>(req, code);  // user not authenticated
 
             // get the new task from the message body
-            Task clientTask = ResourceHelper.ProcessRequestBody(req, typeof(Task)) as Task;
+            Task clientTask = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(Task)) as Task;
 
             TaskStore taskstore = TaskStore;
 
@@ -234,7 +234,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<Task>(req, code);  // user not authenticated
 
             // the body will be two Tasks - the original and the new values.  Verify this
-            List<Task> clientTasks = ResourceHelper.ProcessRequestBody(req, typeof(List<Task>)) as List<Task>;
+            List<Task> clientTasks = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(List<Task>)) as List<Task>;
             if (clientTasks.Count != 2)
                 return new HttpResponseMessageWrapper<Task>(req, HttpStatusCode.BadRequest);
 

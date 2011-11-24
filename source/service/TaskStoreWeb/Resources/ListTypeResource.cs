@@ -41,7 +41,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<ListType>(req, code);  // user not authenticated
 
             // get the new listType from the message body
-            ListType clientListType = ResourceHelper.ProcessRequestBody(req, typeof(ListType)) as ListType;
+            ListType clientListType = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(ListType)) as ListType;
 
             // make sure the listType ID's match
             if (clientListType.ID != id)
@@ -159,7 +159,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<ListType>(req, code);  // user not authenticated
 
             // get the new listType from the message body
-            ListType clientListType = ResourceHelper.ProcessRequestBody(req, typeof(ListType)) as ListType;
+            ListType clientListType = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(ListType)) as ListType;
 
             TaskStore taskstore = TaskStore;
 
@@ -215,7 +215,7 @@ namespace TaskStoreWeb.Resources
                 return new HttpResponseMessageWrapper<ListType>(req, code);  // user not authenticated
 
             // the body will be two ListTypes - the original and the new values.  Verify this
-            List<ListType> clientListTypes = ResourceHelper.ProcessRequestBody(req, typeof(List<ListType>)) as List<ListType>;
+            List<ListType> clientListTypes = ResourceHelper.ProcessRequestBody(req, TaskStore, typeof(List<ListType>)) as List<ListType>;
             if (clientListTypes.Count != 2)
                 return new HttpResponseMessageWrapper<ListType>(req, HttpStatusCode.BadRequest);
 
