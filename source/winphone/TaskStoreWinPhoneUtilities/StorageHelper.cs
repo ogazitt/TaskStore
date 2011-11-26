@@ -42,43 +42,6 @@ namespace TaskStoreWinPhoneUtilities
         public static Constants ReadConstants()
         {
             return InternalReadFile<Constants>("Constants");
-
-            /*
-            // trace reading data
-            TraceHelper.AddMessage("Read Constants");
-
-            // use the app's isolated storage to retrieve the tasks
-            using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                // use a DCS to de/serialize the xml file
-                DataContractJsonSerializer dc = new DataContractJsonSerializer(typeof(Constants));
-                Constants constants = new Constants();
-
-                try
-                {
-                    // if the file opens, read the contents and replace the generated data
-                    using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Constants.json", FileMode.Open, file))
-                    {
-                        constants = (Constants)dc.ReadObject(stream);
-                        //string json = new StreamReader(stream).ReadToEnd();
-                        //constants = (Constants)JsonConvert.DeserializeObject(json, constants.GetType());
-                        //constants = JsonConvert.DeserializeObject<Constants>(json);
-
-                        // trace reading data
-                        TraceHelper.AddMessage("Finished Read Constants");
-
-                        return constants;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // trace reading data
-                    TraceHelper.AddMessage("Exception Read Constants: " + ex.Message);
-
-                    return null;
-                }
-            }
-             */
         }
 
         /// <summary>
@@ -89,40 +52,6 @@ namespace TaskStoreWinPhoneUtilities
             // make a copy and do the write on the background thread
             var copy = new Constants(constants);
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<Constants>(copy, "Constants"); });
-            //InternalWriteFile<Constants>(constants, "Constants");
-            /*
-            // trace writing data
-            TraceHelper.AddMessage("Write Constants");
-
-            // use the app's isolated storage to write the tasks
-            using (IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                try
-                {
-                    if (constants == null)
-                    {
-                        file.DeleteFile("Constants.json");
-                        return;
-                    }
-
-                    DataContractJsonSerializer dc = new DataContractJsonSerializer(constants.GetType());
-
-                    using (IsolatedStorageFileStream stream = file.CreateFile("Constants.json"))
-                    {
-                        dc.WriteObject(stream, constants);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // trace writing data
-                    TraceHelper.AddMessage("Exception Write Constants: " + ex.Message);
-                    return;
-                }
-            }
-
-            // trace writing data
-            TraceHelper.AddMessage("Finished Write Constants");
-             */
         }
 
         /// <summary>
@@ -179,7 +108,6 @@ namespace TaskStoreWinPhoneUtilities
             var copy = new TaskList(list);
             string name = String.Format("{0}-{1}", list.Name, list.ID.ToString());
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<TaskList>(copy, name); });
-            //InternalWriteFile<TaskList>(list, list.ID.ToString());
         }
 
         /// <summary>
@@ -201,7 +129,6 @@ namespace TaskStoreWinPhoneUtilities
             foreach (var item in listTypes)
                 copy.Add(new ListType(item));
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<ListType>>(copy, "ListTypes"); });
-            //InternalWriteFile<ObservableCollection<ListType>>(listTypes, "ListTypes"); 
         }
 
         /// <summary>
@@ -223,7 +150,6 @@ namespace TaskStoreWinPhoneUtilities
             foreach (var item in tags)
                 copy.Add(new Tag(item));
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<Tag>>(copy, "Tags"); });
-            //InternalWriteFile<ObservableCollection<Tag>>(tags, "Tags");
         }
 
         /// <summary>
@@ -245,8 +171,6 @@ namespace TaskStoreWinPhoneUtilities
             foreach (var item in taskLists)
                 copy.Add(new TaskList(item, false));  // do a shallow copy
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<ObservableCollection<TaskList>>(copy, "TaskLists"); });
-
-            //InternalWriteFile<ObservableCollection<TaskList>>(copy, "TaskStore");
         }
 
         /// <summary>
