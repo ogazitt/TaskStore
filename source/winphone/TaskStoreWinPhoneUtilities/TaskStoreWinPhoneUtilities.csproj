@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectionHelper.cs" />
-    <Compile Include="StorageHelperBAK.cs" />
     <Compile Include="RequestQueue.cs" />
     <Compile Include="HttpWrappers.cs" />
     <Compile Include="NetworkHelper.cs" />

@@ -268,6 +268,9 @@ namespace TaskStoreWinPhoneUtilities
                 }
                 catch (Exception ex)
                 {
+                    // trace network error
+                    TraceHelper.AddMessage("InvokeNetworkRequest: ex: " + ex.Message);
+
                     // signal that a network operation is done and unsuccessful
                     netOpInProgressDel.DynamicInvoke(false, false);
 
@@ -389,8 +392,11 @@ namespace TaskStoreWinPhoneUtilities
                     CleanupSocket();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // trace network error
+                TraceHelper.AddMessage("ProcessNetworkResponse: ex: " + ex.Message);
+
                 // signal that a network operation is done and unsuccessful
                 netOpInProgressDel.DynamicInvoke(false, false);
 
@@ -442,7 +448,7 @@ namespace TaskStoreWinPhoneUtilities
             }
 
             // send the buffer
-            try
+            try 
             {
                 // set the buffer and send the chunk asynchronously
                 socketSendEventArg.SetBuffer(sendbuf, 0, sendbuf.Length);
@@ -456,8 +462,11 @@ namespace TaskStoreWinPhoneUtilities
                     CleanupSocket();
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                // trace network error
+                TraceHelper.AddMessage("SendData: ex: " + ex.Message);
+
                 // signal that a network operation is done and unsuccessful
                 netOpInProgressDel.DynamicInvoke(false, false);
 
