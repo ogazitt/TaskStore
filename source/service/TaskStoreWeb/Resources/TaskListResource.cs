@@ -57,15 +57,25 @@ namespace TaskStoreWeb.Resources
             // get the TaskList to be deleted
             try
             {
-                TaskList requestedTaskList = taskstore.TaskLists.Include("Tasks").Single<TaskList>(tl => tl.ID == id);
+                TaskList requestedTaskList = taskstore.TaskLists.Include("Tasks.TaskTags").Single<TaskList>(tl => tl.ID == id);
 
                 // if the requested TaskList does not belong to the authenticated user, return 403 Forbidden
                 if (requestedTaskList.UserID != dbUser.ID)
                     return new HttpResponseMessageWrapper<TaskList>(req, HttpStatusCode.Forbidden);
 
-                // remove all the tasks that belong to this tasklist
-                //requestedTaskList.Tasks.Clear();
-                //int rows = taskstore.SaveChanges();
+                // remove the tasktags associated with each of the tasks in this tasklist
+                if (requestedTaskList.Tasks != null && requestedTaskList.Tasks.Count > 0)
+                {
+                    foreach (Task t in requestedTaskList.Tasks)
+                    {
+                        // delete all the tasktags associated with this task
+                        if (t.TaskTags != null && t.TaskTags.Count > 0)
+                        {
+                            foreach (var tt in t.TaskTags.ToList())
+                                taskstore.TaskTags.Remove(tt);
+                        }
+                    }
+                }
 
                 // remove the current tasklist 
                 taskstore.TaskLists.Remove(requestedTaskList);

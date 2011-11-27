@@ -19,6 +19,9 @@ namespace TaskStoreClientEntities
 
         public void Copy(ListType obj)
         {
+            if (obj == null)
+                return;
+
             // copy all of the properties
             foreach (PropertyInfo pi in this.GetType().GetProperties())
             {

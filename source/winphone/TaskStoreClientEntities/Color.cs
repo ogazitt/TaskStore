@@ -17,13 +17,16 @@ namespace TaskStoreClientEntities
             Copy(color);
         }
 
-        public void Copy(Color value)
+        public void Copy(Color obj)
         {
+            if (obj == null)
+                return;
+
             // copy all of the properties
-            foreach (PropertyInfo pi in value.GetType().GetProperties())
+            foreach (PropertyInfo pi in obj.GetType().GetProperties())
             {
                 // get the value of the property
-                var val = pi.GetValue(value, null);
+                var val = pi.GetValue(obj, null);
                 pi.SetValue(this, val, null);
             }
         }

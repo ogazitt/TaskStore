@@ -17,13 +17,16 @@ namespace TaskStoreClientEntities
             Copy(fieldType);
         }
 
-        public void Copy(FieldType fieldType)
+        public void Copy(FieldType obj)
         {
+            if (obj == null)
+                return;
+
             // copy all of the properties
-            foreach (PropertyInfo pi in fieldType.GetType().GetProperties())
+            foreach (PropertyInfo pi in obj.GetType().GetProperties())
             {
                 // get the value of the property
-                var val = pi.GetValue(fieldType, null);
+                var val = pi.GetValue(obj, null);
                 pi.SetValue(this, val, null);
             }
         }

@@ -207,6 +207,8 @@ namespace TaskStoreWinPhone
             if (result == MessageBoxResult.Cancel)
                 return;
 
+            foreach (var tl in App.ViewModel.TaskLists)
+                StorageHelper.DeleteList(tl);
             StorageHelper.WriteConstants(null);
             StorageHelper.WriteDefaultTaskListID(null);
             StorageHelper.WriteListTypes(null);

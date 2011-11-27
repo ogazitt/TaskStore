@@ -29,8 +29,8 @@ namespace TaskStoreWinPhoneUtilities
             get
             {
                 //return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:62362" : "http://api.taskstore.net:8080";
-                return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:8080" : "http://api.taskstore.net:8080";
-                //return "http://api.taskstore.net:8080";
+                //return (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator) ? "http://localhost:8080" : "http://api.taskstore.net:8080";
+                return "http://api.taskstore.net:8080";
             }
         }
         public static string BaseUrl { get { return baseUrl; } }

@@ -49,6 +49,13 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteConstants(Constants constants)
         {
+            // if the data passed in is null, remove the corresponding file on the foreground thread
+            if (constants == null)
+            {
+                InternalWriteFile<Constants>(null, "Constants");
+                return;
+            }
+
             // make a copy and do the write on the background thread
             var copy = new Constants(constants);
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<Constants>(copy, "Constants"); });
@@ -91,6 +98,18 @@ namespace TaskStoreWinPhoneUtilities
         }
 
         /// <summary>
+        /// Delete the list from isolated storage
+        /// </summary>
+        public static void DeleteList(TaskList list)
+        {
+            // construct the list name
+            string name = String.Format("{0}-{1}", list.Name, list.ID.ToString());
+
+            // remove the list file using the internal function logic
+            InternalWriteFile<TaskList>(null, name);
+        }
+
+        /// <summary>
         /// Read the contents of the List XML file from isolated storage
         /// </summary>
         /// <returns>retrieved list</returns>
@@ -104,9 +123,11 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteList(TaskList list)
         {
+            // construct the list name
+            string name = String.Format("{0}-{1}", list.Name, list.ID.ToString());
+
             // make a copy and do the write on the background thread
             var copy = new TaskList(list);
-            string name = String.Format("{0}-{1}", list.Name, list.ID.ToString());
             ThreadPool.QueueUserWorkItem(delegate { InternalWriteFile<TaskList>(copy, name); });
         }
 
@@ -124,6 +145,13 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteListTypes(ObservableCollection<ListType> listTypes)
         {
+            // if the data passed in is null, remove the corresponding file on the foreground thread
+            if (listTypes == null)
+            {
+                InternalWriteFile<ObservableCollection<ListType>>(null, "ListTypes");
+                return;
+            }
+
             // make a copy and do the write on the background thread
             var copy = new ObservableCollection<ListType>();
             foreach (var item in listTypes)
@@ -145,6 +173,13 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteTags(ObservableCollection<Tag> tags)
         {
+            // if the data passed in is null, remove the corresponding file on the foreground thread
+            if (tags == null)
+            {
+                InternalWriteFile<ObservableCollection<Tag>>(null, "Tags");
+                return;
+            }
+
             // make a copy and do the write on the background thread
             var copy = new ObservableCollection<Tag>();
             foreach (var item in tags)
@@ -166,6 +201,13 @@ namespace TaskStoreWinPhoneUtilities
         /// </summary>
         public static void WriteTaskLists(ObservableCollection<TaskList> taskLists)
         {
+            // if the data passed in is null, remove the corresponding file on the foreground thread
+            if (taskLists == null)
+            {
+                InternalWriteFile<ObservableCollection<TaskList>>(null, "TaskLists");
+                return;
+            }
+
             // make a copy and do the write on the background thread
             var copy = new ObservableCollection<TaskList>();
             foreach (var item in taskLists)

@@ -11,10 +11,13 @@ namespace TaskStoreClientEntities
     [DataContract(Namespace = "")]
     public class User : TaskStoreEntity, INotifyPropertyChanged
     {
-        public User() { ID = Guid.Empty; }
+        public User() : base() { }
 
-        public User(User obj)
+        public User(User obj) 
         {
+            if (obj == null)
+                return;
+
             // copy all of the properties
             foreach (PropertyInfo pi in this.GetType().GetProperties())
             {

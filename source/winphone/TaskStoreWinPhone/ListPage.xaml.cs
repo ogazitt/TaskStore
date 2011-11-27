@@ -385,8 +385,15 @@ namespace TaskStoreWinPhone
                 return;
 
             // create a copy of the tasklist to foreach over.  this is because we can't delete
-            // from the original collection while it's being enumerated.
-            TaskList tl = new TaskList(taskList);
+            // from the original collection while it's being enumerated.  the copy we make is shallow 
+            // so as not to create brand new Task objects, but then we add all the task references to 
+            // an new Tasks collection that won't interfere with the existing one.
+            TaskList tl = new TaskList(taskList, false);
+            tl.Tasks = new ObservableCollection<Task>();
+            foreach (Task t in taskList.Tasks)
+                tl.Tasks.Add(t);
+
+            // remove any completed tasks from the original tasklist
             foreach (var task in tl.Tasks)
             {
                 if (task.Complete == true)

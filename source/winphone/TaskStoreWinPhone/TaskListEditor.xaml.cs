@@ -70,11 +70,13 @@ namespace TaskStoreWinPhone
                     Body = taskList
                 });
 
-            // remove the task from the local listType
+            // remove the task from the viewmodel
             App.ViewModel.TaskLists.Remove(taskList);
+            App.ViewModel.Lists.Remove(taskList.ID);
 
             // save the changes to local storage
             StorageHelper.WriteTaskLists(App.ViewModel.TaskLists);
+            StorageHelper.DeleteList(taskList);
 
             // trigger a sync with the Service 
             App.ViewModel.SyncWithService();
