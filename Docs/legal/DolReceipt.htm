@@ -1,0 +1,1605 @@
+<html xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-16">
+    <title>Internet Business License Application</title>
+    <script language="javascript" src="Include/commonJS.js">
+    </script>
+    <script language="javascript">
+					
+			function pageLoad(){
+				//document.frmScreen.hidnavigationtype.value = "F";	
+				document.frmScreen.hidPassValidation.value = "1"
+				document.frmScreen.hidSkipPut.value = '1';
+				document.frmScreen.hidSkipPutOnSideNav.value = "0";
+			}
+			
+			function submit_onClick(strNavType){					
+				// Do not save the data to database. Set hdnSkipPut to 1				
+				document.frmScreen.hidSkipPut.value = '1';
+				document.frmScreen.hidSkipPutOnSideNav.value = "0";
+				//window.location.href = "IMBASurveyMain.aspx?imbaid=" + document.frmScreen.hidimbaid.value + "&appid=" + document.frmScreen.hidappid.value;
+				//window.location.href = "IMBASurveyMain.aspx";
+				document.frmScreen.submit();
+			}
+			
+			function printPage(){
+			  if (document.links.length>0) {
+					document.links[0].onclick = document.links[0].onclick;
+					window.print();
+				}
+			}
+			
+			var isReady = false;
+			function doSaveAs()
+			{
+			   isReady = true;
+					if (document.execCommand)
+					{
+					  if (isReady){document.execCommand("SaveAs", null, "DolReceipt.html");
+					}
+					}
+					else
+					{
+					alert('Feature available only in Internet Exlorer 4.0 and later.');
+					}
+            }
+			
+			
+				</script>
+    <style>
+
+					.DataField1
+					{
+					border-right: buttonshadow 1pt solid;
+					border-top: buttonshadow 1pt solid;
+					margin: 1px;
+					border-left: buttonshadow 1pt solid;
+					color: black;
+					border-bottom: buttonshadow 1pt solid;
+					background-color: white;
+					border-color: black;
+					}
+					.ErrorTextBold
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: red;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.ScreenExit
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 12pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial;
+					TEXT-DECORATION: underline
+					}
+					.BlueButtons
+					{
+					border-right: #336699 thin solid;
+					border-top: #336699 thin solid;
+					margin: 5px;
+					overflow: hidden;
+					border-left: #336699 thin solid;
+					width: 200px;
+					clip: rect(1px 1px 1px 1px);
+					color: white;
+					border-bottom: #336699 thin solid;
+					height: 30px;
+					background-color: #336699;
+					text-align: center;
+					text-decoration: none;
+
+
+					}
+					.bluebackground
+					{
+					BORDER-RIGHT: #336699 thin solid;
+					BORDER-TOP: #336699 thin solid;
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 8pt;
+					MARGIN: 5px;
+					OVERFLOW: hidden;
+					BORDER-LEFT: #336699 thin solid;
+					CLIP: rect(1px 1px 1px 1px);
+					CURSOR: hand;
+					COLOR: white;
+					BORDER-BOTTOM: #336699 thin solid;
+					FONT-FAMILY: Arial;
+					HEIGHT: 30px;
+					BACKGROUND-COLOR: #336699;
+					TEXT-ALIGN: center;
+					TEXT-DECORATION: none
+					}
+					.yellowbackground
+					{
+					BORDER-RIGHT: #AEB7D4 thin solid;
+					BORDER-TOP: #AEB7D4 thin solid;
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 8pt;
+					MARGIN: 5px;
+					OVERFLOW: hidden;
+					BORDER-LEFT: #AEB7D4 thin solid;
+					CLIP: rect(1px 1px 1px 1px);
+					COLOR: #336699;
+					BORDER-BOTTOM: #AEB7D4 thin solid;
+					FONT-FAMILY: Arial;
+					HEIGHT: 30px;
+					BACKGROUND-COLOR: #AEB7D4;
+					TEXT-ALIGN: center;
+					TEXT-DECORATION: none
+					}
+
+					.FieldLabel
+					{
+					font-size: 10pt;
+					color: black;
+					font-family: Arial;
+					font-weight: bold;
+					}
+
+					.FieldLableBold
+					{
+					font-weight: bold;
+					font-size: 10pt;
+					color: darkblue;
+					font-family: Arial;
+
+					}
+					.FieldsHeader
+					{
+					font-weight: bold;
+					font-size: 12pt;
+					color: Darkblue;
+					font-family: Arial;
+					}
+					.BlueHeader
+					{
+					font-weight: bold;
+					font-size: 12pt;
+					color: Darkblue;
+					font-family: Arial;
+
+					}
+
+					.Bullet
+					{
+					list-style-position: outside;
+					list-style-type: disc;
+					}
+					.HelpText
+					{
+					font-size: 10pt;
+					color: black;
+					font-family: Arial;
+					}
+					.HeaderLabel
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif;
+					BACKGROUND-COLOR: #ffffcc
+					}
+					.HeaderControl
+					{
+					font-size: 10pt;
+					color: darkblue;
+					font-family: Arial;
+					background-color: silver;
+					}
+
+					.BlueInstructionText
+					{
+					FONT-WEIGHT: normal;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-STYLE: italic;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.BlueText
+					{
+					FONT-WEIGHT: normal;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.Label
+					{
+					FONT-WEIGHT: normal;
+					FONT-SIZE: 10pt;
+					COLOR: #000000;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.Header
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif;
+					BACKGROUND-COLOR: #ffffcc
+					}
+					.LinkHeader
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif;
+					BACKGROUND-COLOR: #ffffcc
+					}
+
+					.InfoTextBold
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: black;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.InfoText
+					{
+					FONT-WEIGHT: normal;
+					FONT-SIZE: 10pt;
+					COLOR: #000000;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+
+					.Anchor
+					{
+					CURSOR: hand;
+					COLOR: blue;
+					TEXT-DECORATION: underline;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.NavButton
+					{
+					FONT-WEIGHT: lighter;
+					FONT-SIZE: 13pt;
+					WIDTH: 150px;
+					FONT-FAMILY: Arial
+					}
+					.CloseWindowButton
+					{
+					FONT-WEIGHT:lighter;
+					FONT-SIZE: 13pt;
+					WIDTH: 205px;
+					FONT-FAMILY: Arial
+					}
+
+					.ScreenName
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 12pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial
+					}
+					.UseNavigation
+					{
+					FONT-WEIGHT: bolder;
+					FONT-SIZE: 10pt;
+					COLOR: #336699;
+					FONT-FAMILY: Arial;
+					}
+					.HeaderAnchor
+					{
+					font-weight: bolder;
+					font-size: 10pt;
+					cursor: hand;
+					color: #336699;
+					font-family: Arial, Geneva, Helvetica, Sans-Serif;
+					background-color: #ffffcc;
+					}
+
+					.StateLogo
+					{
+					FONT-SIZE: 8pt;
+					FONT-FAMILY: Arial, Geneva, Helvetica, Sans-Serif
+					}
+					.Receipt
+					{
+					FONT-WEIGHT: bold;
+					FONT-SIZE: 12pt;
+					COLOR: black;
+					FONT-FAMILY: Arial
+					}
+					.ReviewHeader
+					{
+					border-style: solid;
+					border-color: #FFFFCC;
+					border-width:thick;
+					}
+				</style>
+  </head>
+  <body topmargin="0" marginheight="0" marginwidth="0" onLoad="pageLoad()">
+    <form name="frmScreen" action="IMBASurveyMain.aspx" method="POST">
+      <input type="hidden" name="hidsessionid" id="hidsessionid" value="2fd765d9-800f-46f5-8255-eebedca2ea6a">
+      <input type="hidden" name="hidimbaid" id="hidimbaid" value="629668">
+      <input type="hidden" name="hidlocationid" id="hidlocationid" value="680246">
+      <input type="hidden" name="hidownershipstructure" id="hidownershipstructure" value="CORP">
+      <input type="hidden" name="hidgoverningpersonid" id="hidgoverningpersonid" value="">
+      <input type="hidden" name="hidagencygroupcode" id="hidagencygroupcode" value="">
+      <input type="hidden" name="hidagencycode" id="hidagencycode" value="">
+      <input type="hidden" name="hidendorsementgroupcode" id="hidendorsementgroupcode" value="">
+      <input type="hidden" name="hidendorsementtypecode" id="hidendorsementtypecode" value="">
+      <input type="hidden" name="hidaddendumcode" id="hidaddendumcode" value="">
+      <input type="hidden" name="hidcurrentscreencode" id="hdncurrentscreencode" value="RECORDOFFILING">
+      <input type="hidden" name="hidcurrentscreengroupcode" id="hdncurrentscreengroupcode" value="RECORDOFFILING">
+      <input type="hidden" name="hidcurrentscreendisplayorder" id="hidcurrentscreendisplayorder" value="950">
+      <input type="hidden" name="hidcurrentscreenname" id="hidcurrentscreenname" value="Record of Filing">
+      <input type="hidden" name="hidnavigationtype" id="hidnavigationtype" value="">
+      <input type="hidden" name="hidnumberofattempts" id="hidnumberofattempts" value="0">
+      <input type="hidden" name="hidpurposesofapplication" id="hidpurposesofapplication" value="YNNNNNNNNNNNNNN">
+      <input type="hidden" name="hidsidenavscreencode" id="hidsidenavscreencode" value="">
+      <input type="hidden" name="hidsidenavscreendisplayorder" id="hidsidenavscreendisplayorder" value="">
+      <input type="hidden" name="hidhelpurl" id="hidhelpurl" value="">
+      <input type="hidden" name="hidbrowsertype" id="hidbrowsertype" value="IE">
+      <input type="hidden" name="hidbrowserversion" id="hidbrowserversion" value="9">
+      <input type="hidden" name="hidoperatingsystem" id="hidoperatingsystem" value="WinNT">
+      <input type="hidden" name="hidisexistinguser" id="hidisexistinguser" value="Y">
+      <input type="hidden" name="hidservercurrentdate" id="hidservercurrentdate" value="11/29/2011 5:52:11 PM">
+      <input type="hidden" name="hidhireworkersinnext90days" id="hidhireworkersinnext90days" value="Y">
+      <input type="hidden" name="hidPassValidation" id="hidPassValidation" value="">
+      <input type="hidden" name="hidSkipPut" id="hidSkipPut" value="0">
+      <input type="hidden" name="IsHelpPage" id="IsHelpPage" value="0">
+      <input type="hidden" id="hdnAppId" name="hdnAppId" value="20113336281">
+      <input type="hidden" id="hdnIMBAId" name="hdnIMBAId" value="629668">
+      <input type="hidden" name="hidSkipPutOnSideNav" id="hidSkipPutOnSideNav" value="0">
+      <table BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+        <tr>
+          <td width="1%">
+          </td>
+          <td width="7%">
+          </td>
+          <td width="25%">
+          </td>
+          <td WIDTH="42%">
+          </td>
+          <td width="25%">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+          </td>
+          <td colspan="1">
+            <img src="https://fortress.wa.gov/dol/mls/images/stlogo.gif" WIDTH="59" HEIGHT="59">
+          </td>
+          <td colspan="1" class="StateLogo" cssClass="StateLogo">
+								State of Washington <br>Business Licensing Service<br>
+								P O Box 9034<br>
+								Olympia WA 98507-9034
+							</td>
+          <td colspan="1" valign="Center" class="InfoTextBold" cssClass="InfoTextBold">
+            <font size="3">Business License Application Record of Filing</font>
+          </td>
+          <td colspan="1" align="left">
+          </td>
+        </tr>
+      </table>
+      <table BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+        <tr>
+          <td width="1%">
+          </td>
+          <td width="99%">
+            <TABLE BORDER="0" WIDTH="100%" CELLSPACING="0" CELLPADDING="0">
+              <TR>
+                <TD WIDTH="5%" HEIGHT="0px">
+                </TD>
+                <TD WIDTH="5%" HEIGHT="0px">
+                </TD>
+                <TD WIDTH="5%" HEIGHT="0px">
+                </TD>
+                <TD WIDTH="30%" HEIGHT="0px">
+                </TD>
+                <TD WIDTH="5%" HEIGHT="0px">
+                </TD>
+                <TD WIDTH="50%" HEIGHT="0px">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" CLASS="InfoTextBold" cssClass="InfoTextBold">
+                  <br>
+                  <br>Congratulations! The application has been submitted
+										</TD>
+                <TD COLSPAN="1" ALIGN="center">
+                  <input type="button" value="Print" onClick="Javascript:printPage();">
+                  <input type="button" value="Save" onClick="Javascript:doSaveAs();">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6" CLASS="InfoTextBold" cssClass="InfoTextBold">
+                  <br>
+                  <br>If you find any mistakes, please enter your corrections on the next screen.
+											<br><br></TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header" cssClass="Header">Filing Information</TD>
+                <TD COLSPAN="1" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Filing Date and Time:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">Nov 29 2011  5:51:52:000PM Pacific Time</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">UBI Issued:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Application Transaction #:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">20113336281</TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="5" CLASS="BlueInstructionText">(Refer to this number if you have questions about this application.)</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Credit Card Approval #:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">3226179120003322363919</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Last 4 digits of Credit Card #:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">0792</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Credit Card type:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">Visa</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Total fees to be billed to your credit card</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoTextBold">$15.00</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6" CLASS="InfoTextBold" cssClass="InfoTextBold">
+											Below are the licenses you are applying for.
+										</TD>
+              </TR>
+              <tr>
+                <td colspan="7">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="7" class="Header" cssClass="Header">Licenses with no additional requirements:</td>
+              </tr>
+              <tr>
+                <td height="6px" colspan="7">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1">
+                </td>
+                <td colspan="3" class="InfoText" cssClass="InfoText">Industrial Insurance</td>
+                <td colspan="1">
+                </td>
+                <td colspan="1" class="InfoText" align="Left" cssClass="InfoText">
+                  <table border="0" width="100%">
+                    <tr>
+                      <td width="15%" align="Right" class="InfoText">$0.00</td>
+                      <td width="85%">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td colspan="1">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1">
+                </td>
+                <td colspan="3" class="InfoText" cssClass="InfoText">Tax Registration</td>
+                <td colspan="1">
+                </td>
+                <td colspan="1" class="InfoText" align="Left" cssClass="InfoText">
+                  <table border="0" width="100%">
+                    <tr>
+                      <td width="15%" align="Right" class="InfoText">$0.00</td>
+                      <td width="85%">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td colspan="1">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1">
+                </td>
+                <td colspan="3" class="InfoText" cssClass="InfoText">Unemployment Insurance</td>
+                <td colspan="1">
+                </td>
+                <td colspan="1" class="InfoText" align="Left" cssClass="InfoText">
+                  <table border="0" width="100%">
+                    <tr>
+                      <td width="15%" align="Right" class="InfoText">$0.00</td>
+                      <td width="85%">
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td colspan="1">
+                </td>
+              </tr>
+              <TR>
+                <TD COLSPAN="6" class="strReadOnly">
+                  <pre>
+                  </pre>
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                  <TR>
+                    <TD colspan="1">
+                    </TD>
+                  </TR>
+                  <tr>
+                    <td colspan="1">
+                    </td>
+                    <td colspan="3" class="InfoText" cssClass="InfoText">Processing Fee:</td>
+                    <td colspan="1">
+                    </td>
+                    <td colspan="1" class="InfoText" align="Left" cssClass="InfoText">
+                      <table border="0" width="100%">
+                        <tr>
+                          <td width="15%" align="Right" class="InfoText">$15.00</td>
+                          <td width="85%">
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td colspan="1">
+                    </td>
+                  </tr>
+                  <TR>
+                    <TD COLSPAN="1" CLASS="InfoText">
+                    </TD>
+                    <TD COLSPAN="3" CLASS="InfoTextBold" cssClass="InfoTextBold">Total fees to be billed to your credit card:</TD>
+                    <TD COLSPAN="1" CLASS="">
+                    </TD>
+                    <TD COLSPAN="1" CLASS="InfoTextBold" ALIGN="Left" cssClass="InfoTextBold">
+                      <table border="0" width="100%">
+                        <tr>
+                          <td width="15%" align="Right" class="InfoTextBold">$15.00</td>
+                          <td width="85%">
+                          </td>
+                        </tr>
+                      </table>
+                    </TD>
+                    <TD colspan="1">
+                    </TD>
+                  </TR>
+                  <tr>
+                    <td colspan="7">
+                      <br>
+                    </td>
+                  </tr>
+                </TD>
+              </TR>
+              <TR>
+                <TD colspan="7">
+                  <br>
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Purpose of Application</TD>
+                <TD ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <tr>
+                <td colspan="5" align="right" class="InfoText">Open/Reopen Business</td>
+                <td>  </td>
+              </tr>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header" cssClass="Header">Ownership Structure</TD>
+                <TD COLSPAN="1" ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="0" VALIGN="TOP" CLASS=""></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Ownership Structure:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Corporation</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Is this application for a business with a Washington State location?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Yes</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Will you have employees working in Washington State within 90 days?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Yes</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Do you plan to hire independent contractors or people you will report on a 1099 form?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Yes</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Federal Employer ID Number (FEIN):</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">453937271</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Unified Business ID (UBI):</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">603161094</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Business ID:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Location ID:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Business Location Address:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">7004 218th Ave NE</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Business Location City:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Redmond</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">State:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">WA</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header" cssClass="Header">Business Information On File</TD>
+                <TD COLSPAN="1" ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Legal Business Name:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">BUILTSTEADY, INC.</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Legal Name:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">BUILTSTEADY, INC.</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Date of Incorporation:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">November 2011</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">State of Incorporation:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">WA</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header" cssClass="Header">Governing Person(s)</TD>
+                <TD COLSPAN="1" ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1">
+                </TD>
+                <TD COLSPAN="5" CLASS="InfoTextBold" cssClass="InfoTextBold">
+												Person 1:
+											</TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" CLASS="InfoText">Title(s):</TD>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1" CLASS="InfoText">President</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Name:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Omri  Gazitt</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Phone:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">(425) 898-8707</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Birth Date:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">01/24/1972</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">SSN:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">415-57-9778</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Percent Owned:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">50%</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Address:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">7004 218th Ave NE</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText"></TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Redmond, WA 98053</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Does this Governing Person have a spouse?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Yes</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Spouse Name:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Sheri Bowman  Gazitt</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Spouse Birth Date:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">08/30/1971</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Spouse SSN:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">451-73-8404</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Business Information</TD>
+                <TD ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Business Firm Name (doing business as):</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">BuiltSteady, Inc.</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="top" CLASS="InfoText">Mailing Address:</TD>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1" CLASS="InfoText">7004 218th Ave NE<BR>Redmond, WA 98053</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Business Location Information</TD>
+                <TD ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="top" CLASS="InfoText">Location Address:</TD>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1" CLASS="InfoText">7004 218th Ave NE<BR>Redmond, WA 98053</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Is this business located within the city limits?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Do you want a separate tax return for each location or trade name?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">First date of business:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">November 2011</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Phone:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">(425) 898-8707</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Fax Number:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Email Address:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">ogazitt@builtsteady.com</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Estimated Gross Income:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">$0 - $12,000</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Products sold and Services provided:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Software services</TD>
+              </TR>
+              <TR>
+                <TD HEIGHT="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" CLASS="InfoText">Business activities in Washington State:</TD>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1" CLASS="InfoText">Services </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Additional Business Information</TD>
+                <TD ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Bank Name:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Branch:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Did you buy, lease or acquire all or part of an existing business?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">None</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Date bought/leased/acquired:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Prior Business Name:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Prior Owner's Name:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Prior Owner's Phone:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Did you purchase/lease any fixtures or equipment on which you have not paid sales or use tax?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Purchase or lease price:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Is this business owned by, controlled by, or affiliated with any other business entity?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">If you are changing your ownership structure (such as changing from sole proprietor to corporation), do you want to close the old account?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">N/A</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Old UBI number to be closed:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Do you wish to cancel all the trade names registered under the old UBI?</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Have you ever owned another business in Washington?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">Business Name:</TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="2" VALIGN="TOP" CLASS="InfoText">UBI Number: </TD>
+                <TD COLSPAN="1">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">If you need assistance, specify your language:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText"></TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Hire Employees</TD>
+                <TD COLSPAN="1" ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Hiring:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Adults</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Do you have employees working at more than one location in Washington State? </TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Unemployment Insurance:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">All locations combined</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Workers' Compensation:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">All locations combined</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">General Employee Information</TD>
+                <TD COLSPAN="1" ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Date of first employment or planned employment at this location:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">02/27/2012</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">First date wages paid:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">03/15/2012</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Number of persons you currently employ or plan to employ at this location (do not include owners):</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">1</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Employee hours (3 month estimate): </TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">480</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Describe the activities of your employees:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Programming</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5" ALIGN="right" CLASS="Header">Optional Insurance</TD>
+                <TD ALIGN="right" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Major operation of your business:</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">I.T./Medical/Law/Accounting/Day Care/Salons</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="5" VALIGN="TOP" CLASS="InfoText">Profit corporations with employees must cover corporate officers that provide services in Washington with Unemployment Insurance. If you choose to exempt some or all officers from this coverage, you must submit the Exemption Form. Visit the Employment Security Department at: <a href="http://www.esd.wa.gov/uitax/corporateofficers/exempt-officers-defined.php" target="_blank">www.esd.wa.gov/uitax/corporateofficers/exempt-officers-defined.php</a> for the form and more information.</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Do you wish to apply for elective workers' compensation coverage for owners?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">Do you wish to apply for elective workers' compensation coverage for excluded employment?</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">No</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6" ALIGN="left" CLASS="Header">Prepared By:</TD>
+                <TD ALIGN="Left" CLASS="Header">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD colspan="1">  </TD>
+                <TD colspan="3" class="InfoText">Name:</TD>
+                <TD colspan="1">  </TD>
+                <TD colspan="1" class="InfoText">Omri Gazitt</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD colspan="1">  </TD>
+                <TD colspan="3" class="InfoText">Phone number:</TD>
+                <TD colspan="1">  </TD>
+                <TD colspan="1" class="InfoText">(425) 898-8707</TD>
+              </TR>
+              <TR height="6px">
+                <TD height="6px" COLSPAN="6">
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="1" CLASS="InfoText">  </TD>
+                <TD COLSPAN="3" VALIGN="TOP" CLASS="InfoText">By checking this box, I declare under penalty of perjury under the laws of the State of Washington that I am the applicant or authorized representative of the firm making this application and that the information provided in this application, including any additional information provided separately, is true, correct and complete.</TD>
+                <TD COLSPAN="1" CLASS="">  </TD>
+                <TD COLSPAN="1" VALIGN="Bottom" CLASS="InfoText">Yes</TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                  <pre>
+                  </pre>
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6" CLASS="InfoTextBold" cssClass="InfoTextBold">
+                  <br>Your application has been completed and submitted.
+													We will review your application within the next 24 business hours. Your license document will be mailed after all licenses are approved. Please allow 14 business days to receive your license in the mail.
+												</TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                  <pre>
+                  </pre>
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6" CLASS="InfoTextBold" cssClass="InfoTextBold">
+											Please <a href="Javascript:printPage();" tagindex="-1">Print</a> this page for your records.
+										</TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="6">
+                  <pre>
+                  </pre>
+                </TD>
+              </TR>
+              <TR>
+                <TD COLSPAN="5">
+                </TD>
+                <TD COLSPAN="1" CLASS="InfoTextBold" cssClass="InfoTextBold">
+                  <input type="button" id="Continue" name="Continue" value="Continue" class="NavButton" onclick="Javascript:submit_onClick(&quot;F&quot;);" onkeyup="" tabindex="10">
+                </TD>
+              </TR>
+            </TABLE>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><title>
+	Main
+</title><meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR" /><meta content="Visual Basic .NET 7.1" name="CODE_LANGUAGE" /><meta content="JavaScript" name="vs_defaultClientScript" /><meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema" /><link href="ApplicationStyles.css" type="text/css" rel="stylesheet" /><link href="SideNavigation.css" type="text/css" rel="stylesheet" /></head>
+<body>
+    <form name="form1" method="post" action="Main.aspx" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMjU3MDU5MDczZGT4ydQxKxBSe6FYg2KhAKtyUr3MnQ==" />
+</div>
+
+    <div>
+    
+    </div>
+    </form>
+</body>
+</html>
+<SCRIPT language="JavaScript">
+<!-- 
+document.cookie = "IV_JCT=%2Fdol%2Fmls; path=/";
+//--> 
+</SCRIPT>
