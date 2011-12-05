@@ -1,43 +1,49 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<BuiltSteadyWeb.Models.Email>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    BuiltSteady
-</asp:Content>
+<asp:Content ContentPlaceHolderID="Header" runat="server">
+    <title>BuiltSteady</title>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
-    <%--<link rel="stylesheet" href="/Content/Index.css"/>--%>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<form runat="server">
-    <%--
-    <h2><%: ViewBag.Message %></h2>
-    <p>
-        Coming soon...
-    </p>
-    --%>
-    <center>
-    <p>Welcome!  Sign up for news and early access.</p>
-    <input type="email" class="subscriber" id="Email" name="EmailAddress" />
-    <input type="submit" class="subbutton" value="Subscribe" />
-    <p />
-    <div id="submitted">
-        Thanks! <span id="submitted-email"><%: (string) ViewBag.Email %></span> has been subscribed to updates.
-    </div>
-    <div id="validationerrors">Hey <span id="invalid-email" class="red"><%: (string) ViewBag.InvalidEmail %></span>, we 
-        can only sign you up with a valid e-mail address :)
-     <!-- <%: Html.ValidationMessageFor(m => m.EmailAddress) %> -->
-     </div>
-    </center>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var email = $("span#submitted-email").html();
-            if (email === "")
-                $("div#submitted").hide();
-            var invalidEmail = $("span#invalid-email").html();
-            if (invalidEmail === "")
-                $("div#validationerrors").hide();
+        // document ready handler
+        $(function () {
         });
     </script>
-</form>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+<div class="main-content">
+    <h2>Welcome!</h2>
+    <div class="content-text">
+        <p>
+            BuiltSteady is an early-stage, self-funded startup out of the Seattle area.
+            We are currently developing personal productivity software that integrates
+            with and enriches the existing digital products consumers use today.
+        </p>    
+        <p>
+            In the coming months we will be describing product scenarios and providing early
+            previews of the software in order to solicit user feedback. If interested in
+            participating in our early-adopter program, please provide an email address.
+        </p>
+    </div>
+
+    <form runat="server" id="form">
+        <p>Enter your email address to receive news and early access.</p>
+        <input type="text" id="Email" name="EmailAddress" />
+        <div class="control-button" onclick="form.submit()">Register</div>
+    </form>
+
+<%  if (!string.IsNullOrEmpty((string)ViewBag.Email)) { %>
+    <div>
+        Thank you! 
+        <span><%: (string)ViewBag.Email%></span> has been registered for news and updates.
+    </div>
+<%  } %>
+
+<%  if (!string.IsNullOrEmpty((string)ViewBag.InvalidEmail)) { %>
+    <div>
+        <span class="error"><%: (string)ViewBag.InvalidEmail %></span> is not a valid email address.<br /> 
+        Please enter a valid email address to register.
+    </div>
+<%  } %>
+</div>
 </asp:Content>

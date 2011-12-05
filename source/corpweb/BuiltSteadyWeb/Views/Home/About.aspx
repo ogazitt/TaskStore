@@ -1,12 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 
-<asp:Content ID="aboutTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    About Us
+<asp:Content ContentPlaceHolderID="Header" runat="server">
+    <title>About BuiltSteady</title>
 </asp:Content>
 
-<asp:Content ID="aboutContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>About BuiltSteady</h2>
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
+<div class="main-content">    
+    <h2>About BuiltSteady Inc.</h2>
     <p>
-        BuiltSteady is an early-stage, self-funded startup out of the Seattle area.  
+        Coming soon...  
     </p>
+</div>
 </asp:Content>
