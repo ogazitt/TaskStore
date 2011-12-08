@@ -76,6 +76,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\about-button.png" />
+    <Content Include="Content\images\builtsteady-footer.png" />
+    <Content Include="Content\images\builtsteady-header.png" />
+    <Content Include="Content\images\header-bkgnd.png" />
+    <Content Include="Content\images\red-button.png" />
+    <Content Include="Content\images\Simplify.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -104,8 +110,6 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\builtsteady.png" />
-    <Content Include="Images\red-button.jpg" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />

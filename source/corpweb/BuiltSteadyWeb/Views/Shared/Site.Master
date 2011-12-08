@@ -10,7 +10,7 @@
     <script type="text/javascript">
         // document ready handler
         $(function () {
-            $(".logo img").addClass("fadein");
+
         });
     </script>
 
@@ -19,22 +19,30 @@
 
 <body class="site-default">
     <div class="layout-region">
-
         <div class="header-region">
-            <div class="logo">
-                <a href="<%: Url.Action("About", "Home")%>"><img src="/Images/builtsteady.png" alt="" /></a>
+            <div class="header-content">
+                <div class="header-left">&nbsp;</div>
+                <a href="<%=Url.Action("Index","Home") %>">
+                    <img runat="server" class="header-logo" src="~/content/images/builtsteady-header.png" alt="" />
+                </a>
+                <div class="header-right">&nbsp;</div>
             </div>
         </div>
-        <div class="header-gradient-rule"></div>
-
 
         <div class="main-content-region">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
 
         <div class="footer-region">
-            <div class="footer-gradient-rule"></div>
-            <div class="copyright">BuiltSteady Inc. ©<%: DateTime.Now.Year %></div>
+            <div class="footer-content">
+                <div class="footer-left">&nbsp;</div>
+                <a href="<%=Url.Action("About","Home") %>"><div class="about-button">&nbsp;</div></a>                     
+                <div class="footer-text">&nbsp;&nbsp;&nbsp;&nbsp;●●●</div> 
+                <div class="display-inline"><img runat="server" class="footer-logo" src="~/content/images/builtsteady-footer.png" alt="" /></div>
+                <div class="footer-text">©<%: DateTime.Now.Year %></div> 
+                <div class="footer-right">&nbsp;</div>
+            </div>
+                
        </div>
     </div>
 </body>
