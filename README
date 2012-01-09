@@ -2,6 +2,10 @@ TaskStore source tree
 
 	Docs: design and other documents
 
+	  legal: legal docs
+	  technical: technical docs
+	  vision: vision docs
+
 	source: root directory for all source code and tests
 
 	  clients: (test) clients of the service
