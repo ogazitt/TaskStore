@@ -20,6 +20,8 @@ using System.Net;
 using System.Linq;
 using TaskStoreWinPhoneUtilities;
 using System.Windows.Resources;
+using System.Threading;
+using Microsoft.Phone.Net.NetworkInformation;
 
 
 namespace TaskStoreWinPhone
@@ -28,6 +30,10 @@ namespace TaskStoreWinPhone
     {
         public MainViewModel()
         {
+            // retrieve the network type asynchronously since the property takes 20sec to retrieve
+            //ThreadPool.QueueUserWorkItem(delegate { NetworkType = NetworkInterface.NetworkInterfaceType; });
+            //NetworkInterfaceType type = new NetworkInterfaceList().Current.InterfaceType;
+            //NetworkInterfaceSubType subtype = new NetworkInterfaceList().Current.InterfaceSubtype;
         }
 
         public bool retrievedConstants = false;
@@ -38,7 +44,9 @@ namespace TaskStoreWinPhone
             private set;
         }
 
-        #region Properties
+        public NetworkInterfaceType NetworkType { get; set; }
+
+        #region Databound Properties
 
         private About about;
         /// <summary>
@@ -510,9 +518,6 @@ namespace TaskStoreWinPhone
 
             // trace loading data
             TraceHelper.AddMessage("Load Data");
-
-            // get the about data from the About.xml local resource
-            this.About = GetAboutData();
 
             // read the user credentials (can be null)
             this.User = StorageHelper.ReadUserCredentials();

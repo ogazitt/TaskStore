@@ -24,6 +24,9 @@ namespace TaskStoreWinPhone
             // trace event
             TraceHelper.AddMessage("About: constructor");
 
+            // get the about data from the About.xml local resource
+            App.ViewModel.About = App.ViewModel.GetAboutData();
+
             // Set the data context of the page to the main view model
             DataContext = App.ViewModel;
 

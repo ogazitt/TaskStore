@@ -714,7 +714,7 @@ namespace TaskStoreWinPhone
             speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Connecting Socket");
 
             // initialize the connection to the speech service
-            SpeechHelper.StartStreamed(
+            SpeechHelper.Start(
                 App.ViewModel.User,
                 new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
                 new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
@@ -809,7 +809,7 @@ namespace TaskStoreWinPhone
                     //    App.ViewModel.User,
                     //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
                     //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
-                    SpeechHelper.StopStreamed(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
+                    SpeechHelper.Stop(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
                     break;
                 case SpeechHelper.SpeechState.Recognizing:
                     // can't happen since the button isn't enabled
@@ -834,7 +834,7 @@ namespace TaskStoreWinPhone
                     speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Initializing Request");
 
                     // initialize the connection to the speech service
-                    SpeechHelper.StartStreamed(
+                    SpeechHelper.Start(
                         App.ViewModel.User,
                         new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
                         new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));

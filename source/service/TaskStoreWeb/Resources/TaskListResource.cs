@@ -148,7 +148,7 @@ namespace TaskStoreWeb.Resources
             // get the requested tasklist
             try
             {
-                TaskList requestedTaskList = taskstore.TaskLists.Include("Tasks").Single<TaskList>(tl => tl.ID == id);
+                TaskList requestedTaskList = taskstore.TaskLists.Include("Tasks.TaskTags").Single<TaskList>(tl => tl.ID == id);
 
                 // if the requested user is not the same as the authenticated user, return 403 Forbidden
                 if (requestedTaskList.UserID != dbUser.ID)

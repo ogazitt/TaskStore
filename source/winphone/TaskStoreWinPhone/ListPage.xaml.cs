@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Threading;
 using Microsoft.Xna.Framework.Audio;
 using System.Windows.Media.Imaging;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace TaskStoreWinPhone
 {
@@ -648,6 +649,14 @@ namespace TaskStoreWinPhone
         // handle events associated with the Speech Popup
         private void SpeechButton_Click(object sender, RoutedEventArgs e)
         {
+            // require a connection
+            if (DeviceNetworkInformation.IsNetworkAvailable == false ||
+                NetworkInterface.GetIsNetworkAvailable() == false)
+            {
+                MessageBox.Show("apologies - a network connection is required for this feature, and you appear to be disconnected :-(");
+                return;
+            }
+            
             // require an account
             if (App.ViewModel.User == null)
             {
@@ -677,10 +686,12 @@ namespace TaskStoreWinPhone
             // store debug / timing info
             TimeSpan ts = DateTime.Now - speechStart;
             string stateString = SpeechHelper.SpeechStateString(speechState);
-            speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Connecting Socket");
+            string traceString = String.Format("New state: {0}; Time: {1}; Message: {2}", stateString, ts.TotalSeconds, "Connecting Socket");
+            TraceHelper.AddMessage(traceString);
+            speechDebugString += traceString + "\n";
 
             // initialize the connection to the speech service
-            SpeechHelper.StartStreamed(
+            SpeechHelper.Start(
                 App.ViewModel.User,
                 new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
                 new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
@@ -749,6 +760,7 @@ namespace TaskStoreWinPhone
         {
             TimeSpan ts;
             string stateString;
+            string traceString;
 
             switch (speechState)
             {
@@ -768,14 +780,12 @@ namespace TaskStoreWinPhone
                     // store debug / timing info
                     ts = DateTime.Now - speechStart;
                     stateString = SpeechHelper.SpeechStateString(speechState);
-                    speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Stopping mic");
+                    traceString = String.Format("New state: {0}; Time: {1}; Message: {2}", stateString, ts.TotalSeconds, "Stopping mic");
+                    TraceHelper.AddMessage(traceString);
+                    speechDebugString += traceString + "\n";
 
                     // stop listening and get the recognized text from the speech service
-                    //SpeechHelper.Stop(
-                    //    App.ViewModel.User,
-                    //    new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback),
-                    //    new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
-                    SpeechHelper.StopStreamed(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
+                    SpeechHelper.Stop(new SpeechHelper.SpeechToTextCallbackDelegate(SpeechPopup_SpeechToTextCallback)); 
                     break;
                 case SpeechHelper.SpeechState.Recognizing:
                     // can't happen since the button isn't enabled
@@ -797,10 +807,12 @@ namespace TaskStoreWinPhone
                     // store debug / timing info
                     ts = DateTime.Now - speechStart;
                     stateString = SpeechHelper.SpeechStateString(speechState);
-                    speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, "Initializing Request");
+                    traceString = String.Format("New state: {0}; Time: {1}; Message: {2}", stateString, ts.TotalSeconds, "Initializing Request");
+                    TraceHelper.AddMessage(traceString);
+                    speechDebugString += traceString + "\n";
 
                     // initialize the connection to the speech service
-                    SpeechHelper.StartStreamed(
+                    SpeechHelper.Start(
                         App.ViewModel.User,
                         new SpeechHelper.SpeechStateCallbackDelegate(SpeechPopup_SpeechStateCallback),
                         new MainViewModel.NetworkOperationInProgressCallbackDelegate(SpeechPopup_NetworkOperationInProgressCallBack));
@@ -816,7 +828,9 @@ namespace TaskStoreWinPhone
             // store debug / timing info
             TimeSpan ts = DateTime.Now - speechStart;
             string stateString = SpeechHelper.SpeechStateString(state);
-            speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, message);
+            string traceString = String.Format("New state: {0}; Time: {1}; Message: {2}", stateString, ts.TotalSeconds, message);
+            TraceHelper.AddMessage(traceString);
+            speechDebugString += traceString + "\n";
         }
 
         private void SpeechPopup_SpeechToTextCallback(string textString)
@@ -830,7 +844,9 @@ namespace TaskStoreWinPhone
                 // store debug / timing info
                 TimeSpan ts = DateTime.Now - speechStart;
                 string stateString = SpeechHelper.SpeechStateString(speechState);
-                speechDebugString += String.Format("New state: {0}; Time: {1}; Message: {2}\n", stateString, ts.TotalSeconds, textString);
+                string traceString = String.Format("New state: {0}; Time: {1}; Message: {2}", stateString, ts.TotalSeconds, textString);
+                TraceHelper.AddMessage(traceString);
+                speechDebugString += traceString + "\n";
 
                 // strip any timing / debug info 
                 textString = textString == null ? "" : textString;

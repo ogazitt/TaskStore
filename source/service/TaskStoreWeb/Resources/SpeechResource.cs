@@ -18,6 +18,7 @@ using System.Net.Http.Headers;
 using TaskStoreServerEntities;
 using System.Threading;
 using ServiceHelpers;
+using NSpeex;
 
 namespace TaskStoreWeb.Resources
 {
@@ -33,6 +34,12 @@ namespace TaskStoreWeb.Resources
         private static SpeechAudioFormatInfo formatInfo = null;
         private static bool isDebugEnabled = false;
         private static object sreLock = new Object();
+        private static SpeexDecoder speexDecoder = new SpeexDecoder(BandMode.Wide);
+
+        // some default values for speech
+        private static int defaultSampleRate = 16000;
+        private static AudioBitsPerSample defaultBitsPerSample = AudioBitsPerSample.Sixteen;
+        private static AudioChannel defaultAudioChannels = AudioChannel.Mono;
 
         public SpeechResource()
         {
@@ -87,24 +94,32 @@ namespace TaskStoreWeb.Resources
 
             try
             {
-#if KILL
-            string msg = WriteSpeechFile(user, speechToParse);
-            if (msg != null)
-                return new HttpResponseMessageWrapper<string>(req, msg, HttpStatusCode.OK);
+                // retrieve and set the stream to recognize
+                Stream stream = req.Content.ContentReadStream;
+                IEnumerable<string> values = new List<string>();
+                if (req.Headers.Contains("TaskStore-Speech-Encoding") == true)
+                    stream = GetStream(req);
+                sre.SetInputToAudioStream(stream, formatInfo);
+
+#if WRITEFILE || DEBUG
+                User user = ResourceHelper.GetUserPassFromMessage(req);
+                string msg = WriteSpeechFile(user, stream);
+                if (msg != null)
+                    return new HttpResponseMessageWrapper<string>(req, msg, HttpStatusCode.OK);
 #endif
 
+                // initialize timing information
                 DateTime start = DateTime.Now;
                 string responseString = null;
-                sre.SetInputToAudioStream(req.Content.ContentReadStream, formatInfo);
 
+                // recognize
                 var result = sre.Recognize();
-                //ms = null;
-
                 if (result == null)
                     responseString = "[unrecognized]";
                 else
                     responseString = result.Text;
 
+                // get timing information
                 DateTime end = DateTime.Now;
                 TimeSpan ts = end - start;
 
@@ -112,6 +127,7 @@ namespace TaskStoreWeb.Resources
                 string timing = String.Format(" {0}.{1} seconds", ts.Seconds.ToString(), ts.Milliseconds.ToString());
                 LoggingHelper.TraceLine(String.Format("Recognized '{0}' in{1}", responseString, timing), LoggingHelper.LogLevel.Detail);
 
+                // construct the response
                 responseString += timing;
                 var response = new HttpResponseMessageWrapper<string>(req, responseString, HttpStatusCode.OK);
                 response.Headers.CacheControl = new CacheControlHeaderValue() { NoCache = true };
@@ -136,6 +152,82 @@ namespace TaskStoreWeb.Resources
                 ReleaseSpeechEngine(sre);
 
                 return new HttpResponseMessageWrapper<string>(req, HttpStatusCode.InternalServerError);
+            }
+        }
+
+        #region Helpers
+
+        private static Stream DecodeSpeexStream(Stream stream)
+        {
+            // Log function entrance
+            LoggingHelper.TraceFunction();
+
+            try
+            {
+                int totalEncoded = 0;
+                int totalDecoded = 0;
+                
+                // decode all the speex-encoded chunks
+                // each chunk is laid out as follows:
+                // | 4-byte total chunk size | 4-byte encoded buffer size | <encoded-bytes> |
+                MemoryStream ms = new MemoryStream();
+                byte[] lenBytes = new byte[sizeof(int)];
+
+                // get the length prefix
+                int len = stream.Read(lenBytes, 0, lenBytes.Length);
+
+                // loop through all the chunks
+                while (len == lenBytes.Length)
+                {
+                    // convert the length to an int
+                    int count = BitConverter.ToInt32(lenBytes, 0);
+                    byte[] speexBuffer = new byte[count];
+                    totalEncoded += count + len;
+
+                    // read the chunk
+                    len = stream.Read(speexBuffer, 0, count);
+                    if (len < count)
+                    {
+                        LoggingHelper.TraceError(String.Format("Corrupted speex stream: len {0}, count {1}", len, count));
+                        return ms;
+                    }
+
+                    // get the size of the buffer that the encoder used
+                    // we need that exact size in order to properly decode
+                    // the size is the first four bytes of the speexBuffer
+                    int inDataSize = BitConverter.ToInt32(speexBuffer, 0);
+
+                    // decode the chunk (starting at an offset of sizeof(int))
+                    short[] decodedFrame = new short[inDataSize];
+                    count = speexDecoder.Decode(speexBuffer, sizeof(int), len - sizeof(int), decodedFrame, 0, false);
+
+                    // copy to a byte array
+                    byte[] decodedBuffer = new byte[2 * count];
+                    for (int i = 0, bufIndex = 0; i < count; i++, bufIndex += 2)
+                    {
+                        byte[] frame = BitConverter.GetBytes(decodedFrame[i]);
+                        frame.CopyTo(decodedBuffer, bufIndex);
+                    }
+
+                    // write decoded buffer to the memory stream
+                    ms.Write(decodedBuffer, 0, 2 * count);
+                    totalDecoded += 2 * count;
+
+                    // get the next length prefix
+                    len = stream.Read(lenBytes, 0, lenBytes.Length);
+                }
+
+                // Log decoding stats
+                LoggingHelper.TraceDetail(String.Format("Decoded {0} bytes into {1} bytes", totalEncoded, totalDecoded));
+                
+                // reset and return the new memory stream
+                ms.Position = 0;
+                return ms;
+            }
+            catch (Exception ex)
+            {
+                LoggingHelper.TraceError(String.Format("Corrupted speex stream: {0}", ex.Message));
+                return null;
             }
         }
 
@@ -169,6 +261,39 @@ namespace TaskStoreWeb.Resources
 
                 // return speech engine
                 return sreArray[i];
+            }
+        }
+
+        private Stream GetStream(HttpRequestMessage req)
+        {
+            Stream stream = req.Content.ContentReadStream;
+            string contentType = null;
+
+            // get the content type
+            IEnumerable<string> values = new List<string>();
+            if (req.Headers.TryGetValues("TaskStore-Speech-Encoding", out values) == true)
+                contentType = values.ToArray<string>()[0];
+            else
+                return stream;
+
+            // format for contentType string is: 
+            //   application/<encoding>-<samplerate>-<bits/channel>-<audiochannels>
+            string[] encoding = contentType.Split('-');
+            string encodingType = encoding[0];
+            int sampleRate = encoding.Length > 1 ? Convert.ToInt32(encoding[1]) : defaultSampleRate;
+            int bitsPerSample = encoding.Length > 2 ? Convert.ToInt32(encoding[2]) : (int) defaultBitsPerSample;
+            int audioChannels = encoding.Length > 3 ? Convert.ToInt32(encoding[3]) : (int) defaultAudioChannels;
+
+            // reset formatInfo based on retrieved info
+            formatInfo = new SpeechAudioFormatInfo(sampleRate, (AudioBitsPerSample)bitsPerSample, (AudioChannel)audioChannels);
+
+            switch (encodingType)
+            {
+                case "application/speex":
+                    return DecodeSpeexStream(stream);
+                default:
+                    // return the original stream
+                    return stream;
             }
         }
 
@@ -250,8 +375,7 @@ namespace TaskStoreWeb.Resources
             try
             {
                 // initialize and cache format info
-                int sampleRate = 16000;  // hardcode for now
-                formatInfo = new SpeechAudioFormatInfo(sampleRate, AudioBitsPerSample.Sixteen, AudioChannel.Mono);
+                formatInfo = new SpeechAudioFormatInfo(defaultSampleRate, defaultBitsPerSample, defaultAudioChannels);
 
                 // initialize and cache speech engine
                 sre.UpdateRecognizerSetting("AssumeCFGFromTrustedSource", 1);
@@ -314,7 +438,7 @@ namespace TaskStoreWeb.Resources
             ReleaseSpeechEngine(sre);
         }
 
-        string WriteSpeechFile(User user, byte[] bytes)
+        string WriteSpeechFile(User user, Stream stream)
         {
             // Log function entrance
             LoggingHelper.TraceFunction();
@@ -330,9 +454,30 @@ namespace TaskStoreWeb.Resources
                 FileStream fs = File.Create(filename);
                 if (fs == null)
                     return "file not created";
-                fs.Write(bytes, 0, bytes.Length);
+
+                stream.CopyTo(fs);
+                //byte[] bytes = new byte[32000];
+                //int total = 0;
+                //int count = stream.Read(bytes, 0, bytes.Length);
+                //while (count > 0)
+                //{
+                //    total += count;
+                //    fs.Write(bytes, 0, count);
+                //    if (count < bytes.Length)
+                //        break;
+                //    count = stream.Read(bytes, 0, bytes.Length);
+                //}
+
+                // flush and close the file stream
                 fs.Flush();
                 fs.Close();
+
+                // trace the size of the file
+                LoggingHelper.TraceDetail(String.Format("Write speech file: {0} bytes", stream.Position));
+
+                // reset the stream position
+                stream.Position = 0;
+
                 return null;
             }
             catch (Exception ex)
@@ -347,5 +492,7 @@ namespace TaskStoreWeb.Resources
             public SpeechRecognitionEngine Engine { get; set; }
             public byte[] SpeechByteArray { get; set; }
         }
+
+        #endregion
     }
 }

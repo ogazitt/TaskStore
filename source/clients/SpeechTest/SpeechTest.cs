@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using NSpeex;
+using TaskStoreClientEntities;
 
 namespace SpeechTest
 {
@@ -20,14 +22,14 @@ namespace SpeechTest
             InitializeComponent();
             networkOperationInProgress.Text = "";
             lastNetworkOperationSuccessful.Text = "";
-            urlTextBox.Text = TaskStoreClientEntities.WebServiceHelper.BaseUrl;
+            urlTextBox.Text = WebServiceHelper.BaseUrl;
         }
 
         private void invokeButton_Click(object sender, EventArgs e)
         {
             resultTextBox.Text = "";
 
-            TaskStoreClientEntities.User u = new TaskStoreClientEntities.User()
+            User u = new User()
             {
                 Name = "ogazitt",
                 Password = "zrc022..",
@@ -45,10 +47,18 @@ namespace SpeechTest
             fs.Close();
 
             if (urlTextBox.Text != "")
-                TaskStoreClientEntities.WebServiceHelper.BaseUrl = urlTextBox.Text;
+                WebServiceHelper.BaseUrl = urlTextBox.Text;
+
+            if (checkBox1.CheckState == CheckState.Checked)
+            {
+                bytes = EncodeSpeech(bytes, len);
+                WebServiceHelper.ContentType = "application/speex";
+            }
+            else
+                WebServiceHelper.ContentType = "application/json";
 
             start = DateTime.Now;
-            TaskStoreClientEntities.WebServiceHelper.SpeechToText(u, bytes, new WebServiceCallbackDelegate(WebServiceCallback),
+            WebServiceHelper.SpeechToText(u, bytes, new WebServiceCallbackDelegate(WebServiceCallback),
                 new NetworkOperationInProgressCallbackDelegate(NetworkOperationInProgressCallback));
         }
 
@@ -89,5 +99,62 @@ namespace SpeechTest
             if (result == DialogResult.OK)
                 filenameTextBox.Text = dialog.FileName;
         }
+
+        private byte[] EncodeSpeech(byte[] buf, int len)
+        {
+            SpeexEncoder encoder = new SpeexEncoder(BandMode.Wide);
+
+            //// convert to short array
+            //short[] data = new short[len / 2];
+            //int sampleIndex = 0;
+            //for (int index = 0; index < len; index += 2, sampleIndex++)
+            //{
+            //    data[sampleIndex] = BitConverter.ToInt16(buf, index);
+            //}
+
+            //var encodedData = new byte[len];
+            //// note: the number of samples per frame must be a multiple of encoder.FrameSize
+            //int encodedBytes = encoder.Encode(data, 0, sampleIndex, encodedData, 0, len);
+            //if (encodedBytes != 0)
+            //{
+            //    byte[] sizeBuf = BitConverter.GetBytes(encodedBytes);
+            //    byte[] returnBuf = new byte[encodedBytes + sizeBuf.Length];
+            //    sizeBuf.CopyTo(returnBuf, 0);
+            //    Array.Copy(encodedData, 0, returnBuf, sizeBuf.Length, encodedBytes);
+            //    return returnBuf;
+            //}
+            //else
+            //    return buf;
+
+            int inDataSize = len / 2;
+            // convert to short array
+            short[] data = new short[inDataSize];
+            int sampleIndex = 0;
+            for (int index = 0; index < len; index += 2, sampleIndex++)
+            {
+                data[sampleIndex] = BitConverter.ToInt16(buf, index);
+            }
+
+            // note: the number of samples per frame must be a multiple of encoder.FrameSize
+            inDataSize = inDataSize - inDataSize % encoder.FrameSize;
+
+            var encodedData = new byte[len];
+            int encodedBytes = encoder.Encode(data, 0, inDataSize, encodedData, 0, len);
+            if (encodedBytes != 0)
+            {
+                // each chunk is laid out as follows:
+                // | 4-byte total chunk size | 4-byte encoded buffer size | <encoded-bytes> |
+                byte[] inDataSizeBuf = BitConverter.GetBytes(inDataSize);
+                byte[] sizeBuf = BitConverter.GetBytes(encodedBytes + inDataSizeBuf.Length);
+                byte[] returnBuf = new byte[encodedBytes + sizeBuf.Length + inDataSizeBuf.Length];
+                sizeBuf.CopyTo(returnBuf, 0);
+                inDataSizeBuf.CopyTo(returnBuf, sizeBuf.Length);
+                Array.Copy(encodedData, 0, returnBuf, sizeBuf.Length + inDataSizeBuf.Length, encodedBytes);
+                return returnBuf;
+            }
+            else
+                return buf;
+        }
+
     }
 }

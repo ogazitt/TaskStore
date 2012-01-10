@@ -112,6 +112,15 @@ namespace TaskStoreWinPhone
                 // A navigation has failed; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+
+            // trace the exception
+            TraceHelper.AddMessage(
+                String.Format(
+                    "Navigation to {0} failed: ex: {1}", 
+                    e.Uri, e.Exception != null ? e.Exception.Message : "<null>"));
+
+            // send the message to the trace service
+            TraceHelper.SendMessages(App.ViewModel.User);
         }
 
         // Code to execute on Unhandled Exceptions
@@ -122,6 +131,18 @@ namespace TaskStoreWinPhone
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+
+            // trace the exception
+            if (e.ExceptionObject != null)
+            {
+                TraceHelper.AddMessage("Exception: " + e.ExceptionObject.Message);
+                TraceHelper.AddMessage("StackTrace: " + e.ExceptionObject.StackTrace);
+            }
+            else
+                TraceHelper.AddMessage("Exception: null");
+
+            // send the message to the trace service
+            TraceHelper.SendMessages(App.ViewModel.User);
         }
 
         #region Phone application initialization

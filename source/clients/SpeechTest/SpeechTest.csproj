@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NSpeex">
+      <HintPath>..\..\packages\NSpeex.1.1\lib\NSpeex.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -57,20 +60,48 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskStoreEntities\About.cs" />
-    <Compile Include="TaskStoreEntities\Action.cs" />
-    <Compile Include="TaskStoreEntities\Color.cs" />
-    <Compile Include="TaskStoreEntities\Constants.cs" />
-    <Compile Include="TaskStoreEntities\Field.cs" />
-    <Compile Include="TaskStoreEntities\FieldType.cs" />
-    <Compile Include="TaskStoreEntities\ListType.cs" />
-    <Compile Include="TaskStoreEntities\Priority.cs" />
-    <Compile Include="TaskStoreEntities\Tag.cs" />
-    <Compile Include="TaskStoreEntities\Task.cs" />
-    <Compile Include="TaskStoreEntities\TaskList.cs" />
-    <Compile Include="TaskStoreEntities\TaskStoreEntity.cs" />
-    <Compile Include="TaskStoreEntities\TaskTag.cs" />
-    <Compile Include="TaskStoreEntities\User.cs" />
+    <Compile Include="TaskStoreClientEntities\About.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Action.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Color.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Constants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Field.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\FieldType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\ListType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Priority.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\Task.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\TaskList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\TaskStoreEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\TaskTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskStoreClientEntities\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WebServiceHelper.cs" />
     <EmbeddedResource Include="SpeechTest.resx">
       <DependentUpon>SpeechTest.cs</DependentUpon>

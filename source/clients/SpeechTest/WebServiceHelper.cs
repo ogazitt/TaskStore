@@ -28,6 +28,8 @@ namespace TaskStoreClientEntities
         }
         public static string BaseUrl { get { return baseUrl; } set { baseUrl = value; } }
 
+        public static string ContentType { get; set; }
+
         static HttpWebRequest request = null;
 
         // only one network operation at a time
@@ -285,6 +287,7 @@ namespace TaskStoreClientEntities
             request = (HttpWebRequest) HttpWebRequest.Create(url);
             request.Accept = "application/json";
             request.UserAgent = "TaskStore-WinPhone";
+            request.ContentType = ContentType;
             request.Method = verb == null ? "GET" : verb;
             if (user != null)
             {

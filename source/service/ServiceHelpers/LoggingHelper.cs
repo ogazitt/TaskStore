@@ -17,25 +17,37 @@ namespace ServiceHelpers
             Detail
         }
 
-        public static void TraceLine(string message, LogLevel level)
+        public static void TraceDetail(string message)
         {
-            TraceLine(message, LevelText(level));
+            StackTrace st = new StackTrace(true);
+            StackFrame sf = st.GetFrame(1);
+            string msg = String.Format(
+                "Detail from {0} - {1}",
+                StackInfoText(),
+                message);
+            TraceLine(msg, LogLevel.Detail);
         }
 
-        public static void TraceLine(string message, string level)
+        public static void TraceError(string message)
         {
+            StackTrace st = new StackTrace(true);
+            StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                    "{0}: {1}",
-                    DateTime.Now.ToString(),
-                    message);
+                "Error in {0} - {1}",
+                StackInfoText(),
+                message);
+            TraceLine(msg, LogLevel.Error);
+        }
 
-            if (RoleEnvironment.IsAvailable)
-            {
-                Trace.WriteLine(msg, level);
-                Trace.Flush();
-            }
-            else
-                Console.WriteLine(msg);
+        public static void TraceFatal(string message)
+        {
+            StackTrace st = new StackTrace(true);
+            StackFrame sf = st.GetFrame(1);
+            string msg = String.Format(
+                "***Fatal Error*** in {0} - {1}",
+                StackInfoText(),
+                message);
+            TraceLine(msg, LogLevel.Fatal);
         }
 
         // do not compile this in unless this is a DEBUG build
@@ -61,26 +73,25 @@ namespace ServiceHelpers
             TraceLine(msg, LogLevel.Info);
         }
 
-        public static void TraceError(string message)
+        public static void TraceLine(string message, LogLevel level)
         {
-            StackTrace st = new StackTrace(true);
-            StackFrame sf = st.GetFrame(1);
-            string msg = String.Format(
-                "Error in {0} - {1}",
-                StackInfoText(),
-                message);
-            TraceLine(msg, LogLevel.Error);
+            TraceLine(message, LevelText(level));
         }
 
-        public static void TraceFatal(string message)
+        public static void TraceLine(string message, string level)
         {
-            StackTrace st = new StackTrace(true);
-            StackFrame sf = st.GetFrame(1);
             string msg = String.Format(
-                "***Fatal Error*** in {0} - {1}",
-                StackInfoText(),
-                message);
-            TraceLine(msg, LogLevel.Fatal);
+                    "{0}: {1}",
+                    DateTime.Now.ToString(),
+                    message);
+
+            if (RoleEnvironment.IsAvailable)
+            {
+                Trace.WriteLine(msg, level);
+                Trace.Flush();
+            }
+            else
+                Console.WriteLine(msg);
         }
 
         #region Helpers

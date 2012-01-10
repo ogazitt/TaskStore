@@ -17,7 +17,7 @@
     </Imports>
     <ConfigurationSettings></ConfigurationSettings>
   </WorkerRole>
-  <WebRole name="TaskStoreWeb" vmsize="ExtraSmall">
+  <WebRole name="TaskStoreWeb" vmsize="Small">
     <Sites>
       <Site name="Web">
         <Bindings>
