@@ -40,5 +40,10 @@ namespace BuiltSteadyWeb.Controllers
         {
             return View();
         }
+
+        public ActionResult Zaplify()
+        {
+            return View();
+        }
     }
 }
